@@ -23,4 +23,4 @@
     android:elevation="@dimen/lb_details_overview_z"
     android:maxWidth="@dimen/lb_details_v2_logo_max_width"
     android:maxHeight="@dimen/lb_details_v2_logo_max_height" />
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_fullwidth_details_overview_logo.xml -->
+<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_fullwidth_details_overview_logo.xml -->

@@ -225,9 +225,18 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
 
         @Override
         protected void onStop() {
-            // onTargetFound() may not be called if we hit the "wall" first.
+            // onTargetFound() may not be called if we hit the "wall" first or get cancelled.
             View targetView = findViewByPosition(getTargetPosition());
-            if (hasFocus() && targetView != null) {
+            if (targetView == null) {
+                if (getTargetPosition() >= 0) {
+                    // if smooth scroller is stopped without target, immediately jumps
+                    // to the target position.
+                    scrollToSelection(mBaseGridView, getTargetPosition(), 0, false, 0);
+                }
+                super.onStop();
+                return;
+            }
+            if (hasFocus()) {
                 mInSelection = true;
                 targetView.requestFocus();
                 mInSelection = false;
@@ -1278,14 +1287,8 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
         } else {
             switch (modeSecondary) {
             case MeasureSpec.UNSPECIFIED:
-                if (mRowSizeSecondaryRequested == 0) {
-                    if (mOrientation == HORIZONTAL) {
-                        throw new IllegalStateException("Must specify rowHeight or view height");
-                    } else {
-                        throw new IllegalStateException("Must specify columnWidth or view width");
-                    }
-                }
-                mFixedRowSizeSecondary = mRowSizeSecondaryRequested;
+                mFixedRowSizeSecondary = mRowSizeSecondaryRequested == 0 ?
+                        sizeSecondary - paddingSecondary: mRowSizeSecondaryRequested;
                 mNumRows = mNumRowsRequested == 0 ? 1 : mNumRowsRequested;
                 measuredSizeSecondary = mFixedRowSizeSecondary * mNumRows + mMarginSecondary
                     * (mNumRows - 1) + paddingSecondary;

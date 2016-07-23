@@ -24,4 +24,4 @@
     <solid android:color="@color/lb_tv_white" />
 
 </shape>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v17/leanback/res/drawable/lb_guidedactions_item_checkmark.xml -->
+<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/drawable/lb_guidedactions_item_checkmark.xml -->
