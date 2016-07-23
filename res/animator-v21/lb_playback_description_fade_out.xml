@@ -21,4 +21,4 @@
     android:valueFrom="1"
     android:valueTo="0"
     android:valueType="floatType" />
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-release/frameworks/support/v17/leanback/res/animator-v21/lb_playback_description_fade_out.xml -->
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-sdk-release/frameworks/support/v17/leanback/res/animator-v21/lb_playback_description_fade_out.xml -->

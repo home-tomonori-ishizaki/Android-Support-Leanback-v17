@@ -28,4 +28,4 @@
   <changeImageTransform
       android:interpolator="@android:interpolator/linear_out_slow_in"
       android:duration="500"/>
-</transitionSet><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-release/frameworks/support/v17/leanback/res/transition-v21/lb_shared_element_enter_transition.xml -->
+</transitionSet><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-sdk-release/frameworks/support/v17/leanback/res/transition-v21/lb_shared_element_enter_transition.xml -->
