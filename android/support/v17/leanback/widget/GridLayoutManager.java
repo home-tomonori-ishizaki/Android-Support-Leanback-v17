@@ -593,6 +593,11 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
     private int mSizePrimary;
 
     /**
+     * Pixels of extra space for layout item (outside the widget)
+     */
+    private int mExtraLayoutSpace;
+
+    /**
      *  Allow DPAD key to navigate out at the front of the View (where position = 0),
      *  default is false.
      */
@@ -1588,17 +1593,31 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
         }
     }
 
+    void setExtraLayoutSpace(int extraLayoutSpace) {
+        if (mExtraLayoutSpace == extraLayoutSpace) {
+            return;
+        } else if (mExtraLayoutSpace < 0) {
+            throw new IllegalArgumentException("ExtraLayoutSpace must >= 0");
+        }
+        mExtraLayoutSpace = extraLayoutSpace;
+        requestLayout();
+    }
+
+    int getExtraLayoutSpace() {
+        return mExtraLayoutSpace;
+    }
+
     private void removeInvisibleViewsAtEnd() {
         if (mPruneChild) {
             mGrid.removeInvisibleItemsAtEnd(mFocusPosition,
-                    mReverseFlowPrimary ? 0 : mSizePrimary);
+                    mReverseFlowPrimary ? -mExtraLayoutSpace : mSizePrimary + mExtraLayoutSpace);
         }
     }
 
     private void removeInvisibleViewsAtFront() {
         if (mPruneChild) {
             mGrid.removeInvisibleItemsAtFront(mFocusPosition,
-                    mReverseFlowPrimary ? mSizePrimary : 0);
+                    mReverseFlowPrimary ? mSizePrimary + mExtraLayoutSpace: -mExtraLayoutSpace);
         }
     }
 
@@ -1611,11 +1630,13 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
     }
 
     private void appendVisibleItems() {
-        mGrid.appendVisibleItems(mReverseFlowPrimary ? 0 : mSizePrimary);
+        mGrid.appendVisibleItems(mReverseFlowPrimary ? -mExtraLayoutSpace
+                : mSizePrimary + mExtraLayoutSpace);
     }
 
     private void prependVisibleItems() {
-        mGrid.prependVisibleItems(mReverseFlowPrimary ? mSizePrimary : 0);
+        mGrid.prependVisibleItems(mReverseFlowPrimary ? mSizePrimary + mExtraLayoutSpace
+                : -mExtraLayoutSpace);
     }
 
     /**
@@ -1729,6 +1750,14 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
         }
         mInLayout = true;
 
+        if (state.didStructureChange()) {
+            // didStructureChange() == true means attached item has been removed/added.
+            // scroll animation: we are unable to continue a scroll animation,
+            //    kill the scroll animation,  and let ItemAnimation move the item to new position.
+            // position smooth scroller: kill the animation and stop at final position.
+            // pending smooth scroller: stop and scroll to current focus position.
+            mBaseGridView.stopScroll();
+        }
         final boolean scrollToFocus = !isSmoothScrolling()
                 && mFocusScrollStrategy == BaseGridView.FOCUS_SCROLL_ALIGNED;
         if (mFocusPosition != NO_POSITION && mFocusPositionOffset != Integer.MIN_VALUE) {
@@ -1748,9 +1777,10 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
             // FIXME: we should get the remaining scroll animation offset from RecyclerView
             View focusView = findViewByPosition(mFocusPosition);
             if (focusView != null) {
-                getScrollPosition(focusView, focusView.findFocus(), sTwoInts);
-                delta = sTwoInts[0];
-                deltaSecondary = sTwoInts[1];
+                if (getScrollPosition(focusView, focusView.findFocus(), sTwoInts)) {
+                    delta = sTwoInts[0];
+                    deltaSecondary = sTwoInts[1];
+                }
             }
         }
 
