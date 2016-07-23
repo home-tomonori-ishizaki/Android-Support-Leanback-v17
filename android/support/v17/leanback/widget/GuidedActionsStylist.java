@@ -40,6 +40,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewPropertyAnimator;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -81,8 +82,13 @@ import java.util.List;
  * </ul><p>
  * These view IDs are allowed to be missing, in which case the corresponding views in {@link
  * GuidedActionsStylist.ViewHolder} will be null.
+ * <p>
+ * In order to support editable actions, the view associated with guidedactions_item_title should
+ * be a subclass of {@link android.widget.EditText}, and should satisfy the {@link
+ * ImeKeyMonitor} interface.
  *
- * @attr ref android.support.v17.leanback.R.styleable#LeanbackGuidedStepTheme_guidedActionsEntryAnimation
+ * @attr ref android.support.v17.leanback.R.styleable#LeanbackGuidedStepTheme_guidedStepImeAppearingAnimation
+ * @attr ref android.support.v17.leanback.R.styleable#LeanbackGuidedStepTheme_guidedStepImeDisappearingAnimation
  * @attr ref android.support.v17.leanback.R.styleable#LeanbackGuidedStepTheme_guidedActionsSelectorShowAnimation
  * @attr ref android.support.v17.leanback.R.styleable#LeanbackGuidedStepTheme_guidedActionsSelectorHideAnimation
  * @attr ref android.support.v17.leanback.R.styleable#LeanbackGuidedStepTheme_guidedActionsContainerStyle
@@ -155,6 +161,14 @@ public class GuidedActionsStylist implements FragmentAnimationProvider {
          */
         public TextView getTitleView() {
             return mTitleView;
+        }
+
+        /**
+         * Convenience method to return an editable version of the title, if possible,
+         * or null if the title view isn't an EditText.
+         */
+        public EditText getEditableTitleView() {
+            return (mTitleView instanceof EditText) ? (EditText)mTitleView : null;
         }
 
         /**
@@ -300,7 +314,10 @@ public class GuidedActionsStylist implements FragmentAnimationProvider {
      * Subclasses may override to provide their own customized layouts. The base implementation
      * returns {@link android.support.v17.leanback.R.layout#lb_guidedactions_item}. If overridden,
      * the substituted layout should contain matching IDs for any views that should be managed by
-     * the base class; this can be achieved by starting with a copy of the base layout file.
+     * the base class; this can be achieved by starting with a copy of the base layout file. Note
+     * that in order for the item to support editing, the title view should both subclass {@link
+     * android.widget.EditText} and implement {@link ImeKeyMonitor}; see {@link
+     * GuidedActionEditText}.
      * @return The resource ID of the layout to be inflated to define the view to display an
      * individual GuidedAction.
      */
@@ -437,50 +454,18 @@ public class GuidedActionsStylist implements FragmentAnimationProvider {
      * {@inheritDoc}
      */
     @Override
-    public void onActivityEnter(@NonNull List<Animator> animators) {
-        animators.add(createAnimator(mMainView, R.attr.guidedActionsEntryAnimation));
+    public void onImeAppearing(@NonNull List<Animator> animators) {
+        animators.add(createAnimator(mActionsGridView, R.attr.guidedStepImeAppearingAnimation));
+        animators.add(createAnimator(mSelectorView, R.attr.guidedStepImeAppearingAnimation));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void onActivityExit(@NonNull List<Animator> animators) {}
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onFragmentEnter(@NonNull List<Animator> animators) {
-        animators.add(createAnimator(mActionsGridView, R.attr.guidedStepEntryAnimation));
-        animators.add(createAnimator(mSelectorView, R.attr.guidedStepEntryAnimation));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onFragmentExit(@NonNull List<Animator> animators) {
-        animators.add(createAnimator(mActionsGridView, R.attr.guidedStepExitAnimation));
-        animators.add(createAnimator(mSelectorView, R.attr.guidedStepExitAnimation));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onFragmentReenter(@NonNull List<Animator> animators) {
-        animators.add(createAnimator(mActionsGridView, R.attr.guidedStepReentryAnimation));
-        animators.add(createAnimator(mSelectorView, R.attr.guidedStepReentryAnimation));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onFragmentReturn(@NonNull List<Animator> animators) {
-        animators.add(createAnimator(mActionsGridView, R.attr.guidedStepReturnAnimation));
-        animators.add(createAnimator(mSelectorView, R.attr.guidedStepReturnAnimation));
+    public void onImeDisappearing(@NonNull List<Animator> animators) {
+        animators.add(createAnimator(mActionsGridView, R.attr.guidedStepImeDisappearingAnimation));
+        animators.add(createAnimator(mSelectorView, R.attr.guidedStepImeDisappearingAnimation));
     }
 
     /*

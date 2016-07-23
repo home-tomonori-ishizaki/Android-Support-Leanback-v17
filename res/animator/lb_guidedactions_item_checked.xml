@@ -20,4 +20,4 @@
     android:valueFrom="0.0"
     android:valueTo="1.0"
     android:valueType="floatType" />
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-sdk-release/frameworks/support/v17/leanback/res/animator/lb_guidedactions_item_checked.xml -->
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v17/leanback/res/animator/lb_guidedactions_item_checked.xml -->

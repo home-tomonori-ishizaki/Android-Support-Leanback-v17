@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2014 The Android Open Source Project
+     Copyright (C) 2015 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,9 +14,11 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+<android.support.v17.leanback.widget.NonOverlappingView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/guidedstep_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/guidedStepBackground" />
 
-<View
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" />
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-sdk-release/frameworks/support/v17/leanback/res/layout/lb_card_color_overlay.xml -->
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_guidedstep_background.xml -->

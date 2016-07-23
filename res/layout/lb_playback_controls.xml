@@ -81,4 +81,4 @@
         </FrameLayout>
     </android.support.v17.leanback.widget.PersistentFocusWrapper>
 
-</LinearLayout><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-sdk-release/frameworks/support/v17/leanback/res/layout/lb_playback_controls.xml -->
+</LinearLayout><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_playback_controls.xml -->

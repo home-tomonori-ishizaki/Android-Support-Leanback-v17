@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-sdk-release/frameworks/support/v17/leanback/res/values-uz-rUZ/strings.xml -->
+    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v17/leanback/res/values-uz-rUZ/strings.xml -->
     <eat-comment/>
     <string msgid="4541442045214207774" name="lb_control_display_fast_forward_multiplier">"%1$dX"</string>
     <string msgid="3097220783222910245" name="lb_control_display_rewind_multiplier">"%1$dX"</string>
@@ -16,7 +16,7 @@
     <string msgid="6730354406289599000" name="lb_playback_controls_repeat_all">"Barchasini takrorlash"</string>
     <string msgid="87476947476529036" name="lb_playback_controls_repeat_none">"Takrorlamaslik"</string>
     <string msgid="3285202316452203619" name="lb_playback_controls_repeat_one">"Bir marta takrorlash"</string>
-    <string msgid="2227196334132350684" name="lb_playback_controls_rewind">"Orqaga qaytarish"</string>
+    <string msgid="2227196334132350684" name="lb_playback_controls_rewind">"Orqaga o‘tkazish"</string>
     <string msgid="1640629531440849942" name="lb_playback_controls_rewind_multiplier">"%1$dX tezlikda orqaga qaytarish"</string>
     <string msgid="8388150597335115226" name="lb_playback_controls_shuffle_disable">"Aralashtirish funksiyasini o‘chirish"</string>
     <string msgid="1099874107835264529" name="lb_playback_controls_shuffle_enable">"Aralashtirish funksiyasini yoqish"</string>

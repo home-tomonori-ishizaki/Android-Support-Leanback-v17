@@ -44,12 +44,14 @@ public class GuidedAction extends Action {
     public static class Builder {
         private long mId;
         private String mTitle;
+        private String mEditTitle;
         private String mDescription;
         private Drawable mIcon;
         private boolean mChecked;
         private boolean mMultilineDescription;
         private boolean mHasNext;
         private boolean mInfoOnly;
+        private boolean mEditable = false;
         private int mCheckSetId = NO_CHECK_SET;
         private boolean mEnabled = true;
         private Intent mIntent;
@@ -63,11 +65,13 @@ public class GuidedAction extends Action {
             // Base Action values
             action.setId(mId);
             action.setLabel1(mTitle);
+            action.setEditTitle(mEditTitle);
             action.setLabel2(mDescription);
             action.setIcon(mIcon);
 
             // Subclass values
             action.mIntent = mIntent;
+            action.mEditable = mEditable;
             action.mChecked = mChecked;
             action.mCheckSetId = mCheckSetId;
             action.mMultilineDescription = mMultilineDescription;
@@ -94,6 +98,15 @@ public class GuidedAction extends Action {
          */
         public Builder title(String title) {
             mTitle = title;
+            return this;
+        }
+
+        /**
+         * Sets the optional title text to edit.  When TextView is activated, the edit title
+         * replaces the string of title.
+         */
+        public Builder editTitle(String editTitle) {
+            mEditTitle = editTitle;
             return this;
         }
 
@@ -138,11 +151,27 @@ public class GuidedAction extends Action {
         }
 
         /**
+         * Indicates whether this action is editable. Note: Editable actions cannot also be
+         * checked, or belong to a check set.
+         * @param editable Whether this action is editable.
+         */
+        public Builder editable(boolean editable) {
+            mEditable = editable;
+            if (mChecked || mCheckSetId != NO_CHECK_SET) {
+                throw new IllegalArgumentException("Editable actions cannot also be checked");
+            }
+            return this;
+        }
+
+        /**
          * Indicates whether this action is initially checked.
          * @param checked Whether this action is checked.
          */
         public Builder checked(boolean checked) {
             mChecked = checked;
+            if (mEditable) {
+                throw new IllegalArgumentException("Editable actions cannot also be checked");
+            }
             return this;
         }
 
@@ -154,6 +183,9 @@ public class GuidedAction extends Action {
          */
         public Builder checkSetId(int checkSetId) {
             mCheckSetId = checkSetId;
+            if (mEditable) {
+                throw new IllegalArgumentException("Editable actions cannot also be in check sets");
+            }
             return this;
         }
 
@@ -195,9 +227,11 @@ public class GuidedAction extends Action {
         }
     }
 
-    private boolean mChecked;
+    private CharSequence mEditTitle;
+    private boolean mEditable;
     private boolean mMultilineDescription;
     private boolean mHasNext;
+    private boolean mChecked;
     private boolean mInfoOnly;
     private int mCheckSetId;
     private boolean mEnabled;
@@ -217,11 +251,53 @@ public class GuidedAction extends Action {
     }
 
     /**
+     * Sets the title of this action.
+     * @param title The title set when this action was built.
+     */
+    public void setTitle(CharSequence title) {
+        setLabel1(title);
+    }
+
+    /**
+     * Returns the optional title text to edit.  When not null, it is being edited instead of
+     * {@link #getTitle()}.
+     * @return Optional title text to edit instead of {@link #getTitle()}.
+     */
+    public CharSequence getEditTitle() {
+        return mEditTitle;
+    }
+
+    /**
+     * Sets the optional title text to edit instead of {@link #setTitle(CharSequence)}.
+     * @param editTitle Optional title text to edit instead of {@link #setTitle(CharSequence)}.
+     */
+    public void setEditTitle(CharSequence editTitle) {
+        mEditTitle = editTitle;
+    }
+
+    /**
+     * Returns true if {@link #getEditTitle()} is not null.  When true, the {@link #getEditTitle()}
+     * is being edited instead of {@link #getTitle()}.
+     * @return true if {@link #getEditTitle()} is not null.
+     */
+    public boolean isEditTitleUsed() {
+        return mEditTitle != null;
+    }
+
+    /**
      * Returns the description of this action.
-     * @return The description set when this action was built.
+     * @return The description of this action.
      */
     public CharSequence getDescription() {
         return getLabel2();
+    }
+
+    /**
+     * Sets the description of this action.
+     * @param description The description of the action.
+     */
+    public void setDescription(CharSequence description) {
+        setLabel2(description);
     }
 
     /**
@@ -230,6 +306,14 @@ public class GuidedAction extends Action {
      */
     public Intent getIntent() {
         return mIntent;
+    }
+
+    /**
+     * Returns whether this action is editable.
+     * @return true if the action is editable, false otherwise.
+     */
+    public boolean isEditable() {
+        return mEditable;
     }
 
     /**

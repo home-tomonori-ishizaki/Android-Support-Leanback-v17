@@ -394,11 +394,7 @@ public class DetailsFragment extends BaseFragment {
         super.onStart();
         setupChildFragmentLayout();
         setupFocusSearchListener();
-        mRowsFragment.getView().requestFocus();
         if (isEntranceTransitionEnabled()) {
-            // make sure recycler view animation is disabled
-            mRowsFragment.onTransitionPrepare();
-            mRowsFragment.onTransitionStart();
             mRowsFragment.setEntranceTransitionState(false);
         }
     }
@@ -420,4 +416,13 @@ public class DetailsFragment extends BaseFragment {
         mRowsFragment.onTransitionEnd();
     }
 
+    @Override
+    protected void onEntranceTransitionPrepare() {
+        mRowsFragment.onTransitionPrepare();
+    }
+
+    @Override
+    protected void onEntranceTransitionStart() {
+        mRowsFragment.onTransitionStart();
+    }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-sdk-release/frameworks/support/v17/leanback/res/values-sl/strings.xml -->
+    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v17/leanback/res/values-sl/strings.xml -->
     <eat-comment/>
     <string msgid="4541442045214207774" name="lb_control_display_fast_forward_multiplier">"%1$d-kratno"</string>
     <string msgid="3097220783222910245" name="lb_control_display_rewind_multiplier">"%1$d-kratno"</string>
@@ -27,8 +27,8 @@
     <string msgid="6530420347129222601" name="lb_playback_controls_thumb_up">"Prekliči izbor palca gor"</string>
     <string msgid="1577637924003500946" name="lb_playback_controls_thumb_up_outline">"Izberi palec gor"</string>
     <string msgid="8325490927970116252" name="lb_search_bar_hint">"Iskanje"</string>
-    <string msgid="5511270823320183816" name="lb_search_bar_hint_speech">"Izgovorite, če želite iskati"</string>
+    <string msgid="5511270823320183816" name="lb_search_bar_hint_speech">"Izgovorite iskalno poizvedbo"</string>
     <string msgid="1627103380996590035" name="lb_search_bar_hint_with_title">"Iskanje: <ns1:g id="SEARCH_CONTEXT">%1$s</ns1:g>"</string>
-    <string msgid="2712734639766312034" name="lb_search_bar_hint_with_title_speech">"Govorite, če želite iskati: <ns1:g id="SEARCH_CONTEXT">%1$s</ns1:g>"</string>
+    <string msgid="2712734639766312034" name="lb_search_bar_hint_with_title_speech">"Izgovorite poizvedbo za iskanje v <ns1:g id="SEARCH_CONTEXT">%1$s</ns1:g>"</string>
     <string msgid="5651268540267663887" name="orb_search_action">"Dejanje iskanja"</string>
 </resources>
