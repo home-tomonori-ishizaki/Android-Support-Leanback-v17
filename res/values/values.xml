@@ -777,6 +777,8 @@
     </style>
     <style name="Widget.Leanback.GuidedActionsContainerStyle"/>
     <style name="Widget.Leanback.GuidedActionsListStyle">
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="focusOutEnd">false</item>
@@ -786,8 +788,8 @@
     <style name="Widget.Leanback.GuidedButtonActionsListStyle" parent="Widget.Leanback.GuidedActionsListStyle">
     </style>
     <style name="Widget.Leanback.GuidedSubActionsListStyle" parent="Widget.Leanback.GuidedActionsListStyle">
-        <item name="focusOutEnd">false</item>
-        <item name="focusOutFront">false</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
         <item name="focusOutSideStart">false</item>
         <item name="focusOutSideEnd">false</item>
         <item name="android:layout_marginBottom">@dimen/lb_guidedactions_sublist_bottom_margin</item>
