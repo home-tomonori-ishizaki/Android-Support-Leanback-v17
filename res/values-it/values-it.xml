@@ -5,6 +5,7 @@
     <string msgid="2440386660906697298" name="lb_date_separator">"/"</string>
     <string msgid="8842094924543063706" name="lb_guidedaction_continue_title">"Continua"</string>
     <string msgid="4015190340667946245" name="lb_guidedaction_finish_title">"Fine"</string>
+    <string msgid="6215811486591629025" name="lb_navigation_menu_contentDescription">"Menu di navigazione"</string>
     <string msgid="2918313444257732434" name="lb_onboarding_accessibility_next">"Avanti"</string>
     <string msgid="6961440391306351139" name="lb_onboarding_get_started">"INIZIA"</string>
     <string msgid="6133362019475930048" name="lb_playback_controls_closed_captioning_disable">"Disattiva sottotitoli"</string>
@@ -15,6 +16,7 @@
     <string msgid="202415780019335254" name="lb_playback_controls_high_quality_enable">"Attiva alta qualità"</string>
     <string msgid="2330770008796987655" name="lb_playback_controls_more_actions">"Altre azioni"</string>
     <string msgid="6189521112079849518" name="lb_playback_controls_pause">"Metti in pausa"</string>
+    <string msgid="3040035547765350690" name="lb_playback_controls_picture_in_picture">"Attiva modalità Picture-in-picture"</string>
     <string msgid="731953341987346903" name="lb_playback_controls_play">"Riproduci"</string>
     <string msgid="6730354406289599000" name="lb_playback_controls_repeat_all">"Ripeti tutti"</string>
     <string msgid="87476947476529036" name="lb_playback_controls_repeat_none">"Non ripetere nessuno"</string>

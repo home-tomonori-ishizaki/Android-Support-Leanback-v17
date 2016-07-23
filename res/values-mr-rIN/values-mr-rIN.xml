@@ -5,6 +5,7 @@
     <string msgid="2440386660906697298" name="lb_date_separator">"/"</string>
     <string msgid="8842094924543063706" name="lb_guidedaction_continue_title">"सुरू ठेवा"</string>
     <string msgid="4015190340667946245" name="lb_guidedaction_finish_title">"समाप्त"</string>
+    <string msgid="6215811486591629025" name="lb_navigation_menu_contentDescription">"नेव्हिगेशन मेनू"</string>
     <string msgid="2918313444257732434" name="lb_onboarding_accessibility_next">"पुढील"</string>
     <string msgid="6961440391306351139" name="lb_onboarding_get_started">"प्रारंभ करा"</string>
     <string msgid="6133362019475930048" name="lb_playback_controls_closed_captioning_disable">"उपशीर्षके अक्षम करा"</string>
@@ -15,6 +16,7 @@
     <string msgid="202415780019335254" name="lb_playback_controls_high_quality_enable">"उच्च गुणवत्ता सक्षम करा"</string>
     <string msgid="2330770008796987655" name="lb_playback_controls_more_actions">"अधिक क्रिया"</string>
     <string msgid="6189521112079849518" name="lb_playback_controls_pause">"विराम द्या"</string>
+    <string msgid="3040035547765350690" name="lb_playback_controls_picture_in_picture">"चित्र मोडमध्ये चित्र प्रविष्ट करा"</string>
     <string msgid="731953341987346903" name="lb_playback_controls_play">"प्ले करा"</string>
     <string msgid="6730354406289599000" name="lb_playback_controls_repeat_all">"सर्व पुनरावृत्ती करा"</string>
     <string msgid="87476947476529036" name="lb_playback_controls_repeat_none">"काहीही पुनरावृत्ती करू नका"</string>

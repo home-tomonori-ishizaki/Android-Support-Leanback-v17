@@ -18,22 +18,20 @@ package android.support.v17.leanback.app;
 import android.support.v17.leanback.R;
 import android.support.v17.leanback.transition.TransitionHelper;
 import android.support.v17.leanback.widget.BrowseFrameLayout;
-import android.support.v17.leanback.widget.DetailsOverviewRow;
 import android.support.v17.leanback.widget.FullWidthDetailsOverviewRowPresenter;
 import android.support.v17.leanback.widget.ItemAlignmentFacet;
 import android.support.v17.leanback.widget.ItemBridgeAdapter;
 import android.support.v17.leanback.widget.ObjectAdapter;
-import android.support.v17.leanback.widget.OnItemViewClickedListener;
-import android.support.v17.leanback.widget.OnItemViewSelectedListener;
+import android.support.v17.leanback.widget.BaseOnItemViewClickedListener;
+import android.support.v17.leanback.widget.BaseOnItemViewSelectedListener;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.PresenterSelector;
-import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v17.leanback.widget.TitleHelper;
-import android.support.v17.leanback.widget.TitleView;
 import android.support.v17.leanback.widget.VerticalGridView;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +41,7 @@ import android.view.ViewGroup;
  *
  * <p>
  * A DetailsSupportFragment renders the elements of its {@link ObjectAdapter} as a set
- * of rows in a vertical list. The elements in this adapter must be subclasses
- * of {@link Row}, the Adapter's {@link PresenterSelector} must maintains subclasses
+ * of rows in a vertical list.The Adapter's {@link PresenterSelector} must maintain subclasses
  * of {@link RowPresenter}.
  * </p>
  *
@@ -94,18 +91,18 @@ public class DetailsSupportFragment extends BaseSupportFragment {
 
     private ObjectAdapter mAdapter;
     private int mContainerListAlignTop;
-    private OnItemViewSelectedListener mExternalOnItemViewSelectedListener;
-    private OnItemViewClickedListener mOnItemViewClickedListener;
+    private BaseOnItemViewSelectedListener mExternalOnItemViewSelectedListener;
+    private BaseOnItemViewClickedListener mOnItemViewClickedListener;
 
     private Object mSceneAfterEntranceTransition;
 
     private final SetSelectionRunnable mSetSelectionRunnable = new SetSelectionRunnable();
 
-    private final OnItemViewSelectedListener mOnItemViewSelectedListener =
-            new OnItemViewSelectedListener() {
+    private final BaseOnItemViewSelectedListener<Object> mOnItemViewSelectedListener =
+            new BaseOnItemViewSelectedListener<Object>() {
         @Override
         public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item,
-                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
+                                   RowPresenter.ViewHolder rowViewHolder, Object row) {
             int position = mRowsSupportFragment.getVerticalGridView().getSelectedPosition();
             int subposition = mRowsSupportFragment.getVerticalGridView().getSelectedSubPosition();
             if (DEBUG) Log.v(TAG, "row selected position " + position
@@ -146,14 +143,14 @@ public class DetailsSupportFragment extends BaseSupportFragment {
     /**
      * Sets an item selection listener.
      */
-    public void setOnItemViewSelectedListener(OnItemViewSelectedListener listener) {
+    public void setOnItemViewSelectedListener(BaseOnItemViewSelectedListener listener) {
         mExternalOnItemViewSelectedListener = listener;
     }
 
     /**
      * Sets an item clicked listener.
      */
-    public void setOnItemViewClickedListener(OnItemViewClickedListener listener) {
+    public void setOnItemViewClickedListener(BaseOnItemViewClickedListener listener) {
         if (mOnItemViewClickedListener != listener) {
             mOnItemViewClickedListener = listener;
             if (mRowsSupportFragment != null) {
@@ -165,7 +162,7 @@ public class DetailsSupportFragment extends BaseSupportFragment {
     /**
      * Returns the item clicked listener.
      */
-    public OnItemViewClickedListener getOnItemViewClickedListener() {
+    public BaseOnItemViewClickedListener getOnItemViewClickedListener() {
         return mOnItemViewClickedListener;
     }
 
@@ -182,10 +179,7 @@ public class DetailsSupportFragment extends BaseSupportFragment {
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lb_details_fragment, container, false);
         ViewGroup fragment_root = (ViewGroup) view.findViewById(R.id.details_fragment_root);
-        View titleView = inflateTitle(inflater, fragment_root, savedInstanceState);
-        if (titleView != null) {
-            fragment_root.addView(titleView);
-        }
+        installTitleView(inflater, fragment_root, savedInstanceState);
         mRowsSupportFragment = (RowsSupportFragment) getChildFragmentManager().findFragmentById(
                 R.id.details_rows_dock);
         if (mRowsSupportFragment == null) {
@@ -196,15 +190,6 @@ public class DetailsSupportFragment extends BaseSupportFragment {
         mRowsSupportFragment.setAdapter(mAdapter);
         mRowsSupportFragment.setOnItemViewSelectedListener(mOnItemViewSelectedListener);
         mRowsSupportFragment.setOnItemViewClickedListener(mOnItemViewClickedListener);
-
-        if (titleView != null) {
-            View titleGroup = titleView.findViewById(R.id.browse_title_group);
-            if (titleGroup instanceof TitleView) {
-                setTitleView((TitleView) titleGroup);
-            } else {
-                setTitleView(null);
-            }
-        }
 
         mSceneAfterEntranceTransition = TransitionHelper.createScene(
                 (ViewGroup) view, new Runnable() {
@@ -217,13 +202,18 @@ public class DetailsSupportFragment extends BaseSupportFragment {
     }
 
     /**
-     * Called by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} to inflate
-     * TitleView.  Default implementation uses layout file lb_browse_title.
-     * Subclass may override and use its own layout or return null if no title is needed.
+     * @deprecated override {@link #onInflateTitleView(LayoutInflater,ViewGroup,Bundle)} instead.
      */
+    @Deprecated
     protected View inflateTitle(LayoutInflater inflater, ViewGroup parent,
             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.lb_browse_title, parent, false);
+        return super.onInflateTitleView(inflater, parent, savedInstanceState);
+    }
+
+    @Override
+    public View onInflateTitleView(LayoutInflater inflater, ViewGroup parent,
+                                   Bundle savedInstanceState) {
+        return inflateTitle(inflater, parent, savedInstanceState);
     }
 
     void setVerticalGridViewLayout(VerticalGridView listview) {

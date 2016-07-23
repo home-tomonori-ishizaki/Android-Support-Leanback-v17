@@ -21,7 +21,6 @@ import android.app.FragmentManager;
 import android.app.FragmentManager.BackStackEntry;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,11 +32,9 @@ import android.support.v17.leanback.widget.GuidedAction;
 import android.support.v17.leanback.widget.GuidedActionAdapter;
 import android.support.v17.leanback.widget.GuidedActionAdapterGroup;
 import android.support.v17.leanback.widget.GuidedActionsStylist;
-import android.support.v17.leanback.widget.VerticalGridView;
 import android.support.v17.leanback.widget.ViewHolderTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -45,14 +42,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -146,6 +139,8 @@ public class GuidedStepFragment extends Fragment implements GuidedActionAdapter.
 
     private static final String TAG_LEAN_BACK_ACTIONS_FRAGMENT = "leanBackGuidedStepFragment";
     private static final String EXTRA_ACTION_SELECTED_INDEX = "selectedIndex";
+    private static final String EXTRA_ACTION_PREFIX = "action_";
+    private static final String EXTRA_BUTTON_ACTION_PREFIX = "buttonaction_";
 
     private static final String ENTRY_NAME_REPLACE = "GuidedStepDefault";
 
@@ -410,15 +405,26 @@ public class GuidedStepFragment extends Fragment implements GuidedActionAdapter.
     /**
      * Callback invoked when an action's title or description has been edited, this happens either
      * when user clicks confirm button in IME or user closes IME window by BACK key.
-     * Override {@link #onGuidedActionEditedAndProceed(GuidedAction)} instead if app only wants to
-     * respond when confirm button of IME is clicked.
+     * @deprecated Override {@link #onGuidedActionEditedAndProceed(GuidedAction)} and/or
+     *             {@link #onGuidedActionEditCanceled(GuidedAction)}.
      */
+    @Deprecated
     public void onGuidedActionEdited(GuidedAction action) {
     }
 
     /**
-     * Callback invoked when an action's title or description has been edited, this happens when
-     * user clicks confirm button in IME.  Default implementation calls
+     * Callback invoked when an action has been canceled editing, for example when user closes
+     * IME window by BACK key.  Default implementation calls deprecated method
+     * {@link #onGuidedActionEdited(GuidedAction)}.
+     * @param action The action which has been canceled editing.
+     */
+    public void onGuidedActionEditCanceled(GuidedAction action) {
+        onGuidedActionEdited(action);
+    }
+
+    /**
+     * Callback invoked when an action has been edited, for example when user clicks confirm button
+     * in IME window.  Default implementation calls deprecated method
      * {@link #onGuidedActionEdited(GuidedAction)} and returns {@link GuidedAction#ACTION_ID_NEXT}.
      *
      * @param action The action that has been edited.
@@ -967,9 +973,15 @@ public class GuidedStepFragment extends Fragment implements GuidedActionAdapter.
         }
         ArrayList<GuidedAction> actions = new ArrayList<GuidedAction>();
         onCreateActions(actions, savedInstanceState);
+        if (savedInstanceState != null) {
+            onRestoreActions(actions, savedInstanceState);
+        }
         setActions(actions);
         ArrayList<GuidedAction> buttonActions = new ArrayList<GuidedAction>();
         onCreateButtonActions(buttonActions, savedInstanceState);
+        if (savedInstanceState != null) {
+            onRestoreButtonActions(buttonActions, savedInstanceState);
+        }
         setButtonActions(buttonActions);
     }
 
@@ -1036,8 +1048,8 @@ public class GuidedStepFragment extends Fragment implements GuidedActionAdapter.
                 }
 
                 @Override
-                public void onGuidedActionEdited(GuidedAction action) {
-                    GuidedStepFragment.this.onGuidedActionEdited(action);
+                public void onGuidedActionEditCanceled(GuidedAction action) {
+                    GuidedStepFragment.this.onGuidedActionEditCanceled(action);
                 }
         };
 
@@ -1127,11 +1139,71 @@ public class GuidedStepFragment extends Fragment implements GuidedActionAdapter.
     }
 
     /**
+     * Get the key will be used to save GuidedAction with Fragment.
+     * @param action GuidedAction to get key.
+     * @return Key to save the GuidedAction.
+     */
+    final String getAutoRestoreKey(GuidedAction action) {
+        return EXTRA_ACTION_PREFIX + action.getId();
+    }
+
+    /**
+     * Get the key will be used to save GuidedAction with Fragment.
+     * @param action GuidedAction to get key.
+     * @return Key to save the GuidedAction.
+     */
+    final String getButtonAutoRestoreKey(GuidedAction action) {
+        return EXTRA_BUTTON_ACTION_PREFIX + action.getId();
+    }
+
+    final static boolean isSaveEnabled(GuidedAction action) {
+        return action.isAutoSaveRestoreEnabled() && action.getId() != GuidedAction.NO_ID;
+    }
+
+    final void onRestoreActions(List<GuidedAction> actions, Bundle savedInstanceState) {
+        for (int i = 0, size = actions.size(); i < size; i++) {
+            GuidedAction action = actions.get(i);
+            if (isSaveEnabled(action)) {
+                action.onRestoreInstanceState(savedInstanceState, getAutoRestoreKey(action));
+            }
+        }
+    }
+
+    final void onRestoreButtonActions(List<GuidedAction> actions, Bundle savedInstanceState) {
+        for (int i = 0, size = actions.size(); i < size; i++) {
+            GuidedAction action = actions.get(i);
+            if (isSaveEnabled(action)) {
+                action.onRestoreInstanceState(savedInstanceState, getButtonAutoRestoreKey(action));
+            }
+        }
+    }
+
+    final void onSaveActions(List<GuidedAction> actions, Bundle outState) {
+        for (int i = 0, size = actions.size(); i < size; i++) {
+            GuidedAction action = actions.get(i);
+            if (isSaveEnabled(action)) {
+                action.onSaveInstanceState(outState, getAutoRestoreKey(action));
+            }
+        }
+    }
+
+    final void onSaveButtonActions(List<GuidedAction> actions, Bundle outState) {
+        for (int i = 0, size = actions.size(); i < size; i++) {
+            GuidedAction action = actions.get(i);
+            if (isSaveEnabled(action)) {
+                action.onSaveInstanceState(outState, getButtonAutoRestoreKey(action));
+            }
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        onSaveActions(mActions, outState);
+        onSaveButtonActions(mButtonActions, outState);
         outState.putInt(EXTRA_ACTION_SELECTED_INDEX,
                 (mActionsStylist.getActionsGridView() != null) ?
                         getSelectedActionPosition() : mSelectedIndex);
