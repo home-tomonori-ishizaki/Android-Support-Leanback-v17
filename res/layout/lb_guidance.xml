@@ -20,6 +20,7 @@
     android:layout_height="match_parent" >
 
     <RelativeLayout
+        android:id="@+id/guidance_container"
         style="?attr/guidanceContainerStyle" >
 
         <ImageView
@@ -42,4 +43,3 @@
     </RelativeLayout>
 
 </FrameLayout>
-<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_guidance.xml -->

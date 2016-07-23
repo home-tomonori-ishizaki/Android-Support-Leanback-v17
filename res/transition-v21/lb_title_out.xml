@@ -24,4 +24,3 @@
         <target android:targetId="@id/browse_title_group" />
     </targets>
 </transition>
-<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/transition-v21/lb_title_out.xml -->

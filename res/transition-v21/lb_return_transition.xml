@@ -21,4 +21,3 @@
       android:startDelay="75"
       android:duration="250"/>
 </transitionSet>
-<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/transition-v21/lb_return_transition.xml -->

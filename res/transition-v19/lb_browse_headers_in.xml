@@ -28,4 +28,3 @@
         android:startDelay="@integer/lb_browse_headers_transition_delay" />
     <fade android:fadingMode="fade_out" />
 </transitionSet>
-<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/transition-v19/lb_browse_headers_in.xml -->

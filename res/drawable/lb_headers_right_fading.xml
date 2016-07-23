@@ -20,7 +20,6 @@
     <gradient
         android:angle="0"
         android:startColor="#00000000"
-        android:endColor="@color/lb_default_brand_color"
+        android:endColor="#00000000"
         />
 </shape>
-<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/drawable/lb_headers_right_fading.xml -->

@@ -21,4 +21,3 @@
     android:valueFrom="0"
     android:valueTo="255"
     android:valueType="intType" />
-<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/animator-v21/lb_playback_bg_fade_in.xml -->

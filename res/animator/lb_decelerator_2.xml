@@ -19,4 +19,3 @@
 
 <decelerateInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
     android:factor="2.0"/>
-<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/animator/lb_decelerator_2.xml -->

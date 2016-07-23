@@ -17,5 +17,4 @@
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content_text"
-    style="?attr/lbImageCardViewContentStyle" />
-<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_image_card_view_themed_content.xml -->
+    style="?attr/imageCardViewContentStyle" />

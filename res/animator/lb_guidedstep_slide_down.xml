@@ -20,4 +20,3 @@
     android:valueFrom="@dimen/lb_guidedstep_slide_ime_distance"
     android:valueTo="0.0"
     android:valueType="floatType" />
-<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/animator/lb_guidedstep_slide_down.xml -->

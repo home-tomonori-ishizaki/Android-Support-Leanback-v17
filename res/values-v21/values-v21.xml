@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values-v21/styles.xml -->
-    <eat-comment/>
     <style name="TextAppearance.LeanbackBase" parent="android:TextAppearance.Material"/>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values-v21/themes.xml -->
-    <eat-comment/>
     <style name="Theme.LeanbackBase" parent="android:Theme.Material.NoActionBar">
         <item name="playbackProgressPrimaryColor">?android:attr/colorAccent</item>
         <item name="playbackControlsIconHighlightColor">?android:attr/colorAccent</item>
         <item name="defaultBrandColor">?android:attr/colorPrimary</item>
         <item name="android:colorPrimary">@color/lb_default_brand_color</item>
+        <item name="defaultBrandColorDark">?android:attr/colorPrimaryDark</item>
+        <item name="android:colorPrimaryDark">@color/lb_default_brand_color_dark</item>
 
         <item name="android:windowOverscan">true</item>
         <item name="guidedStepTheme">@style/Theme.Leanback.GuidedStep</item>
     </style>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values-v21/styles.xml -->
-    <eat-comment/>
     <style name="Widget.Leanback.DetailsActionButtonStyleBase" parent="android:Widget.Material.Button.Borderless">
         <item name="android:background">@drawable/lb_action_bg</item>
     </style>

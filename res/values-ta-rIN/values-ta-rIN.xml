@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values-ta-rIN/strings.xml -->
-    <eat-comment/>
     <string msgid="4541442045214207774" name="lb_control_display_fast_forward_multiplier">"%1$dX"</string>
     <string msgid="3097220783222910245" name="lb_control_display_rewind_multiplier">"%1$dX"</string>
+    <string msgid="2440386660906697298" name="lb_date_separator">"/"</string>
+    <string msgid="8842094924543063706" name="lb_guidedaction_continue_title">"தொடர்க"</string>
+    <string msgid="4015190340667946245" name="lb_guidedaction_finish_title">"முடி"</string>
+    <string msgid="2918313444257732434" name="lb_onboarding_accessibility_next">"அடுத்து"</string>
+    <string msgid="6961440391306351139" name="lb_onboarding_get_started">"தொடங்குக"</string>
     <string msgid="6133362019475930048" name="lb_playback_controls_closed_captioning_disable">"விரிவான வசனங்களை முடக்கு"</string>
     <string msgid="2429655367176440226" name="lb_playback_controls_closed_captioning_enable">"விரிவான வசனங்களை இயக்கு"</string>
     <string msgid="8569951318244687220" name="lb_playback_controls_fast_forward">"வேகமாக முன் நகர்த்து"</string>
@@ -28,7 +31,8 @@
     <string msgid="1577637924003500946" name="lb_playback_controls_thumb_up_outline">"தரமேற்றத்தைத் தேர்ந்தெடு"</string>
     <string msgid="8325490927970116252" name="lb_search_bar_hint">"தேடு"</string>
     <string msgid="5511270823320183816" name="lb_search_bar_hint_speech">"தேட, பேசவும்"</string>
-    <string msgid="1627103380996590035" name="lb_search_bar_hint_with_title">"<ns1:g id="SEARCH_CONTEXT">%1$s</ns1:g> ஐத் தேடுக"</string>
+    <string msgid="1627103380996590035" name="lb_search_bar_hint_with_title">"<ns1:g id="SEARCH_CONTEXT">%1$s</ns1:g> இல் தேடுக"</string>
     <string msgid="2712734639766312034" name="lb_search_bar_hint_with_title_speech">"<ns1:g id="SEARCH_CONTEXT">%1$s</ns1:g> ஐத் தேட, பேசவும்"</string>
+    <string msgid="2763247350845477227" name="lb_time_separator">":"</string>
     <string msgid="5651268540267663887" name="orb_search_action">"செயலைத் தேடுக"</string>
 </resources>

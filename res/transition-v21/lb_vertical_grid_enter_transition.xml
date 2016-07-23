@@ -19,4 +19,4 @@
   <fade
       android:interpolator="@android:interpolator/linear_out_slow_in"
       android:duration="150"/>
-</transitionSet><!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/transition-v21/lb_vertical_grid_enter_transition.xml -->
+</transitionSet>

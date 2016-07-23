@@ -16,6 +16,7 @@
 package android.support.v17.leanback.app;
 
 import android.support.v17.leanback.R;
+import android.support.v17.leanback.transition.TransitionHelper;
 import android.support.v17.leanback.widget.BrowseFrameLayout;
 import android.support.v17.leanback.widget.DetailsOverviewRow;
 import android.support.v17.leanback.widget.FullWidthDetailsOverviewRowPresenter;
@@ -82,6 +83,9 @@ public class DetailsSupportFragment extends BaseSupportFragment {
 
         @Override
         public void run() {
+            if (mRowsSupportFragment == null) {
+                return;
+            }
             mRowsSupportFragment.setSelectedPosition(mPosition, mSmooth);
         }
     }
@@ -202,7 +206,7 @@ public class DetailsSupportFragment extends BaseSupportFragment {
             }
         }
 
-        mSceneAfterEntranceTransition = sTransitionHelper.createScene(
+        mSceneAfterEntranceTransition = TransitionHelper.createScene(
                 (ViewGroup) view, new Runnable() {
             @Override
             public void run() {
@@ -274,7 +278,12 @@ public class DetailsSupportFragment extends BaseSupportFragment {
         return mRowsSupportFragment == null ? null : mRowsSupportFragment.getVerticalGridView();
     }
 
-    RowsSupportFragment getRowsSupportFragment() {
+    /**
+     * Gets embedded RowsSupportFragment showing multiple rows for DetailsSupportFragment.  If view of
+     * DetailsSupportFragment is not created, the method returns null.
+     * @return Embedded RowsSupportFragment showing multiple rows for DetailsSupportFragment.
+     */
+    public RowsSupportFragment getRowsSupportFragment() {
         return mRowsSupportFragment;
     }
 
@@ -403,14 +412,13 @@ public class DetailsSupportFragment extends BaseSupportFragment {
 
     @Override
     protected Object createEntranceTransition() {
-        return sTransitionHelper.loadTransition(getActivity(),
+        return TransitionHelper.loadTransition(getActivity(),
                 R.transition.lb_details_enter_transition);
     }
 
     @Override
     protected void runEntranceTransition(Object entranceTransition) {
-        sTransitionHelper.runTransition(mSceneAfterEntranceTransition,
-                entranceTransition);
+        TransitionHelper.runTransition(mSceneAfterEntranceTransition, entranceTransition);
     }
 
     @Override

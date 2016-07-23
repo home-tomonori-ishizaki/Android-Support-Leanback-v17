@@ -337,6 +337,22 @@ public class BrowseSupportFragment extends BaseSupportFragment {
     }
 
     /**
+     * Get currently bound RowsSupportFragment or null if BrowseSupportFragment has not been created yet.
+     * @return Currently bound RowsSupportFragment or null if BrowseSupportFragment has not been created yet.
+     */
+    public RowsSupportFragment getRowsSupportFragment() {
+        return mRowsSupportFragment;
+    }
+
+    /**
+     * Get currently bound HeadersSupportFragment or null if HeadersSupportFragment has not been created yet.
+     * @return Currently bound HeadersSupportFragment or null if HeadersSupportFragment has not been created yet.
+     */
+    public HeadersSupportFragment getHeadersSupportFragment() {
+        return mHeadersSupportFragment;
+    }
+
+    /**
      * Sets an item clicked listener on the fragment.
      * OnItemViewClickedListener will override {@link View.OnClickListener} that
      * item presenter sets during {@link Presenter#onCreateViewHolder(ViewGroup)}.
@@ -427,7 +443,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
                 if (mBrowseTransitionListener != null) {
                     mBrowseTransitionListener.onHeadersTransitionStart(withHeaders);
                 }
-                sTransitionHelper.runTransition(withHeaders ? mSceneWithHeaders : mSceneWithoutHeaders,
+                TransitionHelper.runTransition(withHeaders ? mSceneWithHeaders : mSceneWithoutHeaders,
                         mHeadersTransition);
                 if (mHeadersBackStackEnabled) {
                     if (!withHeaders) {
@@ -446,7 +462,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
         });
     }
 
-    private boolean isVerticalScrolling() {
+    boolean isVerticalScrolling() {
         // don't run transition
         return mHeadersSupportFragment.getVerticalGridView().getScrollState()
                 != HorizontalGridView.SCROLL_STATE_IDLE
@@ -624,19 +640,19 @@ public class BrowseSupportFragment extends BaseSupportFragment {
             mHeadersSupportFragment.setBackgroundColor(mBrandColor);
         }
 
-        mSceneWithHeaders = sTransitionHelper.createScene(mBrowseFrame, new Runnable() {
+        mSceneWithHeaders = TransitionHelper.createScene(mBrowseFrame, new Runnable() {
             @Override
             public void run() {
                 showHeaders(true);
             }
         });
-        mSceneWithoutHeaders =  sTransitionHelper.createScene(mBrowseFrame, new Runnable() {
+        mSceneWithoutHeaders =  TransitionHelper.createScene(mBrowseFrame, new Runnable() {
             @Override
             public void run() {
                 showHeaders(false);
             }
         });
-        mSceneAfterEntranceTransition = sTransitionHelper.createScene(mBrowseFrame, new Runnable() {
+        mSceneAfterEntranceTransition = TransitionHelper.createScene(mBrowseFrame, new Runnable() {
             @Override
             public void run() {
                 setEntranceTransitionEndState();
@@ -646,11 +662,11 @@ public class BrowseSupportFragment extends BaseSupportFragment {
     }
 
     private void createHeadersTransition() {
-        mHeadersTransition = sTransitionHelper.loadTransition(getActivity(),
+        mHeadersTransition = TransitionHelper.loadTransition(getActivity(),
                 mShowingHeaders ?
                 R.transition.lb_browse_headers_in : R.transition.lb_browse_headers_out);
 
-        sTransitionHelper.setTransitionListener(mHeadersTransition, new TransitionListener() {
+        TransitionHelper.addTransitionListener(mHeadersTransition, new TransitionListener() {
             @Override
             public void onTransitionStart(Object transition) {
             }
@@ -719,7 +735,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
     private HeadersSupportFragment.OnHeaderClickedListener mHeaderClickedListener =
         new HeadersSupportFragment.OnHeaderClickedListener() {
             @Override
-            public void onHeaderClicked() {
+            public void onHeaderClicked(RowHeaderPresenter.ViewHolder viewHolder, Row row) {
                 if (!mCanShowHeaders || !mShowingHeaders || isInHeadersTransition()) {
                     return;
                 }
@@ -781,11 +797,42 @@ public class BrowseSupportFragment extends BaseSupportFragment {
     }
 
     /**
+     * Gets position of currently selected row.
+     * @return Position of currently selected row.
+     */
+    public int getSelectedPosition() {
+        return mSelectedPosition;
+    }
+
+    /**
      * Sets the selected row position.
      */
     public void setSelectedPosition(int position, boolean smooth) {
         mSetSelectionRunnable.post(
                 position, SetSelectionRunnable.TYPE_USER_REQUEST, smooth);
+    }
+
+    /**
+     * Selects a Row and perform an optional task on the Row. For example
+     * <code>setSelectedPosition(10, true, new ListRowPresenterSelectItemViewHolderTask(5))</code>
+     * scrolls to 11th row and selects 6th item on that row.  The method will be ignored if
+     * RowsSupportFragment has not been created (i.e. before {@link #onCreateView(LayoutInflater,
+     * ViewGroup, Bundle)}).
+     *
+     * @param rowPosition Which row to select.
+     * @param smooth True to scroll to the row, false for no animation.
+     * @param rowHolderTask Optional task to perform on the Row.  When the task is not null, headers
+     * fragment will be collapsed.
+     */
+    public void setSelectedPosition(int rowPosition, boolean smooth,
+            final Presenter.ViewHolderTask rowHolderTask) {
+        if (mRowsSupportFragment == null) {
+            return;
+        }
+        if (rowHolderTask != null) {
+            startHeadersTransition(false);
+        }
+        mRowsSupportFragment.setSelectedPosition(rowPosition, smooth, rowHolderTask);
     }
 
     @Override
@@ -893,14 +940,13 @@ public class BrowseSupportFragment extends BaseSupportFragment {
 
     @Override
     protected Object createEntranceTransition() {
-        return sTransitionHelper.loadTransition(getActivity(),
+        return TransitionHelper.loadTransition(getActivity(),
                 R.transition.lb_browse_entrance_transition);
     }
 
     @Override
     protected void runEntranceTransition(Object entranceTransition) {
-        sTransitionHelper.runTransition(mSceneAfterEntranceTransition,
-                entranceTransition);
+        TransitionHelper.runTransition(mSceneAfterEntranceTransition, entranceTransition);
     }
 
     @Override

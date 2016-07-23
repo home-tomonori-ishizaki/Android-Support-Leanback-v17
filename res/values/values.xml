@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/colors.xml -->
-    <eat-comment/>
     <color name="lb_action_text_color">#EEEEEE</color>
     <color name="lb_background_protection">#99000000</color>
     <color name="lb_basic_card_bg_color">#FF263238</color>
@@ -13,6 +11,7 @@
     <color name="lb_control_button_color">#66EEEEEE</color>
     <color name="lb_control_button_text">#EEEEEE</color>
     <color name="lb_default_brand_color">#FF455A64</color>
+    <color name="lb_default_brand_color_dark">#FF222D32</color>
     <color name="lb_default_search_color">#FFFFAA3F</color>
     <color name="lb_details_description_body_color">#B2EEEEEE</color>
     <color name="lb_details_description_color">#EEEEEE</color>
@@ -22,9 +21,12 @@
     <color name="lb_error_message">#80EEEEEE</color>
     <color name="lb_grey">#888888</color>
     <color name="lb_guidedactions_background">#FF111111</color>
+    <color name="lb_guidedactions_background_dark">#FF080808</color>
     <color name="lb_guidedactions_item_unselected_text_color">#FFF1F1F1</color>
-    <color name="lb_guidedactions_selector_color">#26FFFFFF</color>
     <color name="lb_list_item_unselected_text_color">#FFF1F1F1</color>
+    <color name="lb_page_indicator_arrow_background">#EEEEEE</color>
+    <color name="lb_page_indicator_arrow_shadow">#4C000000</color>
+    <color name="lb_page_indicator_dot">#014269</color>
     <color name="lb_playback_background_progress_color">#19FFFFFF</color>
     <color name="lb_playback_controls_background_dark">#c0000000</color>
     <color name="lb_playback_controls_background_light">#80000000</color>
@@ -43,20 +45,20 @@
     <color name="lb_speech_orb_recording">#ff4343</color>
     <color name="lb_tv_white">#FFCCCCCC</color>
     <color name="lb_view_dim_mask_color">#000000</color>
-    <declare-styleable name="LeanbackGuidedStepTheme"><attr format="reference" name="guidedStepTheme"/><attr format="boolean" name="guidedStepThemeFlag"/><attr format="reference|color" name="guidedStepBackground"/><attr format="reference" name="guidedStepImeAppearingAnimation"/><attr format="reference" name="guidedStepImeDisappearingAnimation"/><attr format="reference" name="guidanceContainerStyle"/><attr format="reference" name="guidanceTitleStyle"/><attr format="reference" name="guidanceDescriptionStyle"/><attr format="reference" name="guidanceBreadcrumbStyle"/><attr format="reference" name="guidanceIconStyle"/><attr format="reference" name="guidedActionsSelectorShowAnimation"/><attr format="reference" name="guidedActionsSelectorHideAnimation"/><attr format="reference" name="guidedActionsContainerStyle"/><attr format="reference" name="guidedActionsSelectorStyle"/><attr format="reference" name="guidedActionsListStyle"/><attr format="reference" name="guidedActionItemContainerStyle"/><attr format="reference" name="guidedActionItemCheckmarkStyle"/><attr format="reference" name="guidedActionItemIconStyle"/><attr format="reference" name="guidedActionItemContentStyle"/><attr format="reference" name="guidedActionItemTitleStyle"/><attr format="reference" name="guidedActionItemDescriptionStyle"/><attr format="reference" name="guidedActionItemChevronStyle"/><attr format="reference" name="guidedActionCheckedAnimation"/><attr format="reference" name="guidedActionUncheckedAnimation"/><attr format="reference" name="guidedActionPressedAnimation"/><attr format="reference" name="guidedActionUnpressedAnimation"/><attr format="reference" name="guidedActionEnabledChevronAlpha"/><attr format="reference" name="guidedActionDisabledChevronAlpha"/><attr format="reference" name="guidedActionContentWidth"/><attr format="reference" name="guidedActionContentWidthNoIcon"/><attr format="reference" name="guidedActionTitleMinLines"/><attr format="reference" name="guidedActionTitleMaxLines"/><attr format="reference" name="guidedActionDescriptionMinLines"/><attr format="reference" name="guidedActionVerticalPadding"/></declare-styleable>
-    <declare-styleable name="LeanbackTheme"><attr format="dimension" name="browsePaddingStart"/><attr format="dimension" name="browsePaddingEnd"/><attr format="dimension" name="browsePaddingTop"/><attr format="dimension" name="browsePaddingBottom"/><attr format="dimension" name="browseRowsMarginStart"/><attr format="dimension" name="browseRowsMarginTop"/><attr format="dimension" name="browseRowsFadingEdgeLength"/><attr format="reference" name="browseTitleTextStyle"/><attr format="reference" name="browseTitleIconStyle"/><attr format="reference" name="browseTitleViewStyle"/><attr format="reference" name="headersVerticalGridStyle"/><attr format="reference" name="headerStyle"/><attr format="reference" name="rowsVerticalGridStyle"/><attr format="reference" name="rowHorizontalGridStyle"/><attr format="reference" name="rowHeaderStyle"/><attr format="reference" name="rowHeaderDockStyle"/><attr format="reference" name="rowHoverCardTitleStyle"/><attr format="reference" name="rowHoverCardDescriptionStyle"/><attr format="reference" name="baseCardViewStyle"/><attr format="reference" name="imageCardViewStyle"/><attr format="reference" name="detailsDescriptionTitleStyle"/><attr format="reference" name="detailsDescriptionSubtitleStyle"/><attr format="reference" name="detailsDescriptionBodyStyle"/><attr format="reference" name="detailsActionButtonStyle"/><attr format="reference" name="playbackControlsButtonStyle"/><attr format="reference" name="playbackControlButtonLabelStyle"/><attr format="reference" name="playbackControlsTimeStyle"/><attr format="reference" name="itemsVerticalGridStyle"/><attr format="reference" name="errorMessageStyle"/><attr format="reference|color" name="defaultBrandColor"/><attr format="reference|color" name="defaultSearchColor"/><attr format="reference|color" name="defaultSearchBrightColor"/><attr format="reference" name="searchOrbViewStyle"/><attr format="reference" name="defaultSearchIcon"/><attr format="reference|color" name="playbackProgressPrimaryColor"/><attr format="reference|color" name="playbackControlsIconHighlightColor"/><attr format="reference" name="playbackControlsActionIcons"/><attr format="color" name="overlayDimMaskColor"/><attr format="fraction" name="overlayDimActiveLevel"/><attr format="fraction" name="overlayDimDimmedLevel"/></declare-styleable>
+    <declare-styleable name="LeanbackGuidedStepTheme"><attr format="reference" name="guidedStepTheme"/><attr format="float" name="guidedStepHeightWeight"/><attr format="boolean" name="guidedStepThemeFlag"/><attr format="reference|color" name="guidedStepBackground"/><attr format="reference" name="guidedStepImeAppearingAnimation"/><attr format="reference" name="guidedStepImeDisappearingAnimation"/><attr format="reference" name="guidanceContainerStyle"/><attr format="reference" name="guidanceTitleStyle"/><attr format="reference" name="guidanceDescriptionStyle"/><attr format="reference" name="guidanceBreadcrumbStyle"/><attr format="reference" name="guidanceIconStyle"/><attr format="reference" name="guidedActionsSelectorDrawable"/><attr format="dimension|reference" name="guidedActionsElevation"/><attr format="reference" name="guidedActionsBackground"/><attr format="reference" name="guidedActionsBackgroundDark"/><attr format="reference" name="guidedActionsListStyle"/><attr format="reference" name="guidedSubActionsListStyle"/><attr format="reference" name="guidedButtonActionsListStyle"/><attr format="reference" name="guidedActionItemContainerStyle"/><attr format="reference" name="guidedActionItemCheckmarkStyle"/><attr format="reference" name="guidedActionItemIconStyle"/><attr format="reference" name="guidedActionItemContentStyle"/><attr format="reference" name="guidedActionItemTitleStyle"/><attr format="reference" name="guidedActionItemDescriptionStyle"/><attr format="reference" name="guidedActionItemChevronStyle"/><attr format="reference" name="guidedActionPressedAnimation"/><attr format="reference" name="guidedActionUnpressedAnimation"/><attr format="reference" name="guidedActionEnabledChevronAlpha"/><attr format="reference" name="guidedActionDisabledChevronAlpha"/><attr format="reference" name="guidedActionContentWidthWeight"/><attr format="reference" name="guidedActionContentWidthWeightTwoPanels"/><attr format="reference" name="guidedActionTitleMinLines"/><attr format="reference" name="guidedActionTitleMaxLines"/><attr format="reference" name="guidedActionDescriptionMinLines"/><attr format="reference" name="guidedActionVerticalPadding"/><attr format="reference" name="guidedActionsContainerStyle"/><attr format="reference" name="guidedActionsSelectorStyle"/><attr format="reference" name="guidedStepEntryAnimation"/><attr format="reference" name="guidedStepExitAnimation"/><attr format="reference" name="guidedStepReentryAnimation"/><attr format="reference" name="guidedStepReturnAnimation"/><attr format="reference" name="guidanceEntryAnimation"/><attr format="reference" name="guidedActionsEntryAnimation"/><attr format="reference" name="guidedActionsSelectorShowAnimation"/><attr format="reference" name="guidedActionsSelectorHideAnimation"/><attr format="reference" name="guidedActionCheckedAnimation"/><attr format="reference" name="guidedActionUncheckedAnimation"/><attr format="reference" name="guidedActionContentWidth"/><attr format="reference" name="guidedActionContentWidthNoIcon"/></declare-styleable>
+    <declare-styleable name="LeanbackOnboardingTheme"><attr format="reference" name="onboardingTheme"/><attr format="reference" name="onboardingHeaderStyle"/><attr format="reference" name="onboardingTitleStyle"/><attr format="reference" name="onboardingDescriptionStyle"/><attr format="reference" name="onboardingNavigatorContainerStyle"/><attr format="reference" name="onboardingPageIndicatorStyle"/><attr format="reference" name="onboardingStartButtonStyle"/><attr format="reference" name="onboardingLogoStyle"/></declare-styleable>
+    <declare-styleable name="LeanbackTheme"><attr format="dimension" name="browsePaddingStart"/><attr format="dimension" name="browsePaddingEnd"/><attr format="dimension" name="browsePaddingTop"/><attr format="dimension" name="browsePaddingBottom"/><attr format="dimension" name="browseRowsMarginStart"/><attr format="dimension" name="browseRowsMarginTop"/><attr format="dimension" name="browseRowsFadingEdgeLength"/><attr format="reference" name="browseTitleTextStyle"/><attr format="reference" name="browseTitleIconStyle"/><attr format="reference" name="browseTitleViewStyle"/><attr format="reference" name="headersVerticalGridStyle"/><attr format="reference" name="headerStyle"/><attr format="reference" name="rowsVerticalGridStyle"/><attr format="reference" name="rowHorizontalGridStyle"/><attr format="reference" name="rowHeaderStyle"/><attr format="reference" name="rowHeaderDockStyle"/><attr format="reference" name="rowHoverCardTitleStyle"/><attr format="reference" name="rowHoverCardDescriptionStyle"/><attr format="reference" name="baseCardViewStyle"/><attr format="reference" name="imageCardViewStyle"/><attr format="reference" name="imageCardViewImageStyle"/><attr format="reference" name="imageCardViewTitleStyle"/><attr format="reference" name="imageCardViewContentStyle"/><attr format="reference" name="imageCardViewBadgeStyle"/><attr format="reference" name="imageCardViewInfoAreaStyle"/><attr format="reference" name="detailsDescriptionTitleStyle"/><attr format="reference" name="detailsDescriptionSubtitleStyle"/><attr format="reference" name="detailsDescriptionBodyStyle"/><attr format="reference" name="detailsActionButtonStyle"/><attr format="reference" name="playbackControlsButtonStyle"/><attr format="reference" name="playbackControlButtonLabelStyle"/><attr format="reference" name="playbackControlsTimeStyle"/><attr format="reference" name="itemsVerticalGridStyle"/><attr format="reference" name="errorMessageStyle"/><attr format="reference|color" name="defaultBrandColor"/><attr format="reference|color" name="defaultBrandColorDark"/><attr format="reference|color" name="defaultSearchColor"/><attr format="reference|color" name="defaultSearchBrightColor"/><attr format="reference" name="searchOrbViewStyle"/><attr format="reference" name="defaultSearchIcon"/><attr format="reference|color" name="playbackProgressPrimaryColor"/><attr format="reference|color" name="playbackControlsIconHighlightColor"/><attr format="reference" name="playbackControlsActionIcons"/><attr format="color" name="overlayDimMaskColor"/><attr format="fraction" name="overlayDimActiveLevel"/><attr format="fraction" name="overlayDimDimmedLevel"/></declare-styleable>
     <declare-styleable name="lbBaseCardView"><attr format="reference|color" name="cardForeground"/><attr format="reference|color" name="cardBackground"/><attr format="enum" name="cardType"><enum name="mainOnly" value="0"/><enum name="infoOver" value="1"/><enum name="infoUnder" value="2"/><enum name="infoUnderWithExtra" value="3"/></attr><attr format="enum" name="infoVisibility"><enum name="always" value="0"/><enum name="activated" value="1"/><enum name="selected" value="2"/></attr><attr format="enum" name="extraVisibility"><enum name="always" value="0"/><enum name="activated" value="1"/><enum name="selected" value="2"/></attr><attr format="integer" name="selectedAnimationDelay"/><attr format="integer" name="selectedAnimationDuration"/><attr format="integer" name="activatedAnimationDuration"/></declare-styleable>
     <declare-styleable name="lbBaseCardView_Layout"><attr format="enum" name="layout_viewType"><enum name="main" value="0"/><enum name="info" value="1"/><enum name="extra" value="2"/></attr></declare-styleable>
-    <declare-styleable name="lbBaseGridView"><attr format="boolean" name="focusOutFront"/><attr format="boolean" name="focusOutEnd"/><attr format="dimension" name="horizontalMargin"/><attr format="dimension" name="verticalMargin"/><attr name="android:gravity"/></declare-styleable>
+    <declare-styleable name="lbBaseGridView"><attr format="boolean" name="focusOutFront"/><attr format="boolean" name="focusOutEnd"/><attr format="boolean" name="focusOutSideStart"/><attr format="boolean" name="focusOutSideEnd"/><attr format="dimension" name="horizontalMargin"/><attr format="dimension" name="verticalMargin"/><attr name="android:gravity"/></declare-styleable>
+    <declare-styleable name="lbDatePicker"><attr name="android:minDate"/><attr name="android:maxDate"/><attr format="string" name="datePickerFormat"/></declare-styleable>
     <declare-styleable name="lbHorizontalGridView"><attr format="dimension" name="rowHeight"><enum name="wrap_content" value="-2"/></attr><attr format="integer" name="numberOfRows"/></declare-styleable>
-    <declare-styleable name="lbImageCardView"><attr format="reference|color" name="infoAreaBackground"/><attr format="reference" name="lbImageCardViewImageStyle"/><attr format="reference" name="lbImageCardViewTitleStyle"/><attr format="reference" name="lbImageCardViewContentStyle"/><attr format="reference" name="lbImageCardViewBadgeStyle"/><attr format="reference" name="lbImageCardViewInfoAreaStyle"/><attr name="lbImageCardViewType"><flag name="Title" value="1"/><flag name="Content" value="2"/><flag name="IconOnRight" value="4"/><flag name="IconOnLeft" value="8"/><flag name="ImageOnly" value="0"/></attr></declare-styleable>
+    <declare-styleable name="lbImageCardView"><attr format="reference|color" name="infoAreaBackground"/><attr name="lbImageCardViewType"><flag name="Title" value="1"/><flag name="Content" value="2"/><flag name="IconOnRight" value="4"/><flag name="IconOnLeft" value="8"/><flag name="ImageOnly" value="0"/></attr></declare-styleable>
     <declare-styleable name="lbPlaybackControlsActionIcons"><attr format="reference" name="play"/><attr format="reference" name="pause"/><attr format="reference" name="fast_forward"/><attr format="reference" name="rewind"/><attr format="reference" name="skip_next"/><attr format="reference" name="skip_previous"/><attr format="reference" name="thumb_up_outline"/><attr format="reference" name="thumb_up"/><attr format="reference" name="thumb_down_outline"/><attr format="reference" name="thumb_down"/><attr format="reference" name="repeat"/><attr format="reference" name="repeat_one"/><attr format="reference" name="shuffle"/><attr format="reference" name="high_quality"/><attr format="reference" name="closed_captioning"/></declare-styleable>
     <declare-styleable name="lbResizingTextView"><attr name="resizeTrigger"><flag name="maxLines" value="0x01"/></attr><attr format="dimension" name="resizedTextSize"/><attr format="boolean" name="maintainLineSpacing"/><attr format="dimension" name="resizedPaddingAdjustmentTop"/><attr format="dimension" name="resizedPaddingAdjustmentBottom"/></declare-styleable>
     <declare-styleable name="lbSearchOrbView"><attr format="reference" name="searchOrbIcon"/><attr format="reference|color" name="searchOrbIconColor"/><attr format="reference|color" name="searchOrbColor"/><attr format="reference|color" name="searchOrbBrightColor"/></declare-styleable>
     <declare-styleable name="lbSlide"><attr name="lb_slideEdge"><enum name="left" value="0x03"/><enum name="top" value="0x30"/><enum name="right" value="0x05"/><enum name="bottom" value="0x50"/><enum name="start" value="0x00800003"/><enum name="end" value="0x00800005"/></attr><attr name="android:duration"/><attr name="android:startDelay"/><attr name="android:interpolator"/></declare-styleable>
     <declare-styleable name="lbVerticalGridView"><attr format="dimension" name="columnWidth"><enum name="wrap_content" value="-2"/></attr><attr format="integer" name="numberOfColumns"/></declare-styleable>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/dimens.xml -->
-    <eat-comment/>
     <dimen name="lb_action_1_line_height">36dp</dimen>
     <dimen name="lb_action_2_lines_height">56dp</dimen>
     <dimen name="lb_action_button_corner_radius">2dp</dimen>
@@ -160,32 +162,42 @@
     <dimen name="lb_error_message_text_size">16sp</dimen>
     <dimen name="lb_error_under_image_baseline_margin">36dp</dimen>
     <dimen name="lb_error_under_message_baseline_margin">24dp</dimen>
-    <dimen name="lb_guidance_entry_translationX">-120dp</dimen>
     <dimen name="lb_guidedactions_elevation">12dp</dimen>
-    <dimen name="lb_guidedactions_entry_translationX">384dp</dimen>
-    <dimen name="lb_guidedactions_item_checkmark_diameter">8dp</dimen>
+    <dimen name="lb_guidedactions_item_checkmark_diameter">16dp</dimen>
     <dimen name="lb_guidedactions_item_delimiter_padding">4dp</dimen>
     <dimen name="lb_guidedactions_item_description_font_size">12sp</dimen>
     <dimen name="lb_guidedactions_item_end_padding">28dp</dimen>
     <dimen name="lb_guidedactions_item_icon_height">32dp</dimen>
     <dimen name="lb_guidedactions_item_icon_width">32dp</dimen>
     <dimen name="lb_guidedactions_item_min_height">64dp</dimen>
-    <dimen name="lb_guidedactions_item_start_padding">20dp</dimen>
+    <dimen name="lb_guidedactions_item_start_padding">28dp</dimen>
     <dimen name="lb_guidedactions_item_text_width">248dp</dimen>
     <dimen name="lb_guidedactions_item_text_width_no_icon">284dp</dimen>
     <dimen name="lb_guidedactions_item_title_font_size">18sp</dimen>
     <dimen name="lb_guidedactions_section_shadow_width">16dp</dimen>
-    <dimen name="lb_guidedactions_section_width">384dp</dimen>
-    <dimen name="lb_guidedactions_selector_min_height">8dp</dimen>
+    <dimen name="lb_guidedactions_sublist_bottom_margin">28dp</dimen>
     <dimen name="lb_guidedactions_vertical_padding">12dp</dimen>
-    <dimen name="lb_guidedstep_guidance_section_width">576dp</dimen>
-    <dimen name="lb_guidedstep_slide_end_distance">200dp</dimen>
     <dimen name="lb_guidedstep_slide_ime_distance">-100dp</dimen>
-    <dimen name="lb_guidedstep_slide_start_distance">-200dp</dimen>
     <dimen name="lb_list_row_height">224dp</dimen>
     <dimen name="lb_material_shadow_details_z">8dp</dimen>
     <dimen name="lb_material_shadow_focused_z">16dp</dimen>
     <dimen name="lb_material_shadow_normal_z">6dp</dimen>
+    <dimen name="lb_onboarding_content_margin_bottom">98dp</dimen>
+    <dimen name="lb_onboarding_content_margin_top">164dp</dimen>
+    <dimen name="lb_onboarding_content_width">536dp</dimen>
+    <dimen name="lb_onboarding_header_height">100dp</dimen>
+    <dimen name="lb_onboarding_header_margin_top">64dp</dimen>
+    <dimen name="lb_onboarding_navigation_height">40dp</dimen>
+    <dimen name="lb_onboarding_start_button_height">36dp</dimen>
+    <dimen name="lb_onboarding_start_button_margin_bottom">62dp</dimen>
+    <dimen name="lb_onboarding_start_button_translation_offset">16dp</dimen>
+    <dimen name="lb_page_indicator_arrow_diameter">36dp</dimen>
+    <dimen name="lb_page_indicator_arrow_gap">32dp</dimen>
+    <dimen name="lb_page_indicator_arrow_shadow_offset">1dp</dimen>
+    <dimen name="lb_page_indicator_arrow_shadow_radius">2dp</dimen>
+    <dimen name="lb_page_indicator_dot_diameter">10dp</dimen>
+    <dimen name="lb_page_indicator_dot_gap">16dp</dimen>
+    <dimen name="lb_page_indicator_dot_radius">5dp</dimen>
     <dimen name="lb_playback_controls_align_bottom">58dp</dimen>
     <dimen name="lb_playback_controls_card_height">176dp</dimen>
     <dimen name="lb_playback_controls_child_margin_bigger">64dp</dimen>
@@ -225,7 +237,7 @@
     <dimen name="lb_search_bar_text_size">18sp</dimen>
     <dimen name="lb_search_bar_unfocused_text_size">18sp</dimen>
     <dimen name="lb_search_browse_row_padding_start">56dp</dimen>
-    <dimen name="lb_search_browse_rows_align_top">120dp</dimen>
+    <dimen name="lb_search_browse_rows_align_top">147dp</dimen>
     <dimen name="lb_search_orb_focused_z">8dp</dimen>
     <dimen name="lb_search_orb_margin_bottom">4dp</dimen>
     <dimen name="lb_search_orb_margin_end">4dp</dimen>
@@ -234,6 +246,9 @@
     <dimen name="lb_search_orb_size">52dp</dimen>
     <dimen name="lb_search_orb_unfocused_z">2dp</dimen>
     <dimen name="lb_vertical_grid_padding_bottom">87dp</dimen>
+    <dimen name="picker_column_horizontal_padding">8dp</dimen>
+    <dimen name="picker_item_height">64dp</dimen>
+    <dimen name="picker_separator_horizontal_padding">4dp</dimen>
     <item name="lb_browse_header_unselect_alpha" type="fraction">50%</item>
     <item name="lb_browse_rows_scale" type="fraction">80%</item>
     <item name="lb_focus_zoom_factor_large" type="fraction">118%</item>
@@ -244,8 +259,6 @@
     <item name="lb_search_orb_focused_zoom" type="fraction">120%</item>
     <item name="lb_view_active_level" type="fraction">0%</item>
     <item name="lb_view_dimmed_level" type="fraction">60%</item>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/ids.xml -->
-    <eat-comment/>
     <item name="lb_control_closed_captioning" type="id"/>
     <item name="lb_control_fast_forward" type="id"/>
     <item name="lb_control_fast_rewind" type="id"/>
@@ -263,32 +276,22 @@
     <item name="lb_shadow_impl" type="id"/>
     <item name="lb_slide_transition_value" type="id"/>
     <item name="transitionPosition" type="id"/>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/dimens.xml -->
-    <eat-comment/>
     <integer name="lb_browse_headers_transition_delay">150</integer>
     <integer name="lb_browse_headers_transition_duration">250</integer>
     <integer name="lb_browse_rows_anim_duration">250</integer>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/integers.xml -->
-    <eat-comment/>
     <integer name="lb_card_activated_animation_duration">150</integer>
     <integer name="lb_card_selected_animation_delay">400</integer>
     <integer name="lb_card_selected_animation_duration">150</integer>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/dimens.xml -->
-    <eat-comment/>
     <integer name="lb_details_description_body_max_lines">5</integer>
     <integer name="lb_details_description_body_min_lines">3</integer>
     <integer name="lb_details_description_subtitle_max_lines">1</integer>
     <integer name="lb_details_description_title_max_lines">2</integer>
     <integer name="lb_error_message_max_lines">1</integer>
-    <integer name="lb_guidedactions_animation_duration">150</integer>
     <integer name="lb_guidedactions_item_animation_duration">100</integer>
     <integer name="lb_guidedactions_item_description_min_lines">2</integer>
     <integer name="lb_guidedactions_item_title_max_lines">3</integer>
     <integer name="lb_guidedactions_item_title_min_lines">1</integer>
-    <integer name="lb_guidedstep_entry_animation_delay">550</integer>
-    <integer name="lb_guidedstep_entry_animation_duration">250</integer>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/integers.xml -->
-    <eat-comment/>
+    <integer name="lb_guidedstep_activity_background_fade_duration_ms">350</integer>
     <integer name="lb_playback_bg_fade_in_ms">325</integer>
     <integer name="lb_playback_bg_fade_out_ms">500</integer>
     <integer name="lb_playback_controls_fade_in_ms">250</integer>
@@ -301,22 +304,27 @@
     <integer name="lb_playback_rows_fade_out_ms">250</integer>
     <integer name="lb_search_bar_speech_mode_background_alpha">179</integer>
     <integer name="lb_search_bar_text_mode_background_alpha">51</integer>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/dimens.xml -->
-    <eat-comment/>
     <item name="lb_search_orb_pulse_duration_ms" type="integer">1000</item>
     <item name="lb_search_orb_scale_duration_ms" type="integer">150</item>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/strings.xml -->
-    <eat-comment/>
+    <integer name="slideEdgeEnd">5</integer>
+    <integer name="slideEdgeStart">3</integer>
     <string name="lb_control_display_fast_forward_multiplier">%1$dX</string>
     <string name="lb_control_display_rewind_multiplier">%1$dX</string>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/dimens.xml -->
-    <eat-comment/>
+    <string name="lb_date_separator">/</string>
+    <string name="lb_guidedaction_continue_title">Continue</string>
+    <string name="lb_guidedaction_finish_title">Finish</string>
     <item format="float" name="lb_guidedactions_item_disabled_chevron_alpha" type="string">0.50</item>
+    <item format="float" name="lb_guidedactions_item_disabled_description_text_alpha" type="string">0.25</item>
+    <item format="float" name="lb_guidedactions_item_disabled_text_alpha" type="string">0.25</item>
     <item format="float" name="lb_guidedactions_item_enabled_chevron_alpha" type="string">1.00</item>
     <item format="float" name="lb_guidedactions_item_unselected_description_text_alpha" type="string">0.50</item>
     <item format="float" name="lb_guidedactions_item_unselected_text_alpha" type="string">1.00</item>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/strings.xml -->
-    <eat-comment/>
+    <item format="float" name="lb_guidedactions_width_weight" type="string">0.666666667</item>
+    <item format="float" name="lb_guidedactions_width_weight_two_panels" type="string">1</item>
+    <item format="float" name="lb_guidedstep_height_weight" type="string">2.0</item>
+    <item format="float" name="lb_guidedstep_height_weight_translucent" type="string">1.0</item>
+    <string name="lb_onboarding_accessibility_next">Next</string>
+    <string name="lb_onboarding_get_started">GET STARTED</string>
     <string name="lb_playback_controls_closed_captioning_disable">Disable Closed Captioning</string>
     <string name="lb_playback_controls_closed_captioning_enable">Enable Closed Captioning</string>
     <string name="lb_playback_controls_fast_forward">Fast Forward</string>
@@ -343,9 +351,8 @@
     <string name="lb_search_bar_hint_speech">Speak to search</string>
     <string name="lb_search_bar_hint_with_title">Search <ns1:g id="search context">%1$s</ns1:g></string>
     <string name="lb_search_bar_hint_with_title_speech">Speak to search <ns1:g id="search context">%1$s</ns1:g></string>
+    <string name="lb_time_separator">:</string>
     <string name="orb_search_action">Search Action</string>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/styles.xml -->
-    <eat-comment/>
     <style name="TextAppearance.Leanback" parent="TextAppearance.LeanbackBase">
         <!-- Any text appearance overrides go here. -->
         <item name="android:fontFamily">sans-serif-condensed</item>
@@ -379,6 +386,16 @@
         <item name="android:textSize">@dimen/lb_browse_header_text_size</item>
         <item name="android:textColor">@color/lb_browse_header_color</item>
     </style>
+    <style name="TextAppearance.Leanback.ImageCardView">
+    </style>
+    <style name="TextAppearance.Leanback.ImageCardView.Content">
+        <item name="android:textColor">@color/lb_basic_card_content_text_color</item>
+        <item name="android:textSize">@dimen/lb_basic_card_content_text_size</item>
+    </style>
+    <style name="TextAppearance.Leanback.ImageCardView.Title">
+        <item name="android:textColor">@color/lb_basic_card_title_text_color</item>
+        <item name="android:textSize">@dimen/lb_basic_card_title_text_size</item>
+    </style>
     <style name="TextAppearance.Leanback.PlaybackControlLabel">
         <item name="android:textSize">@dimen/lb_control_button_text_size</item>
         <item name="android:textColor">@color/lb_control_button_text</item>
@@ -407,12 +424,15 @@
     </style>
     <style name="TextAppearance.LeanbackBase" parent="android:TextAppearance.Holo">
     </style>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/themes.xml -->
-    <eat-comment/>
     <style name="Theme.Leanback" parent="Theme.LeanbackBase">
 
         <item name="baseCardViewStyle">@style/Widget.Leanback.BaseCardViewStyle</item>
         <item name="imageCardViewStyle">@style/Widget.Leanback.ImageCardViewStyle</item>
+        <item name="imageCardViewImageStyle">@style/Widget.Leanback.ImageCardView.ImageStyle</item>
+        <item name="imageCardViewTitleStyle">@style/Widget.Leanback.ImageCardView.TitleStyle</item>
+        <item name="imageCardViewContentStyle">@style/Widget.Leanback.ImageCardView.ContentStyle</item>
+        <item name="imageCardViewBadgeStyle">@style/Widget.Leanback.ImageCardView.BadgeStyle</item>
+        <item name="imageCardViewInfoAreaStyle">@style/Widget.Leanback.ImageCardView.InfoAreaStyle</item>
 
         <item name="browsePaddingStart">@dimen/lb_browse_padding_start</item>
         <item name="browsePaddingEnd">@dimen/lb_browse_padding_end</item>
@@ -487,10 +507,17 @@
     </style>
     <style name="Theme.Leanback.GuidedStep" parent="Theme.LeanbackBase">
         <item name="guidedStepThemeFlag">true</item>
+        <item name="guidedStepHeightWeight">@string/lb_guidedstep_height_weight</item>
 
         <item name="android:windowEnterTransition">@transition/lb_guidedstep_activity_enter</item>
 
-        <item name="guidedStepBackground">?android:attr/windowBackground</item>
+        <!-- background applied to each GuidedStepFragment by default-->
+        <item name="guidedStepBackground">?android:attr/colorBackground</item>
+        <!-- Each GuidedStepFragment has a background so activity does not need a background.
+             But We still need a dumb background to keep the temporary translucent state last
+             as long as the background view fade-in transition -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowTransitionBackgroundFadeDuration">@integer/lb_guidedstep_activity_background_fade_duration_ms</item>
 
         <item name="guidedStepImeAppearingAnimation">@animator/lb_guidedstep_slide_up</item>
         <item name="guidedStepImeDisappearingAnimation">@animator/lb_guidedstep_slide_down</item>
@@ -501,11 +528,13 @@
         <item name="guidanceBreadcrumbStyle">@style/Widget.Leanback.GuidanceBreadcrumbStyle</item>
         <item name="guidanceDescriptionStyle">@style/Widget.Leanback.GuidanceDescriptionStyle</item>
 
-        <item name="guidedActionsContainerStyle">@style/Widget.Leanback.GuidedActionsContainerStyle</item>
-        <item name="guidedActionsSelectorStyle">@style/Widget.Leanback.GuidedActionsSelectorStyle</item>
+        <item name="guidedActionsElevation">@dimen/lb_guidedactions_elevation</item>
+        <item name="guidedActionsBackground">@color/lb_guidedactions_background</item>
+        <item name="guidedActionsBackgroundDark">@color/lb_guidedactions_background_dark</item>
+        <item name="guidedActionsSelectorDrawable">?android:attr/selectableItemBackground</item>
         <item name="guidedActionsListStyle">@style/Widget.Leanback.GuidedActionsListStyle</item>
-        <item name="guidedActionsSelectorShowAnimation">@animator/lb_guidedactions_selector_show</item>
-        <item name="guidedActionsSelectorHideAnimation">@animator/lb_guidedactions_selector_hide</item>
+        <item name="guidedSubActionsListStyle">@style/Widget.Leanback.GuidedSubActionsListStyle</item>
+        <item name="guidedButtonActionsListStyle">@style/Widget.Leanback.GuidedButtonActionsListStyle</item>
 
         <item name="guidedActionItemContainerStyle">@style/Widget.Leanback.GuidedActionItemContainerStyle</item>
         <item name="guidedActionItemCheckmarkStyle">@style/Widget.Leanback.GuidedActionItemCheckmarkStyle</item>
@@ -515,18 +544,31 @@
         <item name="guidedActionItemDescriptionStyle">@style/Widget.Leanback.GuidedActionItemDescriptionStyle</item>
         <item name="guidedActionItemChevronStyle">@style/Widget.Leanback.GuidedActionItemChevronStyle</item>
 
-        <item name="guidedActionCheckedAnimation">@animator/lb_guidedactions_item_checked</item>
-        <item name="guidedActionUncheckedAnimation">@animator/lb_guidedactions_item_unchecked</item>
         <item name="guidedActionPressedAnimation">@animator/lb_guidedactions_item_pressed</item>
         <item name="guidedActionUnpressedAnimation">@animator/lb_guidedactions_item_unpressed</item>
         <item name="guidedActionEnabledChevronAlpha">@string/lb_guidedactions_item_enabled_chevron_alpha</item>
         <item name="guidedActionDisabledChevronAlpha">@string/lb_guidedactions_item_disabled_chevron_alpha</item>
-        <item name="guidedActionContentWidth">@dimen/lb_guidedactions_item_text_width</item>
-        <item name="guidedActionContentWidthNoIcon">@dimen/lb_guidedactions_item_text_width_no_icon</item>
+        <item name="guidedActionContentWidthWeight">@string/lb_guidedactions_width_weight</item>
+        <item name="guidedActionContentWidthWeightTwoPanels">@string/lb_guidedactions_width_weight_two_panels</item>
         <item name="guidedActionTitleMinLines">@integer/lb_guidedactions_item_title_min_lines</item>
         <item name="guidedActionTitleMaxLines">@integer/lb_guidedactions_item_title_max_lines</item>
         <item name="guidedActionDescriptionMinLines">@integer/lb_guidedactions_item_description_min_lines</item>
         <item name="guidedActionVerticalPadding">@dimen/lb_guidedactions_vertical_padding</item>
+    </style>
+    <style name="Theme.Leanback.GuidedStep.Half" parent="Theme.Leanback.GuidedStep">
+      <item name="android:windowEnterTransition">@transition/lb_guidedstep_activity_enter_bottom</item>
+      <item name="guidedStepHeightWeight">@string/lb_guidedstep_height_weight_translucent</item>
+      <item name="android:windowIsTranslucent">true</item>
+      <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="Theme.Leanback.Onboarding" parent="Theme.LeanbackBase">
+        <item name="onboardingHeaderStyle">@style/Widget.Leanback.OnboardingHeaderStyle</item>
+        <item name="onboardingTitleStyle">@style/Widget.Leanback.OnboardingTitleStyle</item>
+        <item name="onboardingDescriptionStyle">@style/Widget.Leanback.OnboardingDescriptionStyle</item>
+        <item name="onboardingNavigatorContainerStyle">@style/Widget.Leanback.OnboardingNavigatorContainerStyle</item>
+        <item name="onboardingPageIndicatorStyle">@style/Widget.Leanback.OnboardingPageIndicatorStyle</item>
+        <item name="onboardingStartButtonStyle">@style/Widget.Leanback.OnboardingStartButtonStyle</item>
+        <item name="onboardingLogoStyle">@style/Widget.Leanback.OnboardingLogoStyle</item>
     </style>
     <style name="Theme.Leanback.VerticalGrid" parent="Theme.Leanback">
         <item name="android:windowEnterTransition">@transition/lb_vertical_grid_enter_transition</item>
@@ -536,18 +578,18 @@
         <item name="playbackProgressPrimaryColor">@color/lb_playback_progress_color_no_theme</item>
         <item name="playbackControlsIconHighlightColor">@color/lb_playback_icon_highlight_no_theme</item>
         <item name="defaultBrandColor">@color/lb_default_brand_color</item>
+        <item name="defaultBrandColorDark">@color/lb_default_brand_color_dark</item>
 
         <item name="android:windowOverscan">true</item>
         <item name="guidedStepTheme">@style/Theme.Leanback.GuidedStep</item>
     </style>
-    <!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/values/styles.xml -->
-    <eat-comment/>
     <style name="Widget.Leanback" parent="Widget.LeanbackBase"/>
     <style name="Widget.Leanback.BaseCardViewStyle">
         <item name="cardForeground">@drawable/lb_card_foreground</item>
         <item name="cardBackground">@color/lb_basic_card_bg_color</item>
     </style>
     <style name="Widget.Leanback.DetailsActionButtonStyle" parent="Widget.Leanback.DetailsActionButtonStyleBase">
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.DetailsActionButton</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:drawablePadding">@dimen/lb_action_icon_margin</item>
@@ -559,17 +601,20 @@
     <style name="Widget.Leanback.DetailsActionButtonStyleBase" parent="android:Widget.Holo.Button.Borderless">
     </style>
     <style name="Widget.Leanback.DetailsDescriptionBodyStyle">
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.DetailsDescriptionBody</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:ellipsize">end</item>
     </style>
     <style name="Widget.Leanback.DetailsDescriptionSubtitleStyle">
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.DetailsDescriptionSubtitle</item>
         <item name="android:maxLines">@integer/lb_details_description_subtitle_max_lines</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:ellipsize">end</item>
     </style>
     <style name="Widget.Leanback.DetailsDescriptionTitleStyle">
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.DetailsDescriptionTitle</item>
         <item name="android:maxLines">@integer/lb_details_description_title_max_lines</item>
         <item name="android:includeFontPadding">false</item>
@@ -580,6 +625,7 @@
         <item name="resizedPaddingAdjustmentBottom">@dimen/lb_details_description_title_padding_adjust_bottom</item>
     </style>
     <style name="Widget.Leanback.ErrorMessageStyle">
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.ErrorMessage</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:maxLines">@integer/lb_error_message_max_lines</item>
@@ -599,6 +645,7 @@
         <item name="focusOutFront">true</item>
     </style>
     <style name="Widget.Leanback.GuidanceBreadcrumbStyle">
+        <item name="android:importantForAccessibility">no</item>
         <item name="android:layout_above">@id/guidance_title</item>
         <item name="android:layout_toStartOf">@id/guidance_icon</item>
         <item name="android:layout_width">wrap_content</item>
@@ -609,6 +656,8 @@
         <item name="android:singleLine">true</item>
         <item name="android:textColor">#88F1F1F1</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textAlignment">viewEnd</item>
     </style>
     <style name="Widget.Leanback.GuidanceContainerStyle">
         <item name="android:layout_width">match_parent</item>
@@ -618,6 +667,7 @@
         <item name="android:clipToPadding">false</item>
     </style>
     <style name="Widget.Leanback.GuidanceDescriptionStyle">
+        <item name="android:importantForAccessibility">no</item>
         <item name="android:layout_below">@id/guidance_title</item>
         <item name="android:layout_toStartOf">@id/guidance_icon</item>
         <item name="android:layout_width">wrap_content</item>
@@ -630,6 +680,7 @@
         <item name="android:textColor">#88F1F1F1</item>
         <item name="android:textSize">14sp</item>
         <item name="android:lineSpacingExtra">3dp</item>
+        <item name="android:textAlignment">viewEnd</item>
     </style>
     <style name="Widget.Leanback.GuidanceIconStyle">
         <item name="android:layout_width">140dp</item>
@@ -641,6 +692,7 @@
         <item name="android:scaleType">fitCenter</item>
     </style>
     <style name="Widget.Leanback.GuidanceTitleStyle">
+        <item name="android:importantForAccessibility">no</item>
         <item name="android:layout_toStartOf">@id/guidance_icon</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -654,15 +706,15 @@
         <item name="android:paddingTop">2dp</item>
         <item name="android:textColor">#FFF1F1F1</item>
         <item name="android:textSize">36sp</item>
+        <item name="android:textAlignment">viewEnd</item>
     </style>
     <style name="Widget.Leanback.GuidedActionItemCheckmarkStyle">
         <item name="android:layout_width">@dimen/lb_guidedactions_item_checkmark_diameter</item>
         <item name="android:layout_height">@dimen/lb_guidedactions_item_checkmark_diameter</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_marginEnd">@dimen/lb_guidedactions_item_delimiter_padding</item>
-        <item name="android:scaleType">center</item>
-        <item name="android:src">@drawable/lb_guidedactions_item_checkmark</item>
-        <item name="android:visibility">invisible</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:visibility">gone</item>
     </style>
     <style name="Widget.Leanback.GuidedActionItemChevronStyle">
         <item name="android:layout_width">wrap_content</item>
@@ -676,7 +728,9 @@
     <style name="Widget.Leanback.GuidedActionItemContainerStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:foreground">?attr/guidedActionsSelectorDrawable</item>
         <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
         <item name="android:minHeight">@dimen/lb_guidedactions_item_min_height</item>
         <item name="android:paddingBottom">@dimen/lb_guidedactions_vertical_padding</item>
         <item name="android:paddingStart">@dimen/lb_guidedactions_item_start_padding</item>
@@ -684,7 +738,7 @@
         <item name="android:paddingTop">@dimen/lb_guidedactions_vertical_padding</item>
     </style>
     <style name="Widget.Leanback.GuidedActionItemContentStyle">
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">start|center_vertical</item>
         <item name="android:layout_weight">1</item>
@@ -694,11 +748,12 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:alpha">@string/lb_guidedactions_item_unselected_description_text_alpha</item>
-        <item name="android:ellipsize">marquee</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:maxLines">@integer/lb_guidedactions_item_description_min_lines</item>
         <item name="android:textColor">@color/lb_guidedactions_item_unselected_text_color</item>
         <item name="android:textSize">@dimen/lb_guidedactions_item_description_font_size</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:visibility">gone</item>
     </style>
     <style name="Widget.Leanback.GuidedActionItemIconStyle">
@@ -718,38 +773,36 @@
         <item name="android:maxLines">@integer/lb_guidedactions_item_title_min_lines</item>
         <item name="android:textColor">@color/lb_guidedactions_item_unselected_text_color</item>
         <item name="android:textSize">@dimen/lb_guidedactions_item_title_font_size</item>
-        <item name="android:background">@null</item>
+        <item name="android:textAlignment">viewStart</item>
     </style>
-    <style name="Widget.Leanback.GuidedActionsContainerStyle">
-        <item name="android:elevation">@dimen/lb_guidedactions_elevation</item>
-        <item name="android:layout_width">@dimen/lb_guidedactions_section_width</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_alignParentEnd">true</item>
-        <item name="android:background">@color/lb_guidedactions_background</item>
-    </style>
+    <style name="Widget.Leanback.GuidedActionsContainerStyle"/>
     <style name="Widget.Leanback.GuidedActionsListStyle">
-        <item name="android:elevation">@dimen/lb_guidedactions_elevation</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:focusable">true</item>
+        <item name="focusOutEnd">false</item>
+        <item name="focusOutFront">false</item>
     </style>
-    <style name="Widget.Leanback.GuidedActionsSelectorStyle">
-        <item name="android:elevation">@dimen/lb_guidedactions_elevation</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/lb_guidedactions_selector_min_height</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:alpha">0</item>
-        <item name="android:background">@color/lb_guidedactions_selector_color</item>
+    <style name="Widget.Leanback.GuidedActionsSelectorStyle"/>
+    <style name="Widget.Leanback.GuidedButtonActionsListStyle" parent="Widget.Leanback.GuidedActionsListStyle">
+    </style>
+    <style name="Widget.Leanback.GuidedSubActionsListStyle" parent="Widget.Leanback.GuidedActionsListStyle">
+        <item name="focusOutEnd">false</item>
+        <item name="focusOutFront">false</item>
+        <item name="focusOutSideStart">false</item>
+        <item name="focusOutSideEnd">false</item>
+        <item name="android:layout_marginBottom">@dimen/lb_guidedactions_sublist_bottom_margin</item>
     </style>
     <style name="Widget.Leanback.Header">
         <item name="android:minHeight">@dimen/lb_browse_header_height</item>
         <item name="android:minWidth">1dp</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.Header</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">none</item>
     </style>
     <style name="Widget.Leanback.Headers"/>
     <style name="Widget.Leanback.Headers.VerticalGridView">
+        <item name="android:background">?attr/defaultBrandColor</item>
         <item name="android:paddingStart">?attr/browsePaddingStart</item>
         <item name="focusOutFront">true</item>
         <item name="focusOutEnd">true</item>
@@ -773,10 +826,9 @@
         <item name="android:layout_below">@+id/title_text</item>
         <item name="android:layout_toStartOf">@+id/extra_badge</item>
         <item name="android:maxLines">1</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
-        <item name="android:textColor">@color/lb_basic_card_content_text_color</item>
-        <item name="android:textSize">@dimen/lb_basic_card_content_text_size</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:ellipsize">none</item>
+        <item name="android:textAppearance">@style/TextAppearance.Leanback.ImageCardView.Content</item>
     </style>
     <style name="Widget.Leanback.ImageCardView.ImageStyle">
         <item name="android:layout_width">wrap_content</item>
@@ -803,25 +855,89 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:maxLines">1</item>
         <item name="android:layout_marginBottom">@dimen/lb_basic_card_info_text_margin</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
-        <item name="android:textColor">@color/lb_basic_card_title_text_color</item>
-        <item name="android:textSize">@dimen/lb_basic_card_title_text_size</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:textAppearance">@style/TextAppearance.Leanback.ImageCardView.Title</item>
     </style>
     <style name="Widget.Leanback.ImageCardViewStyle" parent="Widget.Leanback.BaseCardViewStyle">
         <item name="cardType">infoUnder</item>
         <item name="infoVisibility">activated</item>
         <!-- In order to keep backward compatibility we have to create an icon on right. -->
         <item name="lbImageCardViewType">Title|Content|IconOnRight</item>
-        <item name="lbImageCardViewImageStyle">@style/Widget.Leanback.ImageCardView.ImageStyle</item>
-        <item name="lbImageCardViewTitleStyle">@style/Widget.Leanback.ImageCardView.TitleStyle</item>
-        <item name="lbImageCardViewContentStyle">@style/Widget.Leanback.ImageCardView.ContentStyle</item>
-        <item name="lbImageCardViewBadgeStyle">@style/Widget.Leanback.ImageCardView.BadgeStyle</item>
-        <item name="lbImageCardViewInfoAreaStyle">@style/Widget.Leanback.ImageCardView.InfoAreaStyle</item>
         <!-- Deprecated. Use 'Widget.Leanback.ImageCardView.InfoAreaStyle' instead. -->
         <item name="infoAreaBackground">@null</item>
     </style>
+    <style name="Widget.Leanback.OnboardingDescriptionStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">0.5</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#B3EEEEEE</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">10sp</item>
+    </style>
+    <style name="Widget.Leanback.OnboardingHeaderStyle">
+        <item name="android:layout_width">@dimen/lb_onboarding_content_width</item>
+        <item name="android:layout_height">@dimen/lb_onboarding_header_height</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/lb_onboarding_header_margin_top</item>
+        <item name="android:clipChildren">false</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="Widget.Leanback.OnboardingLogoStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+    <style name="Widget.Leanback.OnboardingNavigatorContainerStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">58dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+    <style name="Widget.Leanback.OnboardingPageIndicatorStyle">
+        <item name="android:layout_width">@dimen/lb_onboarding_content_width</item>
+        <item name="android:layout_height">@dimen/lb_onboarding_navigation_height</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:focusable">true</item>
+        <item name="android:contentDescription">@string/lb_onboarding_accessibility_next</item>
+    </style>
+    <style name="Widget.Leanback.OnboardingStartButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:background">@drawable/lb_onboarding_start_button_background</item>
+        <item name="android:elevation">1.5dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:text">@string/lb_onboarding_get_started</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#014269</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="Widget.Leanback.OnboardingTitleStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">0.5</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#EEEEEE</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:lineSpacingExtra">14sp</item>
+    </style>
     <style name="Widget.Leanback.PlaybackControlLabelStyle">
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.PlaybackControlLabel</item>
     </style>
     <style name="Widget.Leanback.PlaybackControlsActionIconsStyle">
@@ -846,6 +962,7 @@
         <item name="android:focusableInTouchMode">true</item>
     </style>
     <style name="Widget.Leanback.PlaybackControlsTimeStyle">
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.PlaybackControlsTime</item>
     </style>
     <style name="Widget.Leanback.Row">
@@ -868,12 +985,14 @@
         <item name="focusOutFront">true</item>
     </style>
     <style name="Widget.Leanback.Row.HoverCardDescription">
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.Row.HoverCardDescription</item>
         <item name="android:maxWidth">@dimen/lb_browse_row_hovercard_max_width</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">4</item>
     </style>
     <style name="Widget.Leanback.Row.HoverCardTitle">
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.Row.HoverCardTitle</item>
         <item name="android:maxWidth">@dimen/lb_browse_row_hovercard_max_width</item>
         <item name="android:singleLine">true</item>
@@ -900,6 +1019,7 @@
         <item name="android:singleLine">true</item>
         <item name="android:gravity">end</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.Title</item>
     </style>
     <style name="Widget.Leanback.TitleView">

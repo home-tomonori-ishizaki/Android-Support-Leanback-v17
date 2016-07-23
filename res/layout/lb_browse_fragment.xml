@@ -44,4 +44,3 @@
         <include layout="@layout/lb_browse_title" />
     </android.support.v17.leanback.widget.BrowseFrameLayout>
 </FrameLayout>
-<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_browse_fragment.xml -->

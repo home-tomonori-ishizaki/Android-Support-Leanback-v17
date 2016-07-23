@@ -20,4 +20,4 @@
     android:layout_alignBottom="@+id/content_text"
     android:layout_alignParentEnd="true"
     android:layout_marginStart="@dimen/lb_basic_card_info_badge_margin"
-    style="?attr/lbImageCardViewBadgeStyle" /><!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_image_card_view_themed_badge_right.xml -->
+    style="?attr/imageCardViewBadgeStyle" />

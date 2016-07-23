@@ -18,7 +18,7 @@
   <slide
       android:interpolator="@android:interpolator/fast_out_linear_in"
       android:duration="350"
-      android:slideEdge="left">
+      android:slideEdge="@integer/slideEdgeStart">
       <targets>
           <target android:targetId="@id/browse_headers_root" />
           <target android:targetId="@id/title_orb" />
@@ -27,7 +27,7 @@
   <slide
       android:interpolator="@android:interpolator/fast_out_linear_in"
       android:duration="350"
-      android:slideEdge="right">
+      android:slideEdge="@integer/slideEdgeEnd">
       <targets>
           <target android:excludeId="@+id/browse_headers_root" />
           <target android:excludeId="@+id/title_orb" />
@@ -40,4 +40,4 @@
           <target android:excludeId="@+id/browse_headers_root" />
       </targets>
   </fade>
-</transitionSet><!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v17/leanback/res/transition-v21/lb_browse_return_transition.xml -->
+</transitionSet>
