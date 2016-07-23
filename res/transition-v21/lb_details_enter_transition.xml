@@ -20,5 +20,10 @@
       android:duration="500"
       android:interpolator="@android:interpolator/linear_out_slow_in"
       android:slideEdge="bottom">
-  </transition>
-</transitionSet><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-dev/frameworks/support/v17/leanback/res/transition-v21/lb_details_enter_transition.xml -->
+        <targets>
+            <target android:excludeId="@id/title_badge" />
+            <target android:excludeId="@id/title_text" />
+            <target android:excludeId="@id/title_orb" />
+        </targets>
+    </transition>
+</transitionSet><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/v17/leanback/res/transition-v21/lb_details_enter_transition.xml -->

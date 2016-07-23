@@ -62,4 +62,4 @@
     <include layout="@layout/lb_browse_title" />
 
 </FrameLayout>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-dev/frameworks/support/v17/leanback/res/layout/lb_error_fragment.xml -->
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_error_fragment.xml -->

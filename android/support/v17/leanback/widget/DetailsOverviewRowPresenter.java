@@ -20,10 +20,12 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.v17.leanback.R;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,16 +35,17 @@ import android.widget.ImageView;
 import java.util.Collection;
 
 /**
- * A DetailsOverviewRowPresenter renders a {@link DetailsOverviewRow} to display an
- * overview of an item. Typically this row will be the first row in a fragment
+ * Renders a {@link DetailsOverviewRow} to display an overview of an item.
+ * Typically this row will be the first row in a fragment
  * such as the {@link android.support.v17.leanback.app.DetailsFragment
- * DetailsFragment}.  View created by DetailsOverviewRowPresenter is made in three parts:
+ * DetailsFragment}.  The View created by the DetailsOverviewRowPresenter is made in three parts:
  * ImageView on the left, action list view on the bottom and a customizable detailed
  * description view on the right.
  *
  * <p>The detailed description is rendered using a {@link Presenter} passed in
- * {@link #DetailsOverviewRowPresenter(Presenter)}.  User can access detailed description
- * ViewHolder from {@link ViewHolder#mDetailsDescriptionViewHolder}.
+ * {@link #DetailsOverviewRowPresenter(Presenter)}.  Typically this will be an instance of
+ * {@link AbstractDetailsDescriptionPresenter}.  The application can access the
+ * detailed description ViewHolder from {@link ViewHolder#mDetailsDescriptionViewHolder}.
  * </p>
  *
  * <p>
@@ -53,8 +56,8 @@ import java.util.Collection;
  * <p>
  * Because transition support and layout are fully controlled by DetailsOverviewRowPresenter,
  * developer can not override DetailsOverviewRowPresenter.ViewHolder for adding/replacing views
- * of DetailsOverviewRowPresenter.  If developer wants more customization beyond replacing
- * detailed description , he/she should write a new presenter class for row object.
+ * of DetailsOverviewRowPresenter.  If further customization is required beyond replacing
+ * the detailed description, the application should create a new row presenter class.
  * </p>
  */
 public class DetailsOverviewRowPresenter extends RowPresenter {
@@ -64,6 +67,53 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
 
     private static final int MORE_ACTIONS_FADE_MS = 100;
     private static final long DEFAULT_TIMEOUT = 5000;
+
+    class ActionsItemBridgeAdapter extends ItemBridgeAdapter {
+        DetailsOverviewRowPresenter.ViewHolder mViewHolder;
+
+        ActionsItemBridgeAdapter(DetailsOverviewRowPresenter.ViewHolder viewHolder) {
+            mViewHolder = viewHolder;
+        }
+
+        @Override
+        public void onBind(final ItemBridgeAdapter.ViewHolder ibvh) {
+            if (mViewHolder.getOnItemViewClickedListener() != null ||
+                    mActionClickedListener != null) {
+                ibvh.getPresenter().setOnClickListener(
+                        ibvh.getViewHolder(), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (mViewHolder.getOnItemViewClickedListener() != null) {
+                                    mViewHolder.getOnItemViewClickedListener().onItemClicked(
+                                            ibvh.getViewHolder(), ibvh.getItem(),
+                                            mViewHolder, mViewHolder.getRow());
+                                }
+                                if (mActionClickedListener != null) {
+                                    mActionClickedListener.onActionClicked((Action) ibvh.getItem());
+                                }
+                            }
+                        });
+            }
+        }
+        @Override
+        public void onUnbind(final ItemBridgeAdapter.ViewHolder ibvh) {
+            if (mViewHolder.getOnItemViewClickedListener() != null ||
+                    mActionClickedListener != null) {
+                ibvh.getPresenter().setOnClickListener(ibvh.getViewHolder(), null);
+            }
+        }
+        @Override
+        public void onAttachedToWindow(ItemBridgeAdapter.ViewHolder viewHolder) {
+            // Remove first to ensure we don't add ourselves more than once.
+            viewHolder.itemView.removeOnLayoutChangeListener(mViewHolder.mLayoutChangeListener);
+            viewHolder.itemView.addOnLayoutChangeListener(mViewHolder.mLayoutChangeListener);
+        }
+        @Override
+        public void onDetachedFromWindow(ItemBridgeAdapter.ViewHolder viewHolder) {
+            viewHolder.itemView.removeOnLayoutChangeListener(mViewHolder.mLayoutChangeListener);
+            mViewHolder.checkFirstAndLastPosition(false);
+        }
+    }
 
     /**
      * A ViewHolder for the DetailsOverviewRow.
@@ -79,9 +129,38 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
         int mNumItems;
         boolean mShowMoreRight;
         boolean mShowMoreLeft;
-        final ItemBridgeAdapter mActionBridgeAdapter = new ItemBridgeAdapter();
+        ItemBridgeAdapter mActionBridgeAdapter;
+        final Handler mHandler = new Handler();
 
-        void bind(ObjectAdapter adapter) {
+        final Runnable mUpdateDrawableCallback = new Runnable() {
+            @Override
+            public void run() {
+                bindImageDrawable(ViewHolder.this);
+            }
+        };
+
+        final DetailsOverviewRow.Listener mListener = new DetailsOverviewRow.Listener() {
+            @Override
+            public void onImageDrawableChanged(DetailsOverviewRow row) {
+                mHandler.removeCallbacks(mUpdateDrawableCallback);
+                mHandler.post(mUpdateDrawableCallback);
+            }
+
+            @Override
+            public void onItemChanged(DetailsOverviewRow row) {
+                if (mDetailsDescriptionViewHolder != null) {
+                    mDetailsPresenter.onUnbindViewHolder(mDetailsDescriptionViewHolder);
+                }
+                mDetailsPresenter.onBindViewHolder(mDetailsDescriptionViewHolder, row.getItem());
+            }
+
+            @Override
+            public void onActionsAdapterChanged(DetailsOverviewRow row) {
+                bindActions(row.getActionsAdapter());
+            }
+        };
+
+        void bindActions(ObjectAdapter adapter) {
             mActionBridgeAdapter.setAdapter(adapter);
             mActionsRow.setAdapter(mActionBridgeAdapter);
             mNumItems = mActionBridgeAdapter.getItemCount();
@@ -117,63 +196,15 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
                     mActionsRow.getChildViewHolder(view) :
                     mActionsRow.findViewHolderForPosition(mActionsRow.getSelectedPosition()));
             if (ibvh == null) {
-                if (getOnItemSelectedListener() != null) {
-                    getOnItemSelectedListener().onItemSelected(null, getRow());
-                }
                 if (getOnItemViewSelectedListener() != null) {
                     getOnItemViewSelectedListener().onItemSelected(null, null,
                             ViewHolder.this, getRow());
                 }
             } else {
-                if (getOnItemSelectedListener() != null) {
-                    getOnItemSelectedListener().onItemSelected(ibvh.getItem(), getRow());
-                }
                 if (getOnItemViewSelectedListener() != null) {
                     getOnItemViewSelectedListener().onItemSelected(ibvh.getViewHolder(), ibvh.getItem(),
                             ViewHolder.this, getRow());
                 }
-            }
-        };
-
-        final ItemBridgeAdapter.AdapterListener mAdapterListener =
-                new ItemBridgeAdapter.AdapterListener() {
-
-            @Override
-            public void onBind(final ItemBridgeAdapter.ViewHolder ibvh) {
-                if (getOnItemViewClickedListener() != null || getOnItemClickedListener() != null
-                        || mActionClickedListener != null) {
-                    ibvh.getPresenter().setOnClickListener(
-                            ibvh.getViewHolder(), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if (getOnItemViewClickedListener() != null) {
-                                        getOnItemViewClickedListener().onItemClicked(ibvh.getViewHolder(),
-                                                ibvh.getItem(), ViewHolder.this, getRow());
-                                    }
-                                    if (mActionClickedListener != null) {
-                                        mActionClickedListener.onActionClicked((Action) ibvh.getItem());
-                                    }
-                                }
-                            });
-                }
-            }
-            @Override
-            public void onUnbind(final ItemBridgeAdapter.ViewHolder ibvh) {
-                if (getOnItemViewClickedListener() != null || getOnItemClickedListener() != null
-                        || mActionClickedListener != null) {
-                    ibvh.getPresenter().setOnClickListener(ibvh.getViewHolder(), null);
-                }
-            }
-            @Override
-            public void onAttachedToWindow(ItemBridgeAdapter.ViewHolder viewHolder) {
-                // Remove first to ensure we don't add ourselves more than once.
-                viewHolder.itemView.removeOnLayoutChangeListener(mLayoutChangeListener);
-                viewHolder.itemView.addOnLayoutChangeListener(mLayoutChangeListener);
-            }
-            @Override
-            public void onDetachedFromWindow(ItemBridgeAdapter.ViewHolder viewHolder) {
-                viewHolder.itemView.removeOnLayoutChangeListener(mLayoutChangeListener);
-                checkFirstAndLastPosition(false);
             }
         };
 
@@ -252,13 +283,10 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
             mDetailsDescriptionViewHolder =
                     detailsPresenter.onCreateViewHolder(mDetailsDescriptionFrame);
             mDetailsDescriptionFrame.addView(mDetailsDescriptionViewHolder.view);
-
-            mActionBridgeAdapter.setAdapterListener(mAdapterListener);
         }
     }
 
     private final Presenter mDetailsPresenter;
-    private final ActionPresenterSelector mActionPresenterSelector;
     private OnActionClickedListener mActionClickedListener;
 
     private int mBackgroundColor = Color.TRANSPARENT;
@@ -277,7 +305,6 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
         setHeaderPresenter(null);
         setSelectEffectEnabled(false);
         mDetailsPresenter = detailsPresenter;
-        mActionPresenterSelector = new ActionPresenterSelector();
     }
 
     /**
@@ -288,7 +315,7 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
     }
 
     /**
-     * Gets the listener for Action click events.
+     * Returns the listener for Action click events.
      */
     public OnActionClickedListener getOnActionClickedListener() {
         return mActionClickedListener;
@@ -326,14 +353,14 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
     }
 
     /**
-     * Set enter transition of target activity (typically a DetailActivity) to be
+     * Sets the enter transition of target activity to be
      * transiting into overview row created by this presenter.  The transition will
-     * be cancelled if overview image is not loaded in the timeout period.
+     * be cancelled if the overview image is not loaded in the timeout period.
      * <p>
      * It assumes shared element passed from calling activity is an ImageView;
-     * the shared element transits to overview image on the left of detail
+     * the shared element transits to overview image on the starting edge of the detail
      * overview row, while bounds of overview row grows and reveals text
-     * and buttons on the right.
+     * and action buttons.
      * <p>
      * The method must be invoked in target Activity's onCreate().
      */
@@ -347,14 +374,14 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
     }
 
     /**
-     * Set enter transition of target activity (typically a DetailActivity) to be
+     * Sets the enter transition of target activity to be
      * transiting into overview row created by this presenter.  The transition will
      * be cancelled if overview image is not loaded in a default timeout period.
      * <p>
      * It assumes shared element passed from calling activity is an ImageView;
-     * the shared element transits to overview image on the left of detail
+     * the shared element transits to overview image on the starting edge of the detail
      * overview row, while bounds of overview row grows and reveals text
-     * and buttons on the right.
+     * and action buttons.
      * <p>
      * The method must be invoked in target Activity's onCreate().
      */
@@ -365,10 +392,13 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
 
     private int getDefaultBackgroundColor(Context context) {
         TypedValue outValue = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.defaultBrandColor, outValue, true);
-        return context.getResources().getColor(outValue.resourceId);
+        if (context.getTheme().resolveAttribute(R.attr.defaultBrandColor, outValue, true)) {
+            return context.getResources().getColor(outValue.resourceId);
+        }
+        return context.getResources().getColor(R.color.lb_default_brand_color);
     }
 
+    @Override
     protected void onRowViewSelected(RowPresenter.ViewHolder vh, boolean selected) {
         super.onRowViewSelected(vh, selected);
         if (selected) {
@@ -393,7 +423,8 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
         return context.getResources().getDimensionPixelSize(resId);
     }
 
-    private void initDetailsOverview(ViewHolder vh) {
+    private void initDetailsOverview(final ViewHolder vh) {
+        vh.mActionBridgeAdapter = new ActionsItemBridgeAdapter(vh);
         final View overview = vh.mOverviewFrame;
         ViewGroup.LayoutParams lp = overview.getLayoutParams();
         lp.height = getCardHeight(overview.getContext());
@@ -402,6 +433,17 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
         if (!getSelectEffectEnabled()) {
             vh.mOverviewFrame.setForeground(null);
         }
+        vh.mActionsRow.setOnUnhandledKeyListener(new BaseGridView.OnUnhandledKeyListener() {
+            @Override
+            public boolean onUnhandledKey(KeyEvent event) {
+                if (vh.getOnKeyListener() != null) {
+                    if (vh.getOnKeyListener().onKey(vh.view, event.getKeyCode(), event)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     private static int getNonNegativeWidth(Drawable drawable) {
@@ -414,12 +456,8 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
         return (height > 0 ? height : 0);
     }
 
-    @Override
-    protected void onBindRowViewHolder(RowPresenter.ViewHolder holder, Object item) {
-        super.onBindRowViewHolder(holder, item);
-
-        DetailsOverviewRow row = (DetailsOverviewRow) item;
-        ViewHolder vh = (ViewHolder) holder;
+    private void bindImageDrawable(ViewHolder vh) {
+        DetailsOverviewRow row = (DetailsOverviewRow) vh.getRow();
 
         ViewGroup.MarginLayoutParams layoutParams =
                 (ViewGroup.MarginLayoutParams) vh.mImageView.getLayoutParams();
@@ -494,26 +532,33 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
         }
         vh.mImageView.setLayoutParams(layoutParams);
         vh.mImageView.setImageDrawable(row.getImageDrawable());
-
-        mDetailsPresenter.onBindViewHolder(vh.mDetailsDescriptionViewHolder, row.getItem());
-
-        ArrayObjectAdapter aoa = new ArrayObjectAdapter(mActionPresenterSelector);
-        aoa.addAll(0, (Collection)row.getActions());
-        vh.bind(aoa);
-
         if (row.getImageDrawable() != null && mSharedElementHelper != null) {
             mSharedElementHelper.onBindToDrawable(vh);
         }
     }
 
     @Override
-    protected void onUnbindRowViewHolder(RowPresenter.ViewHolder holder) {
-        super.onUnbindRowViewHolder(holder);
+    protected void onBindRowViewHolder(RowPresenter.ViewHolder holder, Object item) {
+        super.onBindRowViewHolder(holder, item);
 
+        DetailsOverviewRow row = (DetailsOverviewRow) item;
         ViewHolder vh = (ViewHolder) holder;
+
+        bindImageDrawable(vh);
+        mDetailsPresenter.onBindViewHolder(vh.mDetailsDescriptionViewHolder, row.getItem());
+        vh.bindActions(row.getActionsAdapter());
+        row.addListener(vh.mListener);
+    }
+
+    @Override
+    protected void onUnbindRowViewHolder(RowPresenter.ViewHolder holder) {
+        ViewHolder vh = (ViewHolder) holder;
+        DetailsOverviewRow dor = (DetailsOverviewRow) vh.getRow();
+        dor.removeListener(vh.mListener);
         if (vh.mDetailsDescriptionViewHolder != null) {
             mDetailsPresenter.onUnbindViewHolder(vh.mDetailsDescriptionViewHolder);
         }
+        super.onUnbindRowViewHolder(holder);
     }
 
     @Override

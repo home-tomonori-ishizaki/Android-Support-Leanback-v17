@@ -18,10 +18,6 @@
     android:id="@+id/browse_title_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="?attr/browsePaddingTop"
-    android:paddingEnd="?attr/browsePaddingEnd"
-    android:paddingStart="?attr/browsePaddingStart"
-    android:paddingBottom="?attr/browsePaddingTop"
     style="?attr/browseTitleViewStyle" />
 
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-dev/frameworks/support/v17/leanback/res/layout/lb_browse_title.xml -->
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_browse_title.xml -->

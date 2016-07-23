@@ -26,8 +26,6 @@ import android.support.v17.leanback.widget.RowPresenter.ViewHolder;
 import android.support.v17.leanback.widget.ScaleFrameLayout;
 import android.support.v17.leanback.widget.VerticalGridView;
 import android.support.v17.leanback.widget.HorizontalGridView;
-import android.support.v17.leanback.widget.OnItemSelectedListener;
-import android.support.v17.leanback.widget.OnItemClickedListener;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.Presenter;
@@ -42,6 +40,12 @@ import android.view.animation.Interpolator;
 
 /**
  * An ordered set of rows of leanback widgets.
+ * <p>
+ * A RowsFragment renders the elements of its
+ * {@link android.support.v17.leanback.widget.ObjectAdapter} as a set
+ * of rows in a vertical list. The elements in this adapter must be subclasses
+ * of {@link android.support.v17.leanback.widget.Row}.
+ * </p>
  */
 public class RowsFragment extends BaseRowFragment {
 
@@ -89,7 +93,7 @@ public class RowsFragment extends BaseRowFragment {
         }
 
         void animateSelect(boolean select, boolean immediate) {
-            endSelectAnimation();
+            mSelectAnimator.end();
             final float end = select ? 1 : 0;
             if (immediate) {
                 mRowPresenter.setSelectLevel(mRowViewHolder, end);
@@ -100,14 +104,6 @@ public class RowsFragment extends BaseRowFragment {
                 mSelectLevelAnimDelta = end - mSelectLevelAnimStart;
                 mSelectAnimator.start();
             }
-        }
-
-        void endAnimations() {
-            endSelectAnimation();
-        }
-
-        void endSelectAnimation() {
-            mSelectAnimator.end();
         }
 
     }
@@ -125,9 +121,7 @@ public class RowsFragment extends BaseRowFragment {
     private boolean mInTransition;
     private boolean mAfterEntranceTransition = true;
 
-    private OnItemSelectedListener mOnItemSelectedListener;
     private OnItemViewSelectedListener mOnItemViewSelectedListener;
-    private OnItemClickedListener mOnItemClickedListener;
     private OnItemViewClickedListener mOnItemViewClickedListener;
 
     // Select animation and interpolator are not intended to be
@@ -144,29 +138,6 @@ public class RowsFragment extends BaseRowFragment {
     @Override
     protected VerticalGridView findGridViewFromRoot(View view) {
         return (VerticalGridView) view.findViewById(R.id.container_list);
-    }
-
-    /**
-     * Sets an item clicked listener on the fragment.
-     * OnItemClickedListener will override {@link View.OnClickListener} that
-     * item presenter sets during {@link Presenter#onCreateViewHolder(ViewGroup)}.
-     * So in general,  developer should choose one of the listeners but not both.
-     * @deprecated Use {@link #setOnItemViewClickedListener(OnItemViewClickedListener)}
-     */
-    public void setOnItemClickedListener(OnItemClickedListener listener) {
-        mOnItemClickedListener = listener;
-        if (mViewsCreated) {
-            throw new IllegalStateException(
-                    "Item clicked listener must be set before views are created");
-        }
-    }
-
-    /**
-     * Returns the item clicked listener.
-     * @deprecated Use {@link #getOnItemClickedListener()}
-     */
-    public OnItemClickedListener getOnItemClickedListener() {
-        return mOnItemClickedListener;
     }
 
     /**
@@ -210,24 +181,6 @@ public class RowsFragment extends BaseRowFragment {
 
     /**
      * Sets an item selection listener.
-     * @deprecated Use {@link #setOnItemViewSelectedListener(OnItemViewSelectedListener)}
-     */
-    public void setOnItemSelectedListener(OnItemSelectedListener listener) {
-        mOnItemSelectedListener = listener;
-        VerticalGridView listView = getVerticalGridView();
-        if (listView != null) {
-            final int count = listView.getChildCount();
-            for (int i = 0; i < count; i++) {
-                View view = listView.getChildAt(i);
-                ItemBridgeAdapter.ViewHolder vh = (ItemBridgeAdapter.ViewHolder)
-                        listView.getChildViewHolder(view);
-                setOnItemSelectedListener(vh, mOnItemSelectedListener);
-            }
-        }
-    }
-
-    /**
-     * Sets an item selection listener.
      */
     public void setOnItemViewSelectedListener(OnItemViewSelectedListener listener) {
         mOnItemViewSelectedListener = listener;
@@ -236,9 +189,11 @@ public class RowsFragment extends BaseRowFragment {
             final int count = listView.getChildCount();
             for (int i = 0; i < count; i++) {
                 View view = listView.getChildAt(i);
-                ItemBridgeAdapter.ViewHolder vh = (ItemBridgeAdapter.ViewHolder)
+                ItemBridgeAdapter.ViewHolder ibvh = (ItemBridgeAdapter.ViewHolder)
                         listView.getChildViewHolder(view);
-                setOnItemViewSelectedListener(vh, mOnItemViewSelectedListener);
+                RowPresenter rowPresenter = (RowPresenter) ibvh.getPresenter();
+                RowPresenter.ViewHolder vh = rowPresenter.getRowViewHolder(ibvh.getViewHolder());
+                vh.setOnItemViewSelectedListener(mOnItemViewSelectedListener);
             }
         }
     }
@@ -335,14 +290,14 @@ public class RowsFragment extends BaseRowFragment {
     }
 
     /**
-     * Get the view that will change scale.
+     * Returns the view that will change scale.
      */
     View getScaleView() {
         return getVerticalGridView();
     }
 
     /**
-     * Set pivots to scale rows fragment.
+     * Sets the pivots to scale rows fragment.
      */
     void setScalePivots(float pivotX, float pivotY) {
         // set pivot on ScaleFrameLayout, it will be propagated to its child VerticalGridView
@@ -362,22 +317,10 @@ public class RowsFragment extends BaseRowFragment {
         ((RowPresenter) vh.getPresenter()).setRowViewSelected(vh.getViewHolder(), selected);
     }
 
-    private static void setOnItemSelectedListener(ItemBridgeAdapter.ViewHolder vh,
-            OnItemSelectedListener listener) {
-        ((RowPresenter) vh.getPresenter()).setOnItemSelectedListener(listener);
-    }
-
-    private static void setOnItemViewSelectedListener(ItemBridgeAdapter.ViewHolder vh,
-            OnItemViewSelectedListener listener) {
-        ((RowPresenter) vh.getPresenter()).setOnItemViewSelectedListener(listener);
-    }
-
     private final ItemBridgeAdapter.AdapterListener mBridgeAdapterListener =
             new ItemBridgeAdapter.AdapterListener() {
         @Override
         public void onAddPresenter(Presenter presenter, int type) {
-            ((RowPresenter) presenter).setOnItemClickedListener(mOnItemClickedListener);
-            ((RowPresenter) presenter).setOnItemViewClickedListener(mOnItemViewClickedListener);
             if (mExternalAdapterListener != null) {
                 mExternalAdapterListener.onAddPresenter(presenter, type);
             }
@@ -409,10 +352,10 @@ public class RowsFragment extends BaseRowFragment {
             // but again it should use the unchanged mExpand value,  so we don't need do any
             // thing in onBind.
             setRowViewExpanded(vh, mExpand);
-            setOnItemSelectedListener(vh, mOnItemSelectedListener);
-            setOnItemViewSelectedListener(vh, mOnItemViewSelectedListener);
             RowPresenter rowPresenter = (RowPresenter) vh.getPresenter();
             RowPresenter.ViewHolder rowVh = rowPresenter.getRowViewHolder(vh.getViewHolder());
+            rowVh.setOnItemViewSelectedListener(mOnItemViewSelectedListener);
+            rowVh.setOnItemViewClickedListener(mOnItemViewClickedListener);
             rowPresenter.setEntranceTransitionState(rowVh, mAfterEntranceTransition);
             if (mExternalAdapterListener != null) {
                 mExternalAdapterListener.onAttachedToWindow(vh);
@@ -436,8 +379,7 @@ public class RowsFragment extends BaseRowFragment {
         }
         @Override
         public void onUnbind(ItemBridgeAdapter.ViewHolder vh) {
-            RowViewHolderExtra extra = (RowViewHolderExtra) vh.getExtraObject();
-            extra.endAnimations();
+            setRowViewSelected(vh, false, true);
             if (mExternalAdapterListener != null) {
                 mExternalAdapterListener.onUnbind(vh);
             }

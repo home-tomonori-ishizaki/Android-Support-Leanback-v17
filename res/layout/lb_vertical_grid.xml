@@ -17,9 +17,12 @@
 
 <android.support.v17.leanback.widget.VerticalGridView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lb="http://schemas.android.com/apk/res-auto"
     android:id="@+id/browse_grid"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:clipToPadding="false"
+    lb:columnWidth="wrap_content"
     style="?attr/itemsVerticalGridStyle" />
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-dev/frameworks/support/v17/leanback/res/layout/lb_vertical_grid.xml -->
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_vertical_grid.xml -->

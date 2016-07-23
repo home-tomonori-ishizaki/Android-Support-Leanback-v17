@@ -16,23 +16,35 @@
 package android.support.v17.leanback.app;
 
 import android.support.v17.leanback.R;
+import android.support.v17.leanback.widget.BrowseFrameLayout;
 import android.support.v17.leanback.widget.ObjectAdapter;
-import android.support.v17.leanback.widget.OnItemClickedListener;
-import android.support.v17.leanback.widget.OnItemSelectedListener;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.OnItemViewSelectedListener;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
+import android.support.v17.leanback.widget.TitleHelper;
+import android.support.v17.leanback.widget.TitleView;
 import android.support.v17.leanback.widget.VerticalGridView;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Wrapper fragment for leanback details screens.
+ * A fragment for creating Leanback details screens.
+ *
+ * <p>
+ * A DetailsSupportFragment renders the elements of its {@link ObjectAdapter} as a set
+ * of rows in a vertical list. The elements in this adapter must be subclasses
+ * of {@link Row}.
+ * </p>
+ *
+ * <p>
+ * The recommended theme to use with a DetailsSupportFragment is
+ * {@link android.support.v17.leanback.R.style#Theme_Leanback_Details}.
+ * </p>
  */
 public class DetailsSupportFragment extends BaseSupportFragment {
     private static final String TAG = "DetailsSupportFragment";
@@ -41,6 +53,7 @@ public class DetailsSupportFragment extends BaseSupportFragment {
     private class SetSelectionRunnable implements Runnable {
         int mPosition;
         boolean mSmooth = true;
+
         @Override
         public void run() {
             mRowsSupportFragment.setSelectedPosition(mPosition, mSmooth);
@@ -51,15 +64,27 @@ public class DetailsSupportFragment extends BaseSupportFragment {
 
     private ObjectAdapter mAdapter;
     private int mContainerListAlignTop;
-    private OnItemSelectedListener mExternalOnItemSelectedListener;
-    private OnItemClickedListener mOnItemClickedListener;
     private OnItemViewSelectedListener mExternalOnItemViewSelectedListener;
     private OnItemViewClickedListener mOnItemViewClickedListener;
-    private int mSelectedPosition = -1;
 
     private Object mSceneAfterEntranceTransition;
 
     private final SetSelectionRunnable mSetSelectionRunnable = new SetSelectionRunnable();
+
+    private final OnItemViewSelectedListener mOnItemViewSelectedListener =
+            new OnItemViewSelectedListener() {
+        @Override
+        public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item,
+                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
+            int position = mRowsSupportFragment.getVerticalGridView().getSelectedPosition();
+            if (DEBUG) Log.v(TAG, "row selected position " + position);
+            onRowSelected(position);
+            if (mExternalOnItemViewSelectedListener != null) {
+                mExternalOnItemViewSelectedListener.onItemSelected(itemViewHolder, item,
+                        rowViewHolder, row);
+            }
+        }
+    };
 
     /**
      * Sets the list of rows for the fragment.
@@ -80,50 +105,25 @@ public class DetailsSupportFragment extends BaseSupportFragment {
 
     /**
      * Sets an item selection listener.
-     * @deprecated Use {@link #setOnItemViewSelectedListener(OnItemViewSelectedListener)}
-     */
-    public void setOnItemSelectedListener(OnItemSelectedListener listener) {
-        mExternalOnItemSelectedListener = listener;
-    }
-
-    /**
-     * Sets an item Clicked listener.
-     * @deprecated Use {@link #setOnItemViewClickedListener(OnItemViewClickedListener)}
-     */
-    public void setOnItemClickedListener(OnItemClickedListener listener) {
-        mOnItemClickedListener = listener;
-        if (mRowsSupportFragment != null) {
-            mRowsSupportFragment.setOnItemClickedListener(listener);
-        }
-    }
-
-    /**
-     * Sets an item selection listener.
      */
     public void setOnItemViewSelectedListener(OnItemViewSelectedListener listener) {
         mExternalOnItemViewSelectedListener = listener;
     }
 
     /**
-     * Sets an item Clicked listener.
+     * Sets an item clicked listener.
      */
     public void setOnItemViewClickedListener(OnItemViewClickedListener listener) {
-        mOnItemViewClickedListener = listener;
-        if (mRowsSupportFragment != null) {
-            mRowsSupportFragment.setOnItemViewClickedListener(listener);
+        if (mOnItemViewClickedListener != listener) {
+            mOnItemViewClickedListener = listener;
+            if (mRowsSupportFragment != null) {
+                mRowsSupportFragment.setOnItemViewClickedListener(listener);
+            }
         }
     }
 
     /**
-     * Returns the item Clicked listener.
-     * @deprecated Use {@link #getOnItemViewClickedListener()}
-     */
-    public OnItemClickedListener getOnItemClickedListener() {
-        return mOnItemClickedListener;
-    }
-
-    /**
-     * Returns the item Clicked listener.
+     * Returns the item clicked listener.
      */
     public OnItemViewClickedListener getOnItemViewClickedListener() {
         return mOnItemViewClickedListener;
@@ -142,19 +142,20 @@ public class DetailsSupportFragment extends BaseSupportFragment {
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lb_details_fragment, container, false);
         mRowsSupportFragment = (RowsSupportFragment) getChildFragmentManager().findFragmentById(
-                R.id.fragment_dock); 
+                R.id.details_rows_dock);
         if (mRowsSupportFragment == null) {
             mRowsSupportFragment = new RowsSupportFragment();
             getChildFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_dock, mRowsSupportFragment).commit();
+                    .replace(R.id.details_rows_dock, mRowsSupportFragment).commit();
         }
         mRowsSupportFragment.setAdapter(mAdapter);
-        mRowsSupportFragment.setOnItemSelectedListener(mExternalOnItemSelectedListener);
-        mRowsSupportFragment.setOnItemViewSelectedListener(mExternalOnItemViewSelectedListener);
-        mRowsSupportFragment.setOnItemClickedListener(mOnItemClickedListener);
+        mRowsSupportFragment.setOnItemViewSelectedListener(mOnItemViewSelectedListener);
         mRowsSupportFragment.setOnItemViewClickedListener(mOnItemViewClickedListener);
-        mSceneAfterEntranceTransition = sTransitionHelper.createScene((ViewGroup) view,
-                new Runnable() {
+
+        setTitleView((TitleView) view.findViewById(R.id.browse_title_group));
+
+        mSceneAfterEntranceTransition = sTransitionHelper.createScene(
+                (ViewGroup) view, new Runnable() {
             @Override
             public void run() {
                 mRowsSupportFragment.setEntranceTransitionState(true);
@@ -188,6 +189,12 @@ public class DetailsSupportFragment extends BaseSupportFragment {
         setVerticalGridViewLayout(mRowsSupportFragment.getVerticalGridView());
     }
 
+    private void setupFocusSearchListener() {
+        BrowseFrameLayout browseFrameLayout = (BrowseFrameLayout) getView().findViewById(
+                R.id.details_frame);
+        browseFrameLayout.setOnFocusSearchListener(getTitleHelper().getOnFocusSearchListener());
+    }
+
     /**
      * Sets the selected row position with smooth animation.
      */
@@ -206,10 +213,19 @@ public class DetailsSupportFragment extends BaseSupportFragment {
         }
     }
 
+    private void onRowSelected(int position) {
+        if (getAdapter() == null || getAdapter().size() == 0 || position == 0) {
+            showTitle(true);
+        } else {
+            showTitle(false);
+        }
+    }
+
     @Override
     public void onStart() {
         super.onStart();
         setupChildFragmentLayout();
+        setupFocusSearchListener();
         mRowsSupportFragment.getView().requestFocus();
         if (isEntranceTransitionEnabled()) {
             // make sure recycler view animation is disabled
@@ -234,5 +250,4 @@ public class DetailsSupportFragment extends BaseSupportFragment {
     protected void onEntranceTransitionEnd() {
         mRowsSupportFragment.onTransitionEnd();
     }
-
 }

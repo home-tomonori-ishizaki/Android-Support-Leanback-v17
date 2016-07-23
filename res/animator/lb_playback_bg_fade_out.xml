@@ -21,4 +21,4 @@
     android:valueFrom="255"
     android:valueTo="0"
     android:valueType="intType" />
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-dev/frameworks/support/v17/leanback/res/animator/lb_playback_bg_fade_out.xml -->
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/v17/leanback/res/animator/lb_playback_bg_fade_out.xml -->
