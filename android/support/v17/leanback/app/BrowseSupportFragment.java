@@ -15,6 +15,7 @@
  */
 package android.support.v17.leanback.app;
 
+import android.support.annotation.ColorInt;
 import android.support.v17.leanback.R;
 import android.support.v17.leanback.transition.LeanbackTransitionHelper;
 import android.support.v17.leanback.transition.TransitionHelper;
@@ -278,7 +279,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
      *
      * @param color The color to use as the brand color of the fragment.
      */
-    public void setBrandColor(int color) {
+    public void setBrandColor(@ColorInt int color) {
         mBrandColor = color;
         mBrandColorSet = true;
 
@@ -291,6 +292,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
      * Returns the brand color for the browse fragment.
      * The default is transparent.
      */
+    @ColorInt
     public int getBrandColor() {
         return mBrandColor;
     }
@@ -419,6 +421,7 @@ public class BrowseSupportFragment extends BaseSupportFragment {
         mRowsSupportFragment.onExpandTransitionStart(!withHeaders, new Runnable() {
             @Override
             public void run() {
+                mHeadersSupportFragment.onTransitionPrepare();
                 mHeadersSupportFragment.onTransitionStart();
                 createHeadersTransition();
                 if (mBrowseTransitionListener != null) {
@@ -898,6 +901,12 @@ public class BrowseSupportFragment extends BaseSupportFragment {
     protected void runEntranceTransition(Object entranceTransition) {
         sTransitionHelper.runTransition(mSceneAfterEntranceTransition,
                 entranceTransition);
+    }
+
+    @Override
+    protected void onEntranceTransitionPrepare() {
+        mHeadersSupportFragment.onTransitionPrepare();
+        mRowsSupportFragment.onTransitionPrepare();
     }
 
     @Override

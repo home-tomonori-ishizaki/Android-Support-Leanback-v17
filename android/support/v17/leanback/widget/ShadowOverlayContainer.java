@@ -14,6 +14,7 @@
 package android.support.v17.leanback.widget;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.support.v17.leanback.R;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -186,9 +187,6 @@ public class ShadowOverlayContainer extends ViewGroup {
             mColorDimOverlay = LayoutInflater.from(getContext())
                     .inflate(R.layout.lb_card_color_overlay, this, false);
             addView(mColorDimOverlay);
-            if (roundedCorners) {
-                RoundedRectHelper.getInstance().setClipToRoundedOutline(mColorDimOverlay, true);
-            }
         }
     }
 
@@ -216,7 +214,7 @@ public class ShadowOverlayContainer extends ViewGroup {
     /**
      * Set color (with alpha) of the overlay.
      */
-    public void setOverlayColor(int overlayColor) {
+    public void setOverlayColor(@ColorInt int overlayColor) {
         if (mColorDimOverlay != null) {
             mColorDimOverlay.setBackgroundColor(overlayColor);
         }

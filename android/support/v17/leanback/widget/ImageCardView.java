@@ -16,6 +16,7 @@ package android.support.v17.leanback.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 import android.support.v17.leanback.R;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -169,8 +170,8 @@ public class ImageCardView extends BaseCardView {
 
     /**
      * Sets the info area background color.
-     */
-    public void setInfoAreaBackgroundColor(int color) {
+     */    
+    public void setInfoAreaBackgroundColor(@ColorInt int color) {
         if (mInfoArea != null) {
             mInfoArea.setBackgroundColor(color);
         }
