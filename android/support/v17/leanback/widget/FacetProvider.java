@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The Android Open Source Project
+ * Copyright (C) 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -14,20 +14,17 @@
 package android.support.v17.leanback.widget;
 
 /**
- * A PresenterSelector is used to obtain a {@link Presenter} for a given Object.
- * Similar to {@link Presenter},  PresenterSelector is stateless.
+ * This is the query interface to supply optional features(aka facets) on an object without the need
+ * of letting the object to subclass or implement java interfaces.
  */
-public abstract class PresenterSelector {
-    /**
-     * Returns a presenter for the given item.
-     */
-    public abstract Presenter getPresenter(Object item);
+public interface FacetProvider {
 
     /**
-     * Returns an array of all possible presenters.  The returned array should
-     * not be modified.
+     * Queries optional implemented facet.
+     * @param facetClass  Facet classes to query,  examples are: class of
+     *                    {@link ItemAlignmentFacet}.
+     * @return Facet implementation for the facetClass or null if feature not implemented.
      */
-    public Presenter[] getPresenters() {
-        return null;
-    }
+    public Object getFacet(Class<?> facetClass);
+
 }

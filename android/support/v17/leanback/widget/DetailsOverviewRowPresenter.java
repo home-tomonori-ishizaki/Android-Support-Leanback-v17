@@ -59,7 +59,9 @@ import java.util.Collection;
  * of DetailsOverviewRowPresenter.  If further customization is required beyond replacing
  * the detailed description, the application should create a new row presenter class.
  * </p>
+ * @deprecated  Use {@link FullWidthDetailsOverviewRowPresenter}
  */
+@Deprecated
 public class DetailsOverviewRowPresenter extends RowPresenter {
 
     private static final String TAG = "DetailsOverviewRowPresenter";
@@ -507,16 +509,17 @@ public class DetailsOverviewRowPresenter extends RowPresenter {
         if (useMargin) {
             layoutParams.setMarginStart(horizontalMargin);
             layoutParams.topMargin = layoutParams.bottomMargin = verticalMargin;
-            RoundedRectHelper.getInstance().setRoundedRectBackground(vh.mOverviewFrame, bgColor);
+            vh.mOverviewFrame.setBackgroundColor(bgColor);
             vh.mRightPanel.setBackground(null);
             vh.mImageView.setBackground(null);
         } else {
             layoutParams.leftMargin = layoutParams.topMargin = layoutParams.bottomMargin = 0;
             vh.mRightPanel.setBackgroundColor(bgColor);
             vh.mImageView.setBackgroundColor(bgColor);
-            RoundedRectHelper.getInstance().setRoundedRectBackground(vh.mOverviewFrame,
-                    Color.TRANSPARENT);
+            vh.mOverviewFrame.setBackground(null);
         }
+        RoundedRectHelper.getInstance().setClipToRoundedOutline(vh.mOverviewFrame, true);
+
         if (scaleImage) {
             vh.mImageView.setScaleType(ImageView.ScaleType.FIT_START);
             vh.mImageView.setAdjustViewBounds(true);

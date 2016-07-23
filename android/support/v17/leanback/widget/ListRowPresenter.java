@@ -16,6 +16,7 @@ package android.support.v17.leanback.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v17.leanback.R;
+import android.support.v17.leanback.system.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -258,6 +259,11 @@ public class ListRowPresenter extends RowPresenter {
             ShadowOverlayContainer wrapper = new ShadowOverlayContainer(root.getContext());
             wrapper.setLayoutParams(
                     new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            if (isUsingZOrder(root.getContext())) {
+                wrapper.useDynamicShadow();
+            } else {
+                wrapper.useStaticShadow();
+            }
             wrapper.initialize(needsDefaultShadow(),
                     needsDefaultListSelectEffect(),
                     areChildRoundedCornersEnabled());
@@ -283,12 +289,13 @@ public class ListRowPresenter extends RowPresenter {
         }
         FocusHighlightHelper.setupBrowseItemFocusHighlight(rowViewHolder.mItemBridgeAdapter,
                 mFocusZoomFactor, mUseFocusDimmer);
-        rowViewHolder.mGridView.setFocusDrawingOrderEnabled(!isUsingZOrder());
+        rowViewHolder.mGridView.setFocusDrawingOrderEnabled(
+                !isUsingZOrder(rowViewHolder.getGridView().getContext()));
         rowViewHolder.mGridView.setOnChildSelectedListener(
                 new OnChildSelectedListener() {
             @Override
             public void onChildSelected(ViewGroup parent, View view, int position, long id) {
-                selectChildView(rowViewHolder, view);
+                selectChildView(rowViewHolder, view, true);
             }
         });
         rowViewHolder.mGridView.setOnUnhandledKeyListener(
@@ -341,7 +348,7 @@ public class ListRowPresenter extends RowPresenter {
     /*
      * Perform operations when a child of horizontal grid view is selected.
      */
-    private void selectChildView(ViewHolder rowViewHolder, View view) {
+    private void selectChildView(ViewHolder rowViewHolder, View view, boolean fireEvent) {
         if (view != null) {
             if (rowViewHolder.mExpanded && rowViewHolder.mSelected) {
                 ItemBridgeAdapter.ViewHolder ibh = (ItemBridgeAdapter.ViewHolder)
@@ -351,7 +358,7 @@ public class ListRowPresenter extends RowPresenter {
                     rowViewHolder.mHoverCardViewSwitcher.select(
                             rowViewHolder.mGridView, view, ibh.mItem);
                 }
-                if (rowViewHolder.getOnItemViewSelectedListener() != null) {
+                if (fireEvent && rowViewHolder.getOnItemViewSelectedListener() != null) {
                     rowViewHolder.getOnItemViewSelectedListener().onItemSelected(
                             ibh.mHolder, ibh.mItem, rowViewHolder, rowViewHolder.mRow);
                 }
@@ -360,7 +367,7 @@ public class ListRowPresenter extends RowPresenter {
             if (mHoverCardPresenterSelector != null) {
                 rowViewHolder.mHoverCardViewSwitcher.unselect();
             }
-            if (rowViewHolder.getOnItemViewSelectedListener() != null) {
+            if (fireEvent && rowViewHolder.getOnItemViewSelectedListener() != null) {
                 rowViewHolder.getOnItemViewSelectedListener().onItemSelected(
                         null, null, rowViewHolder, rowViewHolder.mRow);
             }
@@ -463,7 +470,7 @@ public class ListRowPresenter extends RowPresenter {
             ItemBridgeAdapter.ViewHolder ibh = (ItemBridgeAdapter.ViewHolder)
                     vh.mGridView.findViewHolderForPosition(
                             vh.mGridView.getSelectedPosition());
-            selectChildView(vh, ibh == null ? null : ibh.itemView);
+            selectChildView(vh, ibh == null ? null : ibh.itemView, false);
         } else {
             if (mHoverCardPresenterSelector != null) {
                 vh.mHoverCardViewSwitcher.unselect();
@@ -546,8 +553,9 @@ public class ListRowPresenter extends RowPresenter {
      * on each child of horizontal list.   If subclass returns false in isUsingDefaultShadow()
      * and does not use Z-shadow on SDK >= L, it should override isUsingZOrder() return false.
      */
-    public boolean isUsingZOrder() {
-        return ShadowHelper.getInstance().usesZShadow();
+    public boolean isUsingZOrder(Context context) {
+        return ShadowOverlayContainer.supportsDynamicShadow() &&
+                !Settings.getInstance(context).preferStaticShadows();
     }
 
     /**

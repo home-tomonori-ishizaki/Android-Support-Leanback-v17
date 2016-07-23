@@ -15,8 +15,12 @@
      limitations under the License.
 -->
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <corners android:radius="@dimen/lb_rounded_rect_corner_radius" />
-</shape>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/v17/leanback/res/drawable/lb_rounded_rect_bg.xml -->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/details_overview_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:adjustViewBounds="true"
+    android:elevation="@dimen/lb_details_overview_z"
+    android:maxWidth="@dimen/lb_details_v2_logo_max_width"
+    android:maxHeight="@dimen/lb_details_v2_logo_max_height" />
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/v17/leanback/res/layout/lb_fullwidth_details_overview_logo.xml -->

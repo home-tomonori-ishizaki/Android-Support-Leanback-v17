@@ -139,6 +139,17 @@
     <dimen name="lb_details_overview_margin_start">132dp</dimen>
     <dimen name="lb_details_overview_z">@dimen/lb_material_shadow_details_z</dimen>
     <dimen name="lb_details_rows_align_top">167dp</dimen>
+    <dimen name="lb_details_v2_actions_height">56dip</dimen>
+    <dimen name="lb_details_v2_align_pos_for_actions">270dp</dimen>
+    <dimen name="lb_details_v2_align_pos_for_description">0dp</dimen>
+    <dimen name="lb_details_v2_blank_height">160dp</dimen>
+    <dimen name="lb_details_v2_card_height">540dp</dimen>
+    <dimen name="lb_details_v2_description_margin_end">54dp</dimen>
+    <dimen name="lb_details_v2_description_margin_start">24dp</dimen>
+    <dimen name="lb_details_v2_description_margin_top">24dp</dimen>
+    <dimen name="lb_details_v2_left">270dip</dimen>
+    <dimen name="lb_details_v2_logo_max_height">210dp</dimen>
+    <dimen name="lb_details_v2_logo_max_width">150dp</dimen>
     <dimen name="lb_error_image_max_height">120dp</dimen>
     <dimen name="lb_error_message_max_width">600dp</dimen>
     <dimen name="lb_error_message_text_size">16sp</dimen>
@@ -460,6 +471,10 @@
         <item name="android:windowReturnTransition">@transition/lb_details_return_transition</item>
         <item name="android:windowSharedElementEnterTransition">@transition/lb_shared_element_enter_transition</item>
         <item name="android:windowSharedElementReturnTransition">@transition/lb_shared_element_return_transition</item>
+    </style>
+    <style name="Theme.Leanback.Details.NoSharedElementTransition">
+        <item name="android:windowSharedElementEnterTransition">@null</item>
+        <item name="android:windowSharedElementReturnTransition">@null</item>
     </style>
     <style name="Theme.Leanback.GuidedStep" parent="Theme.LeanbackBase">
         <item name="guidedStepThemeFlag">true</item>

@@ -27,6 +27,7 @@ import android.view.View;
 /**
  * An abstract base class for vertically and horizontally scrolling lists. The items come
  * from the {@link RecyclerView.Adapter} associated with this view.
+ * Do not directly use this class, use {@link VerticalGridView} and {@link HorizontalGridView}.
  * @hide
  */
 abstract class BaseGridView extends RecyclerView {
@@ -109,7 +110,8 @@ abstract class BaseGridView extends RecyclerView {
     /**
      * Value indicates that percent is not used.
      */
-    public final static float ITEM_ALIGN_OFFSET_PERCENT_DISABLED = -1;
+    public final static float ITEM_ALIGN_OFFSET_PERCENT_DISABLED =
+            ItemAlignmentFacet.ITEM_ALIGN_OFFSET_PERCENT_DISABLED;
 
     /**
      * Dont save states of any child views.
@@ -170,7 +172,7 @@ abstract class BaseGridView extends RecyclerView {
         public boolean onUnhandledKey(KeyEvent event);
     }
 
-    protected final GridLayoutManager mLayoutManager;
+    final GridLayoutManager mLayoutManager;
 
     /**
      * Animate layout changes from a child resizing or adding/removing a child.
@@ -332,6 +334,8 @@ abstract class BaseGridView extends RecyclerView {
 
     /**
      * Sets the absolute offset in pixels for item alignment.
+     * Item alignment settings are ignored for the child if {@link ItemAlignmentFacet}
+     * is provided by {@link RecyclerView.ViewHolder} or {@link FacetProviderAdapter}.
      *
      * @param offset The number of pixels to offset. Can be negative for
      *        alignment from the high edge, or positive for alignment from the
@@ -355,6 +359,8 @@ abstract class BaseGridView extends RecyclerView {
 
     /**
      * Set to true if include padding in calculating item align offset.
+     * Item alignment settings are ignored for the child if {@link ItemAlignmentFacet}
+     * is provided by {@link RecyclerView.ViewHolder} or {@link FacetProviderAdapter}.
      *
      * @param withPadding When it is true: we include left/top padding for positive
      *          item offset, include right/bottom padding for negative item offset.
@@ -374,6 +380,8 @@ abstract class BaseGridView extends RecyclerView {
     /**
      * Sets the offset percent for item alignment in addition to {@link
      * #getItemAlignmentOffset()}.
+     * Item alignment settings are ignored for the child if {@link ItemAlignmentFacet}
+     * is provided by {@link RecyclerView.ViewHolder} or {@link FacetProviderAdapter}.
      *
      * @param offsetPercent Percentage to offset. E.g., 40 means 40% of the
      *        width from the low edge. Use
@@ -397,8 +405,10 @@ abstract class BaseGridView extends RecyclerView {
     }
 
     /**
-     * Sets the id of the view to align with. Use zero (default) for the item
-     * view itself.
+     * Sets the id of the view to align with. Use {@link android.view.View#NO_ID} (default)
+     * for the item view itself.
+     * Item alignment settings are ignored for the child if {@link ItemAlignmentFacet}
+     * is provided by {@link RecyclerView.ViewHolder} or {@link FacetProviderAdapter}.
      */
     public void setItemAlignmentViewId(int viewId) {
         mLayoutManager.setItemAlignmentViewId(viewId);
@@ -472,10 +482,29 @@ abstract class BaseGridView extends RecyclerView {
     }
 
     /**
+     * Registers a callback to be invoked when an item in BaseGridView has
+     * been selected.  Note that the listener may be invoked when there is a
+     * layout pending on the view, affording the listener an opportunity to
+     * adjust the upcoming layout based on the selection state.
+     *
+     * @param listener The listener to be invoked.
+     */
+    public void setOnChildViewHolderSelectedListener(OnChildViewHolderSelectedListener listener) {
+        mLayoutManager.setOnChildViewHolderSelectedListener(listener);
+    }
+
+    /**
      * Changes the selected item immediately without animation.
      */
     public void setSelectedPosition(int position) {
         mLayoutManager.setSelection(this, position, 0);
+    }
+
+    /**
+     * Changes the selected item and/or subposition immediately without animation.
+     */
+    public void setSelectedPositionWithSub(int position, int subposition) {
+        mLayoutManager.setSelectionWithSub(this, position, subposition, 0);
     }
 
     /**
@@ -488,6 +517,15 @@ abstract class BaseGridView extends RecyclerView {
     }
 
     /**
+     * Changes the selected item and/or subposition immediately without animation, scrollExtra is
+     * applied in primary scroll direction.  The scrollExtra will be kept until
+     * another {@link #setSelectedPosition} or {@link #setSelectedPositionSmooth} call.
+     */
+    public void setSelectedPositionWithSub(int position, int subposition, int scrollExtra) {
+        mLayoutManager.setSelectionWithSub(this, position, subposition, scrollExtra);
+    }
+
+    /**
      * Changes the selected item and run an animation to scroll to the target
      * position.
      */
@@ -496,10 +534,28 @@ abstract class BaseGridView extends RecyclerView {
     }
 
     /**
+     * Changes the selected item and/or subposition, runs an animation to scroll to the target
+     * position.
+     */
+    public void setSelectedPositionSmoothWithSub(int position, int subposition) {
+        mLayoutManager.setSelectionSmoothWithSub(this, position, subposition);
+    }
+
+    /**
      * Returns the selected item position.
      */
     public int getSelectedPosition() {
         return mLayoutManager.getSelection();
+    }
+
+    /**
+     * Returns the sub selected item position started from zero.  An item can have
+     * multiple {@link ItemAlignmentFacet}s provided by {@link RecyclerView.ViewHolder}
+     * or {@link FacetProviderAdapter}.  Zero is returned when no {@link ItemAlignmentFacet}
+     * is defined.
+     */
+    public int getSelectedSubPosition() {
+        return mLayoutManager.getSubSelection();
     }
 
     /**
