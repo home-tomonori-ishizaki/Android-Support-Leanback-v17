@@ -1,3 +1,5 @@
+/* This file is auto-generated from PlaybackOverlayFragment.java.  DO NOT MODIFY. */
+
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -50,7 +52,7 @@ import java.util.ArrayList;
  * The {@link android.support.v17.leanback.widget.PlaybackControlsRow} is expected to be
  * at position 0 in the adapter.
  */
-public class PlaybackOverlayFragment extends DetailsFragment {
+public class PlaybackOverlaySupportFragment extends DetailsSupportFragment {
 
     /**
      * No background.
@@ -74,7 +76,7 @@ public class PlaybackOverlayFragment extends DetailsFragment {
         }
     }
 
-    private static final String TAG = "PlaybackOverlayFragment";
+    private static final String TAG = "PlaybackOverlaySupportFragment";
     private static final boolean DEBUG = false;
     private static final int ANIMATION_MULTIPLIER = 1;
 
@@ -662,7 +664,7 @@ public class PlaybackOverlayFragment extends DetailsFragment {
         mRootView = super.onCreateView(inflater, container, savedInstanceState);
         mBgAlpha = 255;
         updateBackground();
-        getRowsFragment().setExternalAdapterListener(mAdapterListener);
+        getRowsSupportFragment().setExternalAdapterListener(mAdapterListener);
         return mRootView;
     }
 

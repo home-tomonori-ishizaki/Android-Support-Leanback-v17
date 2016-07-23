@@ -1,3 +1,5 @@
+/* This file is auto-generated from RowsFragment.java.  DO NOT MODIFY. */
+
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -43,7 +45,7 @@ import android.view.animation.Interpolator;
 /**
  * An ordered set of rows of leanback widgets.
  */
-public class RowsFragment extends BaseRowFragment {
+public class RowsSupportFragment extends BaseRowSupportFragment {
 
     /**
      * Internal helper class that manages row select animation and apply a default
@@ -112,7 +114,7 @@ public class RowsFragment extends BaseRowFragment {
 
     }
 
-    private static final String TAG = "RowsFragment";
+    private static final String TAG = "RowsSupportFragment";
     private static final boolean DEBUG = false;
 
     private ItemBridgeAdapter.ViewHolder mSelectedViewHolder;
@@ -308,7 +310,7 @@ public class RowsFragment extends BaseRowFragment {
         if (DEBUG) Log.v(TAG, "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
         // Align the top edge of child with id row_content.
-        // Need set this for directly using RowsFragment.
+        // Need set this for directly using RowsSupportFragment.
         getVerticalGridView().setItemAlignmentViewId(R.id.row_content);
         getVerticalGridView().setSaveChildrenPolicy(VerticalGridView.SAVE_LIMITED_CHILD);
 

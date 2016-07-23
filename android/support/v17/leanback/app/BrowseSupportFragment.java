@@ -1,3 +1,5 @@
+/* This file is auto-generated from BrowseFragment.java.  DO NOT MODIFY. */
+
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -32,10 +34,10 @@ import android.support.v17.leanback.widget.OnItemSelectedListener;
 import android.support.v17.leanback.widget.OnItemClickedListener;
 import android.support.v17.leanback.widget.SearchOrbView;
 import android.util.Log;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentManager.BackStackEntry;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentManager.BackStackEntry;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -52,23 +54,23 @@ import static android.support.v7.widget.RecyclerView.NO_POSITION;
 
 /**
  * A fragment for creating Leanback browse screens. It is composed of a
- * RowsFragment and a HeadersFragment.
+ * RowsSupportFragment and a HeadersSupportFragment.
  * <p>
- * A BrowseFragment renders the elements of its {@link ObjectAdapter} as a set
+ * A BrowseSupportFragment renders the elements of its {@link ObjectAdapter} as a set
  * of rows in a vertical list. The elements in this adapter must be subclasses
  * of {@link Row}.
  * <p>
- * The HeadersFragment can be set to be either shown or hidden by default, or
+ * The HeadersSupportFragment can be set to be either shown or hidden by default, or
  * may be disabled entirely. See {@link #setHeadersState} for details.
  * <p>
- * By default the BrowseFragment includes support for returning to the headers
+ * By default the BrowseSupportFragment includes support for returning to the headers
  * when the user presses Back. For Activities that customize {@link
- * android.app.Activity#onBackPressed()}, you must disable this default Back key support by
+ * android.support.v4.app.FragmentActivity#onBackPressed()}, you must disable this default Back key support by
  * calling {@link #setHeadersTransitionOnBackEnabled(boolean)} with false and
- * use {@link BrowseFragment.BrowseTransitionListener} and
+ * use {@link BrowseSupportFragment.BrowseTransitionListener} and
  * {@link #startHeadersTransition(boolean)}.
  */
-public class BrowseFragment extends Fragment {
+public class BrowseSupportFragment extends Fragment {
 
     // BUNDLE attribute for saving header show/hide status when backstack is used:
     static final String HEADER_STACK_INDEX = "headerStackIndex";
@@ -152,7 +154,7 @@ public class BrowseFragment extends Fragment {
         }
     }
 
-    private static final String TAG = "BrowseFragment";
+    private static final String TAG = "BrowseSupportFragment";
 
     private static final String LB_HEADERS_BACKSTACK = "lbHeadersBackStack_";
 
@@ -169,8 +171,8 @@ public class BrowseFragment extends Fragment {
 
     private static final float SLIDE_DISTANCE_FACTOR = 2;
 
-    private RowsFragment mRowsFragment;
-    private HeadersFragment mHeadersFragment;
+    private RowsSupportFragment mRowsSupportFragment;
+    private HeadersSupportFragment mHeadersSupportFragment;
 
     private ObjectAdapter mAdapter;
 
@@ -216,21 +218,21 @@ public class BrowseFragment extends Fragment {
     private BackStackListener mBackStackChangedListener;
     private BrowseTransitionListener mBrowseTransitionListener;
 
-    private static final String ARG_TITLE = BrowseFragment.class.getCanonicalName() + ".title";
-    private static final String ARG_BADGE_URI = BrowseFragment.class.getCanonicalName() + ".badge";
+    private static final String ARG_TITLE = BrowseSupportFragment.class.getCanonicalName() + ".title";
+    private static final String ARG_BADGE_URI = BrowseSupportFragment.class.getCanonicalName() + ".badge";
     private static final String ARG_HEADERS_STATE =
-        BrowseFragment.class.getCanonicalName() + ".headersState";
+        BrowseSupportFragment.class.getCanonicalName() + ".headersState";
 
     /**
      * Create arguments for a browse fragment.
      *
      * @param args The Bundle to place arguments into, or null if the method
      *        should return a new Bundle.
-     * @param title The title of the BrowseFragment.
+     * @param title The title of the BrowseSupportFragment.
      * @param headersState The initial state of the headers of the
-     *        BrowseFragment. Must be one of {@link #HEADERS_ENABLED}, {@link
+     *        BrowseSupportFragment. Must be one of {@link #HEADERS_ENABLED}, {@link
      *        #HEADERS_HIDDEN}, or {@link #HEADERS_DISABLED}.
-     * @return A Bundle with the given arguments for creating a BrowseFragment.
+     * @return A Bundle with the given arguments for creating a BrowseSupportFragment.
      */
     public static Bundle createArgs(Bundle args, String title, int headersState) {
         if (args == null) {
@@ -252,8 +254,8 @@ public class BrowseFragment extends Fragment {
         mBrandColor = color;
         mBrandColorSet = true;
 
-        if (mHeadersFragment != null) {
-            mHeadersFragment.setBackgroundColor(mBrandColor);
+        if (mHeadersSupportFragment != null) {
+            mHeadersSupportFragment.setBackgroundColor(mBrandColor);
         }
     }
 
@@ -277,9 +279,9 @@ public class BrowseFragment extends Fragment {
      */
     public void setAdapter(ObjectAdapter adapter) {
         mAdapter = adapter;
-        if (mRowsFragment != null) {
-            mRowsFragment.setAdapter(adapter);
-            mHeadersFragment.setAdapter(adapter);
+        if (mRowsSupportFragment != null) {
+            mRowsSupportFragment.setAdapter(adapter);
+            mHeadersSupportFragment.setAdapter(adapter);
         }
     }
 
@@ -329,8 +331,8 @@ public class BrowseFragment extends Fragment {
      */
     public void setOnItemClickedListener(OnItemClickedListener listener) {
         mOnItemClickedListener = listener;
-        if (mRowsFragment != null) {
-            mRowsFragment.setOnItemClickedListener(listener);
+        if (mRowsSupportFragment != null) {
+            mRowsSupportFragment.setOnItemClickedListener(listener);
         }
     }
 
@@ -350,8 +352,8 @@ public class BrowseFragment extends Fragment {
      */
     public void setOnItemViewClickedListener(OnItemViewClickedListener listener) {
         mOnItemViewClickedListener = listener;
-        if (mRowsFragment != null) {
-            mRowsFragment.setOnItemViewClickedListener(listener);
+        if (mRowsSupportFragment != null) {
+            mRowsSupportFragment.setOnItemViewClickedListener(listener);
         }
     }
 
@@ -474,8 +476,8 @@ public class BrowseFragment extends Fragment {
      */
     public void enableRowScaling(boolean enable) {
         mRowScaleEnabled = enable;
-        if (mRowsFragment != null) {
-            mRowsFragment.enableRowScaling(mRowScaleEnabled);
+        if (mRowsSupportFragment != null) {
+            mRowsSupportFragment.enableRowScaling(mRowScaleEnabled);
         }
     }
 
@@ -484,10 +486,10 @@ public class BrowseFragment extends Fragment {
             return;
         }
         mShowingHeaders = withHeaders;
-        mRowsFragment.onExpandTransitionStart(!withHeaders, new Runnable() {
+        mRowsSupportFragment.onExpandTransitionStart(!withHeaders, new Runnable() {
             @Override
             public void run() {
-                mHeadersFragment.onTransitionStart();
+                mHeadersSupportFragment.onTransitionStart();
                 createHeadersTransition();
                 if (mBrowseTransitionListener != null) {
                     mBrowseTransitionListener.onHeadersTransitionStart(withHeaders);
@@ -513,9 +515,9 @@ public class BrowseFragment extends Fragment {
 
     private boolean isVerticalScrolling() {
         // don't run transition
-        return mHeadersFragment.getVerticalGridView().getScrollState()
+        return mHeadersSupportFragment.getVerticalGridView().getScrollState()
                 != HorizontalGridView.SCROLL_STATE_IDLE
-                || mRowsFragment.getVerticalGridView().getScrollState()
+                || mRowsSupportFragment.getVerticalGridView().getScrollState()
                 != HorizontalGridView.SCROLL_STATE_IDLE;
     }
 
@@ -534,15 +536,15 @@ public class BrowseFragment extends Fragment {
                 if (isVerticalScrolling() || mShowingHeaders) {
                     return focused;
                 }
-                return mHeadersFragment.getVerticalGridView();
+                return mHeadersSupportFragment.getVerticalGridView();
             } else if (direction == View.FOCUS_RIGHT) {
                 if (isVerticalScrolling() || !mShowingHeaders) {
                     return focused;
                 }
-                return mRowsFragment.getVerticalGridView();
+                return mRowsSupportFragment.getVerticalGridView();
             } else if (focused == searchOrbView && direction == View.FOCUS_DOWN) {
-                return mShowingHeaders ? mHeadersFragment.getVerticalGridView() :
-                    mRowsFragment.getVerticalGridView();
+                return mShowingHeaders ? mHeadersSupportFragment.getVerticalGridView() :
+                    mRowsSupportFragment.getVerticalGridView();
 
             } else if (focused != searchOrbView && searchOrbView.getVisibility() == View.VISIBLE
                     && direction == View.FOCUS_UP) {
@@ -564,11 +566,11 @@ public class BrowseFragment extends Fragment {
             }
             // Make sure not changing focus when requestFocus() is called.
             if (mCanShowHeaders && mShowingHeaders) {
-                if (mHeadersFragment.getView().requestFocus(direction, previouslyFocusedRect)) {
+                if (mHeadersSupportFragment.getView().requestFocus(direction, previouslyFocusedRect)) {
                     return true;
                 }
             }
-            if (mRowsFragment.getView().requestFocus(direction, previouslyFocusedRect)) {
+            if (mRowsSupportFragment.getView().requestFocus(direction, previouslyFocusedRect)) {
                 return true;
             }
             return mTitleView.requestFocus(direction, previouslyFocusedRect);
@@ -643,33 +645,33 @@ public class BrowseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         if (getChildFragmentManager().findFragmentById(R.id.browse_container_dock) == null) {
-            mRowsFragment = new RowsFragment();
-            mHeadersFragment = new HeadersFragment();
+            mRowsSupportFragment = new RowsSupportFragment();
+            mHeadersSupportFragment = new HeadersSupportFragment();
             getChildFragmentManager().beginTransaction()
-                    .replace(R.id.browse_headers_dock, mHeadersFragment)
-                    .replace(R.id.browse_container_dock, mRowsFragment).commit();
+                    .replace(R.id.browse_headers_dock, mHeadersSupportFragment)
+                    .replace(R.id.browse_container_dock, mRowsSupportFragment).commit();
         } else {
-            mHeadersFragment = (HeadersFragment) getChildFragmentManager()
+            mHeadersSupportFragment = (HeadersSupportFragment) getChildFragmentManager()
                     .findFragmentById(R.id.browse_headers_dock);
-            mRowsFragment = (RowsFragment) getChildFragmentManager()
+            mRowsSupportFragment = (RowsSupportFragment) getChildFragmentManager()
                     .findFragmentById(R.id.browse_container_dock);
         }
 
-        mHeadersFragment.setHeadersGone(!mCanShowHeaders);
+        mHeadersSupportFragment.setHeadersGone(!mCanShowHeaders);
 
-        mRowsFragment.setAdapter(mAdapter);
+        mRowsSupportFragment.setAdapter(mAdapter);
         if (mHeaderPresenterSelector != null) {
-            mHeadersFragment.setPresenterSelector(mHeaderPresenterSelector);
+            mHeadersSupportFragment.setPresenterSelector(mHeaderPresenterSelector);
         }
-        mHeadersFragment.setAdapter(mAdapter);
+        mHeadersSupportFragment.setAdapter(mAdapter);
 
-        mRowsFragment.enableRowScaling(mRowScaleEnabled);
-        mRowsFragment.setOnItemSelectedListener(mRowSelectedListener);
-        mRowsFragment.setOnItemViewSelectedListener(mRowViewSelectedListener);
-        mHeadersFragment.setOnItemSelectedListener(mHeaderSelectedListener);
-        mHeadersFragment.setOnHeaderClickedListener(mHeaderClickedListener);
-        mRowsFragment.setOnItemClickedListener(mOnItemClickedListener);
-        mRowsFragment.setOnItemViewClickedListener(mOnItemViewClickedListener);
+        mRowsSupportFragment.enableRowScaling(mRowScaleEnabled);
+        mRowsSupportFragment.setOnItemSelectedListener(mRowSelectedListener);
+        mRowsSupportFragment.setOnItemViewSelectedListener(mRowViewSelectedListener);
+        mHeadersSupportFragment.setOnItemSelectedListener(mHeaderSelectedListener);
+        mHeadersSupportFragment.setOnHeaderClickedListener(mHeaderClickedListener);
+        mRowsSupportFragment.setOnItemClickedListener(mOnItemClickedListener);
+        mRowsSupportFragment.setOnItemViewClickedListener(mOnItemViewClickedListener);
 
         View root = inflater.inflate(R.layout.lb_browse_fragment, container, false);
 
@@ -688,7 +690,7 @@ public class BrowseFragment extends Fragment {
         }
 
         if (mBrandColorSet) {
-            mHeadersFragment.setBackgroundColor(mBrandColor);
+            mHeadersSupportFragment.setBackgroundColor(mBrandColor);
         }
 
         mSceneWithTitle = sTransitionHelper.createScene(mBrowseFrame, new Runnable() {
@@ -759,7 +761,7 @@ public class BrowseFragment extends Fragment {
         }
         sTransitionHelper.setDuration(changeBounds, mHeadersTransitionDuration);
         sTransitionHelper.addTransition(mHeadersTransition, changeBounds);
-        sTransitionHelper.addTarget(scale, mRowsFragment.getScaleFrameLayout());
+        sTransitionHelper.addTarget(scale, mRowsSupportFragment.getScaleFrameLayout());
         sTransitionHelper.setDuration(scale, mHeadersTransitionDuration);
         sTransitionHelper.addTransition(mHeadersTransition, scale);
 
@@ -774,15 +776,15 @@ public class BrowseFragment extends Fragment {
             @Override
             public void onTransitionEnd(Object transition) {
                 mHeadersTransition = null;
-                mRowsFragment.onTransitionEnd();
-                mHeadersFragment.onTransitionEnd();
+                mRowsSupportFragment.onTransitionEnd();
+                mHeadersSupportFragment.onTransitionEnd();
                 if (mShowingHeaders) {
-                    VerticalGridView headerGridView = mHeadersFragment.getVerticalGridView();
+                    VerticalGridView headerGridView = mHeadersSupportFragment.getVerticalGridView();
                     if (headerGridView != null && !headerGridView.hasFocus()) {
                         headerGridView.requestFocus();
                     }
                 } else {
-                    VerticalGridView rowsGridView = mRowsFragment.getVerticalGridView();
+                    VerticalGridView rowsGridView = mRowsSupportFragment.getVerticalGridView();
                     if (rowsGridView != null && !rowsGridView.hasFocus()) {
                         rowsGridView.requestFocus();
                     }
@@ -802,39 +804,39 @@ public class BrowseFragment extends Fragment {
      */
     public void setHeaderPresenterSelector(PresenterSelector headerPresenterSelector) {
         mHeaderPresenterSelector = headerPresenterSelector;
-        if (mHeadersFragment != null) {
-            mHeadersFragment.setPresenterSelector(mHeaderPresenterSelector);
+        if (mHeadersSupportFragment != null) {
+            mHeadersSupportFragment.setPresenterSelector(mHeaderPresenterSelector);
         }
     }
 
     private void showHeaders(boolean show) {
         if (DEBUG) Log.v(TAG, "showHeaders " + show);
-        mHeadersFragment.setHeadersEnabled(show);
+        mHeadersSupportFragment.setHeadersEnabled(show);
         MarginLayoutParams lp;
         View containerList;
 
-        containerList = mRowsFragment.getView();
+        containerList = mRowsSupportFragment.getView();
         lp = (MarginLayoutParams) containerList.getLayoutParams();
         lp.leftMargin = show ? mContainerListMarginLeft : 0;
         containerList.setLayoutParams(lp);
 
-        containerList = mHeadersFragment.getView();
+        containerList = mHeadersSupportFragment.getView();
         lp = (MarginLayoutParams) containerList.getLayoutParams();
         lp.leftMargin = show ? 0 : -mContainerListMarginLeft;
         containerList.setLayoutParams(lp);
 
-        mRowsFragment.setExpand(!show);
+        mRowsSupportFragment.setExpand(!show);
     }
 
-    private HeadersFragment.OnHeaderClickedListener mHeaderClickedListener =
-        new HeadersFragment.OnHeaderClickedListener() {
+    private HeadersSupportFragment.OnHeaderClickedListener mHeaderClickedListener =
+        new HeadersSupportFragment.OnHeaderClickedListener() {
             @Override
             public void onHeaderClicked() {
                 if (!mCanShowHeaders || !mShowingHeaders || isInHeadersTransition()) {
                     return;
                 }
                 startHeadersTransitionInternal(false);
-                mRowsFragment.getVerticalGridView().requestFocus();
+                mRowsSupportFragment.getVerticalGridView().requestFocus();
             }
         };
 
@@ -842,7 +844,7 @@ public class BrowseFragment extends Fragment {
         @Override
         public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item,
                 RowPresenter.ViewHolder rowViewHolder, Row row) {
-            int position = mRowsFragment.getVerticalGridView().getSelectedPosition();
+            int position = mRowsSupportFragment.getVerticalGridView().getSelectedPosition();
             if (DEBUG) Log.v(TAG, "row selected position " + position);
             onRowSelected(position);
             if (mExternalOnItemViewSelectedListener != null) {
@@ -864,7 +866,7 @@ public class BrowseFragment extends Fragment {
     private OnItemSelectedListener mHeaderSelectedListener = new OnItemSelectedListener() {
         @Override
         public void onItemSelected(Object item, Row row) {
-            int position = mHeadersFragment.getVerticalGridView().getSelectedPosition();
+            int position = mHeadersSupportFragment.getVerticalGridView().getSelectedPosition();
             if (DEBUG) Log.v(TAG, "header selected position " + position);
             onRowSelected(position);
         }
@@ -899,8 +901,8 @@ public class BrowseFragment extends Fragment {
 
     private void setSelection(int position) {
         if (position != NO_POSITION) {
-            mRowsFragment.setSelectedPosition(position);
-            mHeadersFragment.setSelectedPosition(position);
+            mRowsSupportFragment.setSelectedPosition(position);
+            mHeadersSupportFragment.setSelectedPosition(position);
         }
         mSelectedPosition = position;
     }
@@ -908,19 +910,19 @@ public class BrowseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mHeadersFragment.setWindowAlignmentFromTop(mContainerListAlignTop);
-        mHeadersFragment.setItemAlignment();
-        mRowsFragment.setWindowAlignmentFromTop(mContainerListAlignTop);
-        mRowsFragment.setItemAlignment();
+        mHeadersSupportFragment.setWindowAlignmentFromTop(mContainerListAlignTop);
+        mHeadersSupportFragment.setItemAlignment();
+        mRowsSupportFragment.setWindowAlignmentFromTop(mContainerListAlignTop);
+        mRowsSupportFragment.setItemAlignment();
 
-        mRowsFragment.getScaleFrameLayout().setPivotX(0);
-        mRowsFragment.getScaleFrameLayout().setPivotY(mContainerListAlignTop);
+        mRowsSupportFragment.getScaleFrameLayout().setPivotX(0);
+        mRowsSupportFragment.getScaleFrameLayout().setPivotY(mContainerListAlignTop);
 
-        if (mCanShowHeaders && mShowingHeaders && mHeadersFragment.getView() != null) {
-            mHeadersFragment.getView().requestFocus();
+        if (mCanShowHeaders && mShowingHeaders && mHeadersSupportFragment.getView() != null) {
+            mHeadersSupportFragment.getView().requestFocus();
         } else if ((!mCanShowHeaders || !mShowingHeaders)
-                && mRowsFragment.getView() != null) {
-            mRowsFragment.getView().requestFocus();
+                && mRowsSupportFragment.getView() != null) {
+            mRowsSupportFragment.getView().requestFocus();
         }
         if (mCanShowHeaders) {
             showHeaders(mShowingHeaders);
@@ -929,7 +931,7 @@ public class BrowseFragment extends Fragment {
 
     /**
      * Enable/disable headers transition on back key support. This is enabled by
-     * default. The BrowseFragment will add a back stack entry when headers are
+     * default. The BrowseSupportFragment will add a back stack entry when headers are
      * showing. Running a headers transition when the back key is pressed only
      * works when the headers state is {@link #HEADERS_ENABLED} or
      * {@link #HEADERS_HIDDEN}.
@@ -1033,8 +1035,8 @@ public class BrowseFragment extends Fragment {
                     Log.w(TAG, "Unknown headers state: " + headersState);
                     break;
             }
-            if (mHeadersFragment != null) {
-                mHeadersFragment.setHeadersGone(!mCanShowHeaders);
+            if (mHeadersSupportFragment != null) {
+                mHeadersSupportFragment.setHeadersGone(!mCanShowHeaders);
             }
         }
     }

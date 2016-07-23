@@ -1,3 +1,5 @@
+/* This file is auto-generated from VerticalGridFragment.java.  DO NOT MODIFY. */
+
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -27,7 +29,7 @@ import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.OnItemClickedListener;
 import android.support.v17.leanback.widget.OnItemSelectedListener;
 import android.support.v17.leanback.widget.SearchOrbView;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,8 +46,8 @@ import android.widget.TextView;
  * <p>Renders a vertical grid of objects given a {@link VerticalGridPresenter} and
  * an {@link ObjectAdapter}.
  */
-public class VerticalGridFragment extends Fragment {
-    private static final String TAG = "VerticalGridFragment";
+public class VerticalGridSupportFragment extends Fragment {
+    private static final String TAG = "VerticalGridSupportFragment";
     private static boolean DEBUG = false;
 
     private BrowseFrameLayout mBrowseFrame;
