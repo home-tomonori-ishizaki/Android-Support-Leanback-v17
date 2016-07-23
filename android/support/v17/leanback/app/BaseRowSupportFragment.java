@@ -37,10 +37,8 @@ abstract class BaseRowSupportFragment extends Fragment {
     private PresenterSelector mPresenterSelector;
     private ItemBridgeAdapter mBridgeAdapter;
     private int mSelectedPosition = -1;
-    protected int mReparentHeaderId;
-    protected boolean mInTransition;
 
-    abstract protected int getLayoutResourceId();
+    abstract int getLayoutResourceId();
 
     private final OnChildSelectedListener mRowSelectedListener = new OnChildSelectedListener() {
         @Override
@@ -49,7 +47,7 @@ abstract class BaseRowSupportFragment extends Fragment {
         }
     };
 
-    protected void onRowSelected(ViewGroup parent, View view, int position, long id) {
+    void onRowSelected(ViewGroup parent, View view, int position, long id) {
     }
 
     @Override
@@ -60,7 +58,7 @@ abstract class BaseRowSupportFragment extends Fragment {
         return view;
     }
 
-    protected VerticalGridView findGridViewFromRoot(View view) {
+    VerticalGridView findGridViewFromRoot(View view) {
         return (VerticalGridView) view;
     }
 
@@ -114,17 +112,28 @@ abstract class BaseRowSupportFragment extends Fragment {
     /**
      * Returns the bridge adapter.
      */
-    protected final ItemBridgeAdapter getBridgeAdapter() {
+    final ItemBridgeAdapter getBridgeAdapter() {
         return mBridgeAdapter;
     }
 
     /**
-     * Set the selected item position.
+     * Sets the selected row position with smooth animation.
      */
     public void setSelectedPosition(int position) {
+        setSelectedPosition(position, true);
+    }
+
+    /**
+     * Sets the selected row position.
+     */
+    public void setSelectedPosition(int position, boolean smooth) {
         mSelectedPosition = position;
         if(mVerticalGridView != null && mVerticalGridView.getAdapter() != null) {
-            mVerticalGridView.setSelectedPositionSmooth(position);
+            if (smooth) {
+                mVerticalGridView.setSelectedPositionSmooth(position);
+            } else {
+                mVerticalGridView.setSelectedPosition(position);
+            }
         }
     }
 
@@ -132,7 +141,7 @@ abstract class BaseRowSupportFragment extends Fragment {
         return mVerticalGridView;
     }
 
-    protected void updateAdapter() {
+    void updateAdapter() {
         mBridgeAdapter = null;
 
         if (mAdapter != null) {
@@ -147,7 +156,7 @@ abstract class BaseRowSupportFragment extends Fragment {
         }
     }
 
-    protected Object getItem(Row row, int position) {
+    Object getItem(Row row, int position) {
         if (row instanceof ListRow) {
             return ((ListRow) row).getAdapter().get(position);
         } else {
@@ -155,12 +164,7 @@ abstract class BaseRowSupportFragment extends Fragment {
         }
     }
 
-    void setReparentHeaderId(int reparentId) {
-        mReparentHeaderId = reparentId;
-    }
-
     void onTransitionStart() {
-        mInTransition = true;
         if (mVerticalGridView != null) {
             mVerticalGridView.setAnimateChildLayout(false);
             mVerticalGridView.setPruneChild(false);
@@ -174,7 +178,6 @@ abstract class BaseRowSupportFragment extends Fragment {
             mVerticalGridView.setPruneChild(true);
             mVerticalGridView.setFocusSearchDisabled(false);
         }
-        mInTransition = false;
     }
 
     void setItemAlignment() {

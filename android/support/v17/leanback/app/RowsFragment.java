@@ -123,6 +123,7 @@ public class RowsFragment extends BaseRowFragment {
     private boolean mRowScaleEnabled;
     private ScaleFrameLayout mScaleFrameLayout;
     private boolean mInTransition;
+    private boolean mAfterEntranceTransition = true;
 
     private OnItemSelectedListener mOnItemSelectedListener;
     private OnItemViewSelectedListener mOnItemViewSelectedListener;
@@ -196,7 +197,6 @@ public class RowsFragment extends BaseRowFragment {
         mExpand = expand;
         VerticalGridView listView = getVerticalGridView();
         if (listView != null) {
-            if (!mInTransition) ((ViewGroup) mScaleFrameLayout.getParent()).setClipChildren(!needsScale());
             updateRowScaling();
             final int count = listView.getChildCount();
             if (DEBUG) Log.v(TAG, "setExpand " + expand + " count " + count);
@@ -260,7 +260,7 @@ public class RowsFragment extends BaseRowFragment {
     }
 
     @Override
-    protected void onRowSelected(ViewGroup parent, View view, int position, long id) {
+    void onRowSelected(ViewGroup parent, View view, int position, long id) {
         VerticalGridView listView = getVerticalGridView();
         if (listView == null) {
             return;
@@ -282,7 +282,7 @@ public class RowsFragment extends BaseRowFragment {
     }
 
     @Override
-    protected int getLayoutResourceId() {
+    int getLayoutResourceId() {
         return R.layout.lb_rows_fragment;
     }
 
@@ -312,11 +312,6 @@ public class RowsFragment extends BaseRowFragment {
         getVerticalGridView().setItemAlignmentViewId(R.id.row_content);
         getVerticalGridView().setSaveChildrenPolicy(VerticalGridView.SAVE_LIMITED_CHILD);
 
-        final ViewGroup parent = (ViewGroup) mScaleFrameLayout.getParent();
-        if (parent != null) {
-            parent.setClipChildren(!needsScale());
-        }
-
         mRecycledViewPool = null;
         mPresenterMapper = null;
     }
@@ -339,8 +334,21 @@ public class RowsFragment extends BaseRowFragment {
         mExternalAdapterListener = listener;
     }
 
-    ScaleFrameLayout getScaleFrameLayout() {
-        return mScaleFrameLayout;
+    /**
+     * Get the view that will change scale.
+     */
+    View getScaleView() {
+        return getVerticalGridView();
+    }
+
+    /**
+     * Set pivots to scale rows fragment.
+     */
+    void setScalePivots(float pivotX, float pivotY) {
+        // set pivot on ScaleFrameLayout, it will be propagated to its child VerticalGridView
+        // where we actually change scale.
+        mScaleFrameLayout.setPivotX(pivotX);
+        mScaleFrameLayout.setPivotY(pivotY);
     }
 
     private static void setRowViewExpanded(ItemBridgeAdapter.ViewHolder vh, boolean expanded) {
@@ -377,7 +385,8 @@ public class RowsFragment extends BaseRowFragment {
         @Override
         public void onCreate(ItemBridgeAdapter.ViewHolder vh) {
             VerticalGridView listView = getVerticalGridView();
-            if (listView != null && ((RowPresenter) vh.getPresenter()).canDrawOutOfBounds()) {
+            if (listView != null) {
+                // set clip children false for slide animation
                 listView.setClipChildren(false);
             }
             setupSharedViewPool(vh);
@@ -402,6 +411,9 @@ public class RowsFragment extends BaseRowFragment {
             setRowViewExpanded(vh, mExpand);
             setOnItemSelectedListener(vh, mOnItemSelectedListener);
             setOnItemViewSelectedListener(vh, mOnItemViewSelectedListener);
+            RowPresenter rowPresenter = (RowPresenter) vh.getPresenter();
+            RowPresenter.ViewHolder rowVh = rowPresenter.getRowViewHolder(vh.getViewHolder());
+            rowPresenter.setEntranceTransitionState(rowVh, mAfterEntranceTransition);
             if (mExternalAdapterListener != null) {
                 mExternalAdapterListener.onAttachedToWindow(vh);
             }
@@ -456,7 +468,7 @@ public class RowsFragment extends BaseRowFragment {
     }
 
     @Override
-    protected void updateAdapter() {
+    void updateAdapter() {
         super.updateAdapter();
         mSelectedViewHolder = null;
         mViewsCreated = false;
@@ -470,7 +482,6 @@ public class RowsFragment extends BaseRowFragment {
     @Override
     void onTransitionStart() {
         super.onTransitionStart();
-        ((ViewGroup) mScaleFrameLayout.getParent()).setClipChildren(!mRowScaleEnabled);
         mInTransition = true;
         freezeRows(true);
     }
@@ -528,8 +539,8 @@ public class RowsFragment extends BaseRowFragment {
     private void updateRowScaling() {
         final float scaleFactor = needsScale() ? mRowScaleFactor : 1f;
         mScaleFrameLayout.setLayoutScaleY(scaleFactor);
-        mScaleFrameLayout.setScaleY(scaleFactor);
-        mScaleFrameLayout.setScaleX(scaleFactor);
+        getScaleView().setScaleY(scaleFactor);
+        getScaleView().setScaleX(scaleFactor);
         updateWindowAlignOffset();
     }
 
@@ -558,7 +569,6 @@ public class RowsFragment extends BaseRowFragment {
     void onTransitionEnd() {
         super.onTransitionEnd();
         mInTransition = false;
-        ((ViewGroup) mScaleFrameLayout.getParent()).setClipChildren(!needsScale());
         freezeRows(false);
     }
 
@@ -572,6 +582,25 @@ public class RowsFragment extends BaseRowFragment {
                 RowPresenter rowPresenter = (RowPresenter) ibvh.getPresenter();
                 RowPresenter.ViewHolder vh = rowPresenter.getRowViewHolder(ibvh.getViewHolder());
                 rowPresenter.freeze(vh, freeze);
+            }
+        }
+    }
+
+    /**
+     * For rows that willing to participate entrance transition,  this function
+     * hide views if afterTransition is true,  show views if afterTransition is false.
+     */
+    void setEntranceTransitionState(boolean afterTransition) {
+        mAfterEntranceTransition = afterTransition;
+        VerticalGridView verticalView = getVerticalGridView();
+        if (verticalView != null) {
+            final int count = verticalView.getChildCount();
+            for (int i = 0; i < count; i++) {
+                ItemBridgeAdapter.ViewHolder ibvh = (ItemBridgeAdapter.ViewHolder)
+                    verticalView.getChildViewHolder(verticalView.getChildAt(i));
+                RowPresenter rowPresenter = (RowPresenter) ibvh.getPresenter();
+                RowPresenter.ViewHolder vh = rowPresenter.getRowViewHolder(ibvh.getViewHolder());
+                rowPresenter.setEntranceTransitionState(vh, mAfterEntranceTransition);
             }
         }
     }

@@ -24,8 +24,6 @@
   <changeBounds
       android:interpolator="@android:interpolator/linear_out_slow_in">
   </changeBounds>
-  <changeTransform
-      android:interpolator="@android:interpolator/linear_out_slow_in" />
   <changeImageTransform
       android:interpolator="@android:interpolator/linear_out_slow_in"/>
-</transitionSet>
+</transitionSet><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-dev/frameworks/support/v17/leanback/res/transition-v21/lb_shared_element_enter_transition.xml -->

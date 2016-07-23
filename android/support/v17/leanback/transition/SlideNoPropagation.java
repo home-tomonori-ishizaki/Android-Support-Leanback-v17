@@ -13,21 +13,26 @@
  */
 package android.support.v17.leanback.transition;
 
-import android.view.View;
+import android.content.Context;
+import android.transition.Slide;
+import android.util.AttributeSet;
 
-/**
- * Used by Slide to determine the slide edge and distance when it is about to
- * create animator.
- * @hide
- */
-public interface SlideCallback {
+public class SlideNoPropagation extends Slide {
 
-    /**
-     * Called when Slide is about to create animator for an appearing/disappearing view.
-     * Callback returns true to ask Slide to create animator, edge is returned
-     * in edge[0], distance in pixels is returned in distance[0].  Slide will not
-     * create animator if callback returns false.
-     */
-    public boolean getSlide(View view, boolean appear, int[] edge, float[] distance);
+    public SlideNoPropagation() {
+    }
 
+    public SlideNoPropagation(int slideEdge) {
+        super(slideEdge);
+    }
+
+    public SlideNoPropagation(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @Override
+    public void setSlideEdge(int slideEdge) {
+        super.setSlideEdge(slideEdge);
+        setPropagation(null);
+    }
 }

@@ -68,12 +68,12 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
     }
 
     @Override
-    protected VerticalGridView findGridViewFromRoot(View view) {
+    VerticalGridView findGridViewFromRoot(View view) {
         return (VerticalGridView) view.findViewById(R.id.browse_headers);
     }
 
     @Override
-    protected void onRowSelected(ViewGroup parent, View view, int position, long id) {
+    void onRowSelected(ViewGroup parent, View view, int position, long id) {
         if (mOnItemSelectedListener != null) {
             if (position >= 0) {
                 Row row = (Row) getAdapter().get(position);
@@ -112,13 +112,13 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
         @Override
         public void onLayoutChange(View v, int left, int top, int right, int bottom,
             int oldLeft, int oldTop, int oldRight, int oldBottom) {
-            v.setPivotX(0);
+            v.setPivotX(v.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL ? v.getWidth() : 0);
             v.setPivotY(v.getMeasuredHeight() / 2);
         }
     };
 
     @Override
-    protected int getLayoutResourceId() {
+    int getLayoutResourceId() {
         return R.layout.lb_headers_fragment;
     }
 
@@ -190,7 +190,7 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
         }
     };
     @Override
-    protected void updateAdapter() {
+    void updateAdapter() {
         super.updateAdapter();
         ItemBridgeAdapter adapter = getBridgeAdapter();
         if (adapter != null) {

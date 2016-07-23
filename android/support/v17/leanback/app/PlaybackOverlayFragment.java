@@ -74,6 +74,16 @@ public class PlaybackOverlayFragment extends DetailsFragment {
         }
     }
 
+    public interface InputEventHandler {
+        /**
+         * Called when an {@link InputEvent} is received.
+         *
+         * @return If the event should be consumed, return true. To allow the event to
+         * continue on to the next handler, return false.
+         */
+        public boolean handleInputEvent(InputEvent event);
+    }
+
     private static final String TAG = "PlaybackOverlayFragment";
     private static final boolean DEBUG = false;
     private static final int ANIMATION_MULTIPLIER = 1;
@@ -95,6 +105,7 @@ public class PlaybackOverlayFragment extends DetailsFragment {
     private int mMajorFadeTranslateY, mMinorFadeTranslateY;
     private int mAnimationTranslateY;
     private OnFadeCompleteListener mFadeCompleteListener;
+    private InputEventHandler mInputEventHandler;
     private boolean mFadingEnabled = true;
     private int mFadingStatus = IDLE;
     private int mBgAlpha;
@@ -157,13 +168,6 @@ public class PlaybackOverlayFragment extends DetailsFragment {
         }
     };
 
-    private final VerticalGridView.OnMotionInterceptListener mOnMotionInterceptListener =
-            new VerticalGridView.OnMotionInterceptListener() {
-        public boolean onInterceptMotionEvent(MotionEvent event) {
-            return onInterceptInputEvent(event);
-        }
-    };
-
     private final VerticalGridView.OnKeyInterceptListener mOnKeyInterceptListener =
             new VerticalGridView.OnKeyInterceptListener() {
         public boolean onInterceptKeyEvent(KeyEvent event) {
@@ -208,16 +212,15 @@ public class PlaybackOverlayFragment extends DetailsFragment {
         if (DEBUG) Log.v(TAG, "setFadingEnabled " + enabled);
         if (enabled != mFadingEnabled) {
             mFadingEnabled = enabled;
-            if (isResumed()) {
-                if (mFadingEnabled) {
-                    if (mFadingStatus == IDLE && !mHandler.hasMessages(START_FADE_OUT)) {
-                        startFadeTimer();
-                    }
-                } else {
-                    // Ensure fully opaque
-                    mHandler.removeMessages(START_FADE_OUT);
-                    fade(true);
+            if (mFadingEnabled) {
+                if (isResumed() && mFadingStatus == IDLE
+                        && !mHandler.hasMessages(START_FADE_OUT)) {
+                    startFadeTimer();
                 }
+            } else {
+                // Ensure fully opaque
+                mHandler.removeMessages(START_FADE_OUT);
+                fade(true);
             }
         }
     }
@@ -241,6 +244,20 @@ public class PlaybackOverlayFragment extends DetailsFragment {
      */
     public OnFadeCompleteListener getFadeCompleteListener() {
         return mFadeCompleteListener;
+    }
+
+    /**
+     * Sets the input event handler.
+     */
+    public final void setInputEventHandler(InputEventHandler handler) {
+        mInputEventHandler = handler;
+    }
+
+    /**
+     * Returns the input event handler.
+     */
+    public final InputEventHandler getInputEventHandler() {
+        return mInputEventHandler;
     }
 
     /**
@@ -269,18 +286,33 @@ public class PlaybackOverlayFragment extends DetailsFragment {
     }
 
     private boolean onInterceptInputEvent(InputEvent event) {
-        if (DEBUG) Log.v(TAG, "onInterceptInputEvent status " + mFadingStatus + " event " + event);
-        boolean consumeEvent = (mFadingStatus == IDLE && mBgAlpha == 0);
+        if (DEBUG) Log.v(TAG, "onInterceptInputEvent status " + mFadingStatus +
+                " mBgAlpha " + mBgAlpha + " event " + event);
+        final boolean controlsHidden = (mFadingStatus == IDLE && mBgAlpha == 0);
+        boolean consumeEvent = controlsHidden;
+        int keyCode = KeyEvent.KEYCODE_UNKNOWN;
+
         if (event instanceof KeyEvent) {
             if (consumeEvent) {
                 consumeEvent = isConsumableKey((KeyEvent) event);
             }
-            int keyCode = ((KeyEvent) event).getKeyCode();
-            // Back key typically means we're leaving the fragment
-            if (keyCode != KeyEvent.KEYCODE_BACK) {
+            keyCode = ((KeyEvent) event).getKeyCode();
+        }
+        if (!consumeEvent && mInputEventHandler != null) {
+            consumeEvent = mInputEventHandler.handleInputEvent(event);
+        }
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // If fading enabled and controls are not hidden, back will be consumed to fade
+            // them out (even if the key was consumed by the handler).
+            if (mFadingEnabled && !controlsHidden) {
+                consumeEvent = true;
+                mHandler.removeMessages(START_FADE_OUT);
+                fade(false);
+            } else if (consumeEvent) {
                 tickle();
             }
         } else {
+            // Any other key will show the controls
             tickle();
         }
         return consumeEvent;
@@ -294,7 +326,6 @@ public class PlaybackOverlayFragment extends DetailsFragment {
             fade(true);
         }
         getVerticalGridView().setOnTouchInterceptListener(mOnTouchInterceptListener);
-        getVerticalGridView().setOnMotionInterceptListener(mOnMotionInterceptListener);
         getVerticalGridView().setOnKeyInterceptListener(mOnKeyInterceptListener);
     }
 
@@ -397,6 +428,9 @@ public class PlaybackOverlayFragment extends DetailsFragment {
         final AnimatorUpdateListener updateListener = new AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator arg0) {
+                if (getVerticalGridView() == null) {
+                    return;
+                }
                 final float fraction = (Float) arg0.getAnimatedValue();
                 for (View view : listener.mViews) {
                     if (getVerticalGridView().getChildPosition(view) > 0) {

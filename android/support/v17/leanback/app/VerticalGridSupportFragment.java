@@ -29,7 +29,9 @@ import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.OnItemClickedListener;
 import android.support.v17.leanback.widget.OnItemSelectedListener;
 import android.support.v17.leanback.widget.SearchOrbView;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -303,8 +305,11 @@ public class VerticalGridSupportFragment extends Fragment {
             if (DEBUG) Log.v(TAG, "onFocusSearch focused " + focused + " + direction " + direction);
 
             final View searchOrbView = mTitleView.getSearchAffordanceView();
+            final boolean isRtl = ViewCompat.getLayoutDirection(focused) ==
+                    View.LAYOUT_DIRECTION_RTL;
+            final int forward = isRtl ? View.FOCUS_LEFT : View.FOCUS_RIGHT;
             if (focused == searchOrbView && (
-                    direction == View.FOCUS_DOWN || direction == View.FOCUS_RIGHT)) {
+                    direction == View.FOCUS_DOWN || direction == forward)) {
                 return mGridViewHolder.view;
 
             } else if (focused != searchOrbView && searchOrbView.getVisibility() == View.VISIBLE
@@ -348,10 +353,9 @@ public class VerticalGridSupportFragment extends Fragment {
                 mTitleView.setVisibility(View.INVISIBLE);
             }
         });
-        mTitleUpTransition = TitleTransitionHelper.createTransitionTitleUp(sTransitionHelper);
-        mTitleDownTransition = TitleTransitionHelper.createTransitionTitleDown(sTransitionHelper);
-        sTransitionHelper.excludeChildren(mTitleUpTransition, R.id.browse_grid_dock, true);
-        sTransitionHelper.excludeChildren(mTitleDownTransition, R.id.browse_grid_dock, true);
+        Context context = getActivity();
+        mTitleUpTransition = sTransitionHelper.loadTransition(context, R.transition.lb_title_out);
+        mTitleDownTransition = sTransitionHelper.loadTransition(context, R.transition.lb_title_in);
 
         return root;
     }
@@ -369,6 +373,18 @@ public class VerticalGridSupportFragment extends Fragment {
     public void onStart() {
         super.onStart();
         mGridViewHolder.getGridView().requestFocus();
+    }
+
+    @Override
+    public void onPause() {
+        mTitleView.enableAnimation(false);
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mTitleView.enableAnimation(true);
     }
 
     @Override

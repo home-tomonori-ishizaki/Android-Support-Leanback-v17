@@ -63,8 +63,11 @@ public class ScaleFrameLayout extends FrameLayout {
         final int count = getChildCount();
 
         final int parentLeft, parentRight;
+        final int layoutDirection = getLayoutDirection();
+        final float pivotX = (layoutDirection == View.LAYOUT_DIRECTION_RTL) ?
+                getWidth() - getPivotX() :
+                getPivotX();
         if (mLayoutScaleX != 1f) {
-            final float pivotX = getPivotX();
             parentLeft = getPaddingLeft() + (int)(pivotX - pivotX / mLayoutScaleX + 0.5f);
             parentRight = (int)(pivotX + (right - left - pivotX) / mLayoutScaleX + 0.5f)
                     - getPaddingRight();
@@ -74,8 +77,8 @@ public class ScaleFrameLayout extends FrameLayout {
         }
 
         final int parentTop, parentBottom;
+        final float pivotY = getPivotY();
         if (mLayoutScaleY != 1f) {
-            final float pivotY = getPivotY();
             parentTop = getPaddingTop() + (int)(pivotY - pivotY / mLayoutScaleY + 0.5f);
             parentBottom = (int)(pivotY + (bottom - top - pivotY) / mLayoutScaleY + 0.5f)
                     - getPaddingBottom();
@@ -100,7 +103,6 @@ public class ScaleFrameLayout extends FrameLayout {
                     gravity = DEFAULT_CHILD_GRAVITY;
                 }
 
-                final int layoutDirection = getLayoutDirection();
                 final int absoluteGravity = Gravity.getAbsoluteGravity(gravity, layoutDirection);
                 final int verticalGravity = gravity & Gravity.VERTICAL_GRAVITY_MASK;
 
@@ -133,6 +135,9 @@ public class ScaleFrameLayout extends FrameLayout {
                 }
 
                 child.layout(childLeft, childTop, childLeft + width, childTop + height);
+                // synchronize child pivot to be same as ScaleFrameLayout's pivot
+                child.setPivotX(pivotX - childLeft);
+                child.setPivotY(pivotY - childTop);
             }
         }
     }
