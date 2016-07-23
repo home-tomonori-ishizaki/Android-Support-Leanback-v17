@@ -312,10 +312,19 @@ public class RowsFragment extends BaseRowFragment {
         getVerticalGridView().setItemAlignmentViewId(R.id.row_content);
         getVerticalGridView().setSaveChildrenPolicy(VerticalGridView.SAVE_LIMITED_CHILD);
 
-        ((ViewGroup) mScaleFrameLayout.getParent()).setClipChildren(!needsScale());
+        final ViewGroup parent = (ViewGroup) mScaleFrameLayout.getParent();
+        if (parent != null) {
+            parent.setClipChildren(!needsScale());
+        }
 
         mRecycledViewPool = null;
         mPresenterMapper = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        mViewsCreated = false;
+        super.onDestroyView();
     }
 
     @Override

@@ -1489,6 +1489,7 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
             mFocusPositionOffset = 0;
         }
         saveContext(recycler, state);
+
         // Track the old focus view so we can adjust our system scroll position
         // so that any scroll animations happening now will remain valid.
         // We must use same delta in Pre Layout (if prelayout exists) and second layout.
@@ -1520,6 +1521,9 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
             if (mFocusPosition != savedFocusPos) {
                 if (DEBUG) Log.v(getTag(), "savedFocusPos " + savedFocusPos +
                         " mFocusPosition " + mFocusPosition);
+            }
+            if (mFocusPosition == NO_POSITION) {
+                mBaseGridView.clearFocus();
             }
 
             mWindowAlignment.mainAxis().invalidateScrollMin();
@@ -1861,7 +1865,7 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
     }
 
     public void setSelection(RecyclerView parent, int position, boolean smooth) {
-        if (mFocusPosition != position) {
+        if (mFocusPosition != position && position != NO_POSITION) {
             scrollToSelection(parent, position, smooth);
         }
     }
@@ -2002,6 +2006,11 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
     @Override
     public boolean onRequestChildFocus(RecyclerView parent, View child, View focused) {
         if (mFocusSearchDisabled) {
+            return true;
+        }
+        if (getPositionByView(child) == NO_POSITION) {
+            // This shouldn't happen, but in case it does be sure not to attempt a
+            // scroll to a view whose item has been removed.
             return true;
         }
         if (!mInLayout && !mInSelection) {
@@ -2244,7 +2253,8 @@ final class GridLayoutManager extends RecyclerView.LayoutManager {
     public void setScrollEnabled(boolean scrollEnabled) {
         if (mScrollEnabled != scrollEnabled) {
             mScrollEnabled = scrollEnabled;
-            if (mScrollEnabled && mFocusScrollStrategy == BaseGridView.FOCUS_SCROLL_ALIGNED) {
+            if (mScrollEnabled && mFocusScrollStrategy == BaseGridView.FOCUS_SCROLL_ALIGNED
+                    && mFocusPosition != NO_POSITION) {
                 scrollToSelection(mBaseGridView, mFocusPosition, true);
             }
         }
