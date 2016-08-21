@@ -36,6 +36,7 @@
     <color name="lb_playback_icon_highlight_no_theme">#ff40c4ff</color>
     <color name="lb_playback_media_row_highlight_color">#1AFFFFFF</color>
     <color name="lb_playback_media_row_separator_highlight_color">#1AFFFFFF</color>
+    <color name="lb_playback_now_playing_bar_color">#FFEEEEEE</color>
     <color name="lb_playback_progress_color_no_theme">#ff40c4ff</color>
     <color name="lb_playback_secondary_progress_color">#33FFFFFF</color>
     <color name="lb_search_bar_hint">#FF888888</color>
@@ -49,9 +50,9 @@
     <color name="lb_speech_orb_recording">#ff4343</color>
     <color name="lb_tv_white">#FFCCCCCC</color>
     <color name="lb_view_dim_mask_color">#000000</color>
-    <declare-styleable name="LeanbackGuidedStepTheme"><attr format="reference" name="guidedStepTheme"/><attr format="float" name="guidedStepHeightWeight"/><attr format="float" name="guidedStepKeyline"/><attr format="boolean" name="guidedStepThemeFlag"/><attr format="reference|color" name="guidedStepBackground"/><attr format="reference" name="guidedStepImeAppearingAnimation"/><attr format="reference" name="guidedStepImeDisappearingAnimation"/><attr format="reference" name="guidanceContainerStyle"/><attr format="reference" name="guidanceTitleStyle"/><attr format="reference" name="guidanceDescriptionStyle"/><attr format="reference" name="guidanceBreadcrumbStyle"/><attr format="reference" name="guidanceIconStyle"/><attr format="reference" name="guidedActionsSelectorDrawable"/><attr format="dimension|reference" name="guidedActionsElevation"/><attr format="reference" name="guidedActionsBackground"/><attr format="reference" name="guidedActionsBackgroundDark"/><attr format="reference" name="guidedActionsListStyle"/><attr format="reference" name="guidedSubActionsListStyle"/><attr format="reference" name="guidedButtonActionsListStyle"/><attr format="reference" name="guidedActionItemContainerStyle"/><attr format="reference" name="guidedActionItemCheckmarkStyle"/><attr format="reference" name="guidedActionItemIconStyle"/><attr format="reference" name="guidedActionItemContentStyle"/><attr format="reference" name="guidedActionItemTitleStyle"/><attr format="reference" name="guidedActionItemDescriptionStyle"/><attr format="reference" name="guidedActionItemChevronStyle"/><attr format="reference" name="guidedActionPressedAnimation"/><attr format="reference" name="guidedActionUnpressedAnimation"/><attr format="reference" name="guidedActionEnabledChevronAlpha"/><attr format="reference" name="guidedActionDisabledChevronAlpha"/><attr format="reference" name="guidedActionContentWidthWeight"/><attr format="reference" name="guidedActionContentWidthWeightTwoPanels"/><attr format="reference" name="guidedActionTitleMinLines"/><attr format="reference" name="guidedActionTitleMaxLines"/><attr format="reference" name="guidedActionDescriptionMinLines"/><attr format="reference" name="guidedActionVerticalPadding"/><attr format="reference" name="guidedActionsContainerStyle"/><attr format="reference" name="guidedActionsSelectorStyle"/><attr format="reference" name="guidedStepEntryAnimation"/><attr format="reference" name="guidedStepExitAnimation"/><attr format="reference" name="guidedStepReentryAnimation"/><attr format="reference" name="guidedStepReturnAnimation"/><attr format="reference" name="guidanceEntryAnimation"/><attr format="reference" name="guidedActionsEntryAnimation"/><attr format="reference" name="guidedActionsSelectorShowAnimation"/><attr format="reference" name="guidedActionsSelectorHideAnimation"/><attr format="reference" name="guidedActionCheckedAnimation"/><attr format="reference" name="guidedActionUncheckedAnimation"/><attr format="reference" name="guidedActionContentWidth"/><attr format="reference" name="guidedActionContentWidthNoIcon"/></declare-styleable>
+    <declare-styleable name="LeanbackGuidedStepTheme"><attr format="reference" name="guidedStepTheme"/><attr format="float" name="guidedStepHeightWeight"/><attr format="float" name="guidedStepKeyline"/><attr format="boolean" name="guidedStepThemeFlag"/><attr format="reference|color" name="guidedStepBackground"/><attr format="reference" name="guidedStepImeAppearingAnimation"/><attr format="reference" name="guidedStepImeDisappearingAnimation"/><attr format="reference" name="guidanceContainerStyle"/><attr format="reference" name="guidanceTitleStyle"/><attr format="reference" name="guidanceDescriptionStyle"/><attr format="reference" name="guidanceBreadcrumbStyle"/><attr format="reference" name="guidanceIconStyle"/><attr format="reference" name="guidedActionsSelectorDrawable"/><attr format="dimension|reference" name="guidedActionsElevation"/><attr format="reference" name="guidedActionsBackground"/><attr format="reference" name="guidedActionsBackgroundDark"/><attr format="reference" name="guidedActionsListStyle"/><attr format="reference" name="guidedSubActionsListStyle"/><attr format="reference" name="guidedButtonActionsListStyle"/><attr format="reference" name="guidedActionItemContainerStyle"/><attr format="reference" name="guidedActionItemCheckmarkStyle"/><attr format="reference" name="guidedActionItemIconStyle"/><attr format="reference" name="guidedActionItemContentStyle"/><attr format="reference" name="guidedActionItemTitleStyle"/><attr format="reference" name="guidedActionItemDescriptionStyle"/><attr format="reference" name="guidedActionItemChevronStyle"/><attr format="reference" name="guidedActionPressedAnimation"/><attr format="reference" name="guidedActionUnpressedAnimation"/><attr format="reference" name="guidedActionEnabledChevronAlpha"/><attr format="reference" name="guidedActionDisabledChevronAlpha"/><attr format="reference" name="guidedActionContentWidthWeight"/><attr format="reference" name="guidedActionContentWidthWeightTwoPanels"/><attr format="reference" name="guidedButtonActionsWidthWeight"/><attr format="reference" name="guidedActionTitleMinLines"/><attr format="reference" name="guidedActionTitleMaxLines"/><attr format="reference" name="guidedActionDescriptionMinLines"/><attr format="reference" name="guidedActionVerticalPadding"/><attr format="reference" name="guidedActionsContainerStyle"/><attr format="reference" name="guidedActionsSelectorStyle"/><attr format="reference" name="guidedStepEntryAnimation"/><attr format="reference" name="guidedStepExitAnimation"/><attr format="reference" name="guidedStepReentryAnimation"/><attr format="reference" name="guidedStepReturnAnimation"/><attr format="reference" name="guidanceEntryAnimation"/><attr format="reference" name="guidedActionsEntryAnimation"/><attr format="reference" name="guidedActionsSelectorShowAnimation"/><attr format="reference" name="guidedActionsSelectorHideAnimation"/><attr format="reference" name="guidedActionCheckedAnimation"/><attr format="reference" name="guidedActionUncheckedAnimation"/><attr format="reference" name="guidedActionContentWidth"/><attr format="reference" name="guidedActionContentWidthNoIcon"/></declare-styleable>
     <declare-styleable name="LeanbackOnboardingTheme"><attr format="reference" name="onboardingTheme"/><attr format="reference" name="onboardingHeaderStyle"/><attr format="reference" name="onboardingTitleStyle"/><attr format="reference" name="onboardingDescriptionStyle"/><attr format="reference" name="onboardingNavigatorContainerStyle"/><attr format="reference" name="onboardingPageIndicatorStyle"/><attr format="reference" name="onboardingStartButtonStyle"/><attr format="reference" name="onboardingLogoStyle"/></declare-styleable>
-    <declare-styleable name="LeanbackTheme"><attr format="dimension" name="browsePaddingStart"/><attr format="dimension" name="browsePaddingEnd"/><attr format="dimension" name="browsePaddingTop"/><attr format="dimension" name="browsePaddingBottom"/><attr format="dimension" name="browseRowsMarginStart"/><attr format="dimension" name="browseRowsMarginTop"/><attr format="dimension" name="browseRowsFadingEdgeLength"/><attr format="reference" name="browseTitleTextStyle"/><attr format="reference" name="browseTitleIconStyle"/><attr format="reference" name="browseTitleViewStyle"/><attr format="reference" name="browseTitleViewLayout"/><attr format="reference" name="headersVerticalGridStyle"/><attr format="reference" name="headerStyle"/><attr format="reference" name="sectionHeaderStyle"/><attr format="reference" name="rowsVerticalGridStyle"/><attr format="reference" name="rowHorizontalGridStyle"/><attr format="reference" name="rowHeaderStyle"/><attr format="reference" name="rowHeaderDockStyle"/><attr format="reference" name="rowHoverCardTitleStyle"/><attr format="reference" name="rowHoverCardDescriptionStyle"/><attr format="reference" name="baseCardViewStyle"/><attr format="reference" name="imageCardViewStyle"/><attr format="reference" name="imageCardViewImageStyle"/><attr format="reference" name="imageCardViewTitleStyle"/><attr format="reference" name="imageCardViewContentStyle"/><attr format="reference" name="imageCardViewBadgeStyle"/><attr format="reference" name="imageCardViewInfoAreaStyle"/><attr format="reference" name="detailsDescriptionTitleStyle"/><attr format="reference" name="detailsDescriptionSubtitleStyle"/><attr format="reference" name="detailsDescriptionBodyStyle"/><attr format="reference" name="detailsActionButtonStyle"/><attr format="dimension" name="playbackPaddingStart"/><attr format="dimension" name="playbackPaddingEnd"/><attr format="dimension" name="playbackMediaItemPaddingStart"/><attr format="reference" name="playbackMediaListHeaderStyle"/><attr format="reference" name="playbackMediaItemRowStyle"/><attr format="reference" name="playbackMediaItemSeparatorStyle"/><attr format="reference" name="playbackMediaListHeaderTitleStyle"/><attr format="reference" name="playbackMediaItemDetailsStyle"/><attr format="reference" name="playbackMediaItemNumberStyle"/><attr format="reference" name="playbackMediaItemNameStyle"/><attr format="reference" name="playbackMediaItemDurationStyle"/><attr format="reference" name="playbackControlsButtonStyle"/><attr format="reference" name="playbackControlButtonLabelStyle"/><attr format="reference" name="playbackControlsTimeStyle"/><attr format="reference" name="itemsVerticalGridStyle"/><attr format="reference" name="errorMessageStyle"/><attr format="reference|color" name="defaultBrandColor"/><attr format="reference|color" name="defaultBrandColorDark"/><attr format="reference|color" name="defaultSearchColor"/><attr format="reference|color" name="defaultSearchIconColor"/><attr format="reference|color" name="defaultSearchBrightColor"/><attr format="reference|color" name="defaultSectionHeaderColor"/><attr format="reference" name="searchOrbViewStyle"/><attr format="reference" name="defaultSearchIcon"/><attr format="reference|color" name="playbackProgressPrimaryColor"/><attr format="reference|color" name="playbackControlsIconHighlightColor"/><attr format="reference" name="playbackControlsActionIcons"/><attr format="color" name="overlayDimMaskColor"/><attr format="fraction" name="overlayDimActiveLevel"/><attr format="fraction" name="overlayDimDimmedLevel"/></declare-styleable>
+    <declare-styleable name="LeanbackTheme"><attr format="dimension" name="browsePaddingStart"/><attr format="dimension" name="browsePaddingEnd"/><attr format="dimension" name="browsePaddingTop"/><attr format="dimension" name="browsePaddingBottom"/><attr format="dimension" name="browseRowsMarginStart"/><attr format="dimension" name="browseRowsMarginTop"/><attr format="dimension" name="browseRowsFadingEdgeLength"/><attr format="reference" name="browseTitleTextStyle"/><attr format="reference" name="browseTitleIconStyle"/><attr format="reference" name="browseTitleViewStyle"/><attr format="reference" name="browseTitleViewLayout"/><attr format="reference" name="headersVerticalGridStyle"/><attr format="reference" name="headerStyle"/><attr format="reference" name="sectionHeaderStyle"/><attr format="reference" name="rowsVerticalGridStyle"/><attr format="reference" name="rowHorizontalGridStyle"/><attr format="reference" name="rowHeaderStyle"/><attr format="reference" name="rowHeaderDockStyle"/><attr format="reference" name="rowHoverCardTitleStyle"/><attr format="reference" name="rowHoverCardDescriptionStyle"/><attr format="reference" name="baseCardViewStyle"/><attr format="reference" name="imageCardViewStyle"/><attr format="reference" name="imageCardViewImageStyle"/><attr format="reference" name="imageCardViewTitleStyle"/><attr format="reference" name="imageCardViewContentStyle"/><attr format="reference" name="imageCardViewBadgeStyle"/><attr format="reference" name="imageCardViewInfoAreaStyle"/><attr format="reference" name="detailsDescriptionTitleStyle"/><attr format="reference" name="detailsDescriptionSubtitleStyle"/><attr format="reference" name="detailsDescriptionBodyStyle"/><attr format="reference" name="detailsActionButtonStyle"/><attr format="dimension" name="playbackPaddingStart"/><attr format="dimension" name="playbackPaddingEnd"/><attr format="dimension" name="playbackMediaItemPaddingStart"/><attr format="reference" name="playbackMediaListHeaderStyle"/><attr format="reference" name="playbackMediaItemRowStyle"/><attr format="reference" name="playbackMediaItemSeparatorStyle"/><attr format="reference" name="playbackMediaListHeaderTitleStyle"/><attr format="reference" name="playbackMediaItemDetailsStyle"/><attr format="reference" name="playbackMediaItemNumberViewFlipperStyle"/><attr format="reference" name="playbackMediaItemNumberViewFlipperLayout"/><attr format="reference" name="playbackMediaItemNumberStyle"/><attr format="reference" name="playbackMediaItemNameStyle"/><attr format="reference" name="playbackMediaItemDurationStyle"/><attr format="reference" name="playbackControlsButtonStyle"/><attr format="reference" name="playbackControlButtonLabelStyle"/><attr format="reference" name="playbackControlsTimeStyle"/><attr format="reference" name="itemsVerticalGridStyle"/><attr format="reference" name="errorMessageStyle"/><attr format="reference|color" name="defaultBrandColor"/><attr format="reference|color" name="defaultBrandColorDark"/><attr format="reference|color" name="defaultSearchColor"/><attr format="reference|color" name="defaultSearchIconColor"/><attr format="reference|color" name="defaultSearchBrightColor"/><attr format="reference|color" name="defaultSectionHeaderColor"/><attr format="reference" name="searchOrbViewStyle"/><attr format="reference" name="defaultSearchIcon"/><attr format="reference|color" name="playbackProgressPrimaryColor"/><attr format="reference|color" name="playbackControlsIconHighlightColor"/><attr format="reference" name="playbackControlsActionIcons"/><attr format="color" name="overlayDimMaskColor"/><attr format="fraction" name="overlayDimActiveLevel"/><attr format="fraction" name="overlayDimDimmedLevel"/></declare-styleable>
     <declare-styleable name="PagingIndicator"><attr format="reference" name="dotRadius"/><attr format="reference" name="arrowRadius"/><attr format="reference" name="dotToDotGap"/><attr format="reference" name="dotToArrowGap"/><attr format="reference" name="dotBgColor"/><attr format="reference" name="arrowBgColor"/></declare-styleable>
     <declare-styleable name="lbBaseCardView"><attr format="reference|color" name="cardForeground"/><attr format="reference|color" name="cardBackground"/><attr format="enum" name="cardType">
             
@@ -225,20 +226,25 @@
     <dimen name="lb_error_under_image_baseline_margin">36dp</dimen>
     <dimen name="lb_error_under_message_baseline_margin">24dp</dimen>
     <dimen name="lb_guidedactions_elevation">12dp</dimen>
+    <dimen name="lb_guidedactions_item_bottom_padding">13dp</dimen>
     <dimen name="lb_guidedactions_item_checkmark_diameter">16dp</dimen>
     <dimen name="lb_guidedactions_item_delimiter_padding">4dp</dimen>
     <dimen name="lb_guidedactions_item_description_font_size">12sp</dimen>
-    <dimen name="lb_guidedactions_item_end_padding">28dp</dimen>
+    <dimen name="lb_guidedactions_item_end_padding">16dp</dimen>
     <dimen name="lb_guidedactions_item_icon_height">32dp</dimen>
     <dimen name="lb_guidedactions_item_icon_width">32dp</dimen>
-    <dimen name="lb_guidedactions_item_min_height">64dp</dimen>
-    <dimen name="lb_guidedactions_item_start_padding">28dp</dimen>
+    <dimen name="lb_guidedactions_item_space_between_title_and_description">2dp</dimen>
+    <dimen name="lb_guidedactions_item_start_padding">16dp</dimen>
     <dimen name="lb_guidedactions_item_text_width">248dp</dimen>
     <dimen name="lb_guidedactions_item_text_width_no_icon">284dp</dimen>
-    <dimen name="lb_guidedactions_item_title_font_size">18sp</dimen>
-    <dimen name="lb_guidedactions_section_shadow_width">16dp</dimen>
+    <dimen name="lb_guidedactions_item_title_font_size">14sp</dimen>
+    <dimen name="lb_guidedactions_item_top_padding">14dp</dimen>
+    <dimen name="lb_guidedactions_list_padding_end">24dp</dimen>
+    <dimen name="lb_guidedactions_list_padding_start">24dp</dimen>
+    <dimen name="lb_guidedactions_list_vertical_spacing">8dp</dimen>
+    <dimen name="lb_guidedactions_section_shadow_width">32dp</dimen>
     <dimen name="lb_guidedactions_sublist_bottom_margin">28dp</dimen>
-    <dimen name="lb_guidedactions_vertical_padding">12dp</dimen>
+    <dimen name="lb_guidedactions_vertical_padding">14dp</dimen>
     <dimen name="lb_guidedstep_slide_ime_distance">-100dp</dimen>
     <dimen name="lb_list_row_height">224dp</dimen>
     <dimen name="lb_material_shadow_details_z">8dp</dimen>
@@ -284,6 +290,13 @@
     <dimen name="lb_playback_media_row_selector_round_rect_radius">36dp</dimen>
     <dimen name="lb_playback_media_row_separator_height">1dp</dimen>
     <dimen name="lb_playback_minor_fade_translate_y">16dp</dimen>
+    <dimen name="lb_playback_now_playing_bar_height">18dp</dimen>
+    <dimen name="lb_playback_now_playing_bar_left_margin">3dp</dimen>
+    <dimen name="lb_playback_now_playing_bar_margin">1dp</dimen>
+    <dimen name="lb_playback_now_playing_bar_top_margin">3dp</dimen>
+    <dimen name="lb_playback_now_playing_bar_width">5dp</dimen>
+    <dimen name="lb_playback_now_playing_view_size">28dp</dimen>
+    <dimen name="lb_playback_play_icon_size">14dp</dimen>
     <dimen name="lb_playback_time_padding_top">8dp</dimen>
     <dimen name="lb_playback_total_time_margin_end">16dp</dimen>
     <dimen name="lb_rounded_rect_corner_radius">2dp</dimen>
@@ -318,6 +331,7 @@
     <dimen name="picker_column_horizontal_padding">8dp</dimen>
     <dimen name="picker_item_height">64dp</dimen>
     <dimen name="picker_separator_horizontal_padding">4dp</dimen>
+    <item name="lb_selectable_item_background" type="drawable">?android:attr/selectableItemBackground</item>
     <item name="lb_browse_header_unselect_alpha" type="fraction">50%</item>
     <item name="lb_browse_rows_scale" type="fraction">80%</item>
     <item name="lb_focus_zoom_factor_large" type="fraction">118%</item>
@@ -389,8 +403,9 @@
     <item format="float" name="lb_guidedactions_item_enabled_chevron_alpha" type="string">1.00</item>
     <item format="float" name="lb_guidedactions_item_unselected_description_text_alpha" type="string">0.50</item>
     <item format="float" name="lb_guidedactions_item_unselected_text_alpha" type="string">1.00</item>
-    <item format="float" name="lb_guidedactions_width_weight" type="string">0.666666667</item>
-    <item format="float" name="lb_guidedactions_width_weight_two_panels" type="string">1</item>
+    <item format="float" name="lb_guidedactions_width_weight" type="string">0.71428571428</item>
+    <item format="float" name="lb_guidedactions_width_weight_two_panels" type="string">1.191780822</item>
+    <item format="float" name="lb_guidedbuttonactions_width_weight" type="string">0.45</item>
     <item format="float" name="lb_guidedstep_height_weight" type="string">2.0</item>
     <item format="float" name="lb_guidedstep_height_weight_translucent" type="string">1.0</item>
     <item format="float" name="lb_guidedstep_keyline" type="string">40.0</item>
@@ -574,6 +589,8 @@
         <item name="playbackMediaItemSeparatorStyle">@style/Widget.Leanback.PlaybackMediaItemSeparatorStyle</item>
         <item name="playbackMediaListHeaderTitleStyle">@style/Widget.Leanback.PlaybackMediaListHeaderTitleStyle</item>
         <item name="playbackMediaItemDetailsStyle">@style/Widget.Leanback.PlaybackMediaItemDetailsStyle</item>
+        <item name="playbackMediaItemNumberViewFlipperStyle">@style/Widget.Leanback.PlaybackMediaItemNumberViewFlipperStyle</item>
+        <item name="playbackMediaItemNumberViewFlipperLayout">@layout/lb_media_item_number_view_flipper</item>
         <item name="playbackMediaItemNumberStyle">@style/Widget.Leanback.PlaybackMediaItemNumberStyle</item>
         <item name="playbackMediaItemNameStyle">@style/Widget.Leanback.PlaybackMediaItemNameStyle</item>
         <item name="playbackMediaItemDurationStyle">@style/Widget.Leanback.PlaybackMediaItemDurationStyle</item>
@@ -648,7 +665,7 @@
         <item name="guidedActionsElevation">@dimen/lb_guidedactions_elevation</item>
         <item name="guidedActionsBackground">@color/lb_guidedactions_background</item>
         <item name="guidedActionsBackgroundDark">@color/lb_guidedactions_background_dark</item>
-        <item name="guidedActionsSelectorDrawable">?android:attr/selectableItemBackground</item>
+        <item name="guidedActionsSelectorDrawable">@drawable/lb_selectable_item_background</item>
         <item name="guidedActionsListStyle">@style/Widget.Leanback.GuidedActionsListStyle</item>
         <item name="guidedSubActionsListStyle">@style/Widget.Leanback.GuidedSubActionsListStyle</item>
         <item name="guidedButtonActionsListStyle">@style/Widget.Leanback.GuidedButtonActionsListStyle</item>
@@ -667,6 +684,7 @@
         <item name="guidedActionDisabledChevronAlpha">@string/lb_guidedactions_item_disabled_chevron_alpha</item>
         <item name="guidedActionContentWidthWeight">@string/lb_guidedactions_width_weight</item>
         <item name="guidedActionContentWidthWeightTwoPanels">@string/lb_guidedactions_width_weight_two_panels</item>
+        <item name="guidedButtonActionsWidthWeight">@string/lb_guidedbuttonactions_width_weight</item>
         <item name="guidedActionTitleMinLines">@integer/lb_guidedactions_item_title_min_lines</item>
         <item name="guidedActionTitleMaxLines">@integer/lb_guidedactions_item_title_max_lines</item>
         <item name="guidedActionDescriptionMinLines">@integer/lb_guidedactions_item_description_min_lines</item>
@@ -832,8 +850,8 @@
         <item name="android:visibility">gone</item>
     </style>
     <style name="Widget.Leanback.GuidedActionItemChevronStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">12dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_marginStart">@dimen/lb_guidedactions_item_delimiter_padding</item>
         <item name="android:scaleType">fitCenter</item>
@@ -846,11 +864,10 @@
         <item name="android:foreground">?attr/guidedActionsSelectorDrawable</item>
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
-        <item name="android:minHeight">@dimen/lb_guidedactions_item_min_height</item>
-        <item name="android:paddingBottom">@dimen/lb_guidedactions_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/lb_guidedactions_item_bottom_padding</item>
         <item name="android:paddingStart">@dimen/lb_guidedactions_item_start_padding</item>
         <item name="android:paddingEnd">@dimen/lb_guidedactions_item_end_padding</item>
-        <item name="android:paddingTop">@dimen/lb_guidedactions_vertical_padding</item>
+        <item name="android:paddingTop">@dimen/lb_guidedactions_item_top_padding</item>
     </style>
     <style name="Widget.Leanback.GuidedActionItemContentStyle">
         <item name="android:layout_width">match_parent</item>
@@ -864,6 +881,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:alpha">@string/lb_guidedactions_item_unselected_description_text_alpha</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginTop">@dimen/lb_guidedactions_item_space_between_title_and_description</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:maxLines">@integer/lb_guidedactions_item_description_min_lines</item>
         <item name="android:textColor">@color/lb_guidedactions_item_unselected_text_color</item>
@@ -896,6 +914,9 @@
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="verticalMargin">@dimen/lb_guidedactions_list_vertical_spacing</item>
+        <item name="android:paddingStart">@dimen/lb_guidedactions_list_padding_start</item>
+        <item name="android:paddingEnd">@dimen/lb_guidedactions_list_padding_end</item>
         <item name="focusOutEnd">false</item>
         <item name="focusOutFront">false</item>
     </style>
@@ -1120,11 +1141,17 @@
         <item name="android:textAppearance">@style/TextAppearance.Leanback.PlaybackMediaItemName</item>
     </style>
     <style name="Widget.Leanback.PlaybackMediaItemNumberStyle">
-        <item name="android:layout_width">56dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:visibility">gone</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.PlaybackMediaItemNumber</item>
+    </style>
+    <style name="Widget.Leanback.PlaybackMediaItemNumberViewFlipperStyle">
+        <item name="android:layout_width">56dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:visibility">gone</item>
     </style>
     <style name="Widget.Leanback.PlaybackMediaItemRowStyle" parent="Widget.Leanback.PlaybackRow">
         <item name="android:focusable">false</item>
