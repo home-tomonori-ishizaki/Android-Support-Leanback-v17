@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="lb_selectable_item_background" type="drawable">@drawable/lb_selectable_item_rounded_rect</item>
     <style name="TextAppearance.LeanbackBase" parent="android:TextAppearance.Material"/>
+    <style name="Theme.Leanback.GuidedStepBase" parent="Theme.LeanbackBase">
+        <item name="guidedActionsSelectorDrawable">@drawable/lb_selectable_item_rounded_rect</item>
+    </style>
     <style name="Theme.LeanbackBase" parent="android:Theme.Material.NoActionBar">
         <item name="playbackProgressPrimaryColor">?android:attr/colorAccent</item>
         <item name="playbackControlsIconHighlightColor">?android:attr/colorAccent</item>

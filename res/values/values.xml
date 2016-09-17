@@ -331,7 +331,6 @@
     <dimen name="picker_column_horizontal_padding">8dp</dimen>
     <dimen name="picker_item_height">64dp</dimen>
     <dimen name="picker_separator_horizontal_padding">4dp</dimen>
-    <item name="lb_selectable_item_background" type="drawable">?android:attr/selectableItemBackground</item>
     <item name="lb_browse_header_unselect_alpha" type="fraction">50%</item>
     <item name="lb_browse_rows_scale" type="fraction">80%</item>
     <item name="lb_focus_zoom_factor_large" type="fraction">118%</item>
@@ -639,7 +638,7 @@
         <item name="android:windowSharedElementEnterTransition">@null</item>
         <item name="android:windowSharedElementReturnTransition">@null</item>
     </style>
-    <style name="Theme.Leanback.GuidedStep" parent="Theme.LeanbackBase">
+    <style name="Theme.Leanback.GuidedStep" parent="Theme.Leanback.GuidedStepBase">
         <item name="guidedStepThemeFlag">true</item>
         <item name="guidedStepHeightWeight">@string/lb_guidedstep_height_weight</item>
 
@@ -665,7 +664,6 @@
         <item name="guidedActionsElevation">@dimen/lb_guidedactions_elevation</item>
         <item name="guidedActionsBackground">@color/lb_guidedactions_background</item>
         <item name="guidedActionsBackgroundDark">@color/lb_guidedactions_background_dark</item>
-        <item name="guidedActionsSelectorDrawable">@drawable/lb_selectable_item_background</item>
         <item name="guidedActionsListStyle">@style/Widget.Leanback.GuidedActionsListStyle</item>
         <item name="guidedSubActionsListStyle">@style/Widget.Leanback.GuidedSubActionsListStyle</item>
         <item name="guidedButtonActionsListStyle">@style/Widget.Leanback.GuidedButtonActionsListStyle</item>
@@ -696,6 +694,9 @@
       <item name="guidedStepHeightWeight">@string/lb_guidedstep_height_weight_translucent</item>
       <item name="android:windowIsTranslucent">true</item>
       <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="Theme.Leanback.GuidedStepBase" parent="Theme.LeanbackBase">
+        <item name="guidedActionsSelectorDrawable">?android:attr/selectableItemBackground</item>
     </style>
     <style name="Theme.Leanback.Onboarding" parent="Theme.LeanbackBase">
         <item name="onboardingHeaderStyle">@style/Widget.Leanback.OnboardingHeaderStyle</item>
@@ -971,7 +972,7 @@
         <item name="android:layout_toStartOf">@+id/extra_badge</item>
         <item name="android:maxLines">1</item>
         <item name="android:textAlignment">viewStart</item>
-        <item name="android:ellipsize">none</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:textAppearance">@style/TextAppearance.Leanback.ImageCardView.Content</item>
     </style>
     <style name="Widget.Leanback.ImageCardView.ImageStyle">
